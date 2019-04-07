@@ -4,6 +4,7 @@ import game.engine.Game;
 import game.engine.GenerateurDeParticules;
 import game.engine.Scene;
 import game.engine.ui.BouttonSansFond;
+import game.engine.ui.SplashText;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -21,6 +22,7 @@ public class Menu extends Scene {
     public BouttonSansFond bouttonCredits;
 
     public GenerateurDeParticules gn;
+    public SplashText astuce;
 
     public Menu() throws IOException, FontFormatException {
         bouttonJouer = new BouttonSansFond(22 ,300,40,"Jouer"){
@@ -39,6 +41,8 @@ public class Menu extends Scene {
         bouttonCredits = new BouttonSansFond(22,420,40,"Crédits");
         gn = new GenerateurDeParticules(0, 0,0,0,100,100,
                 ImageIO.read(Game.class.getResourceAsStream("/images/bulle_1.png")));
+        SplashText.LoadSplash();
+        astuce = new SplashText(100,0);
     }
 
     @Override
@@ -55,6 +59,7 @@ public class Menu extends Scene {
         bouttonOptions.draw(g,p);
         bouttonCredits.draw(g,p);
         bouttonQuitter.draw(g,p);
+        astuce.draw(g);
     }
 
     @Override
@@ -62,6 +67,7 @@ public class Menu extends Scene {
         gn.setM_ypos(Game.fenetre.getHeight()-1);
         gn.setM_heigth(1);
         gn.setM_width(Game.fenetre.getWidth());
+        astuce.setM_posX(Game.fenetre.getWidth()-360);
     }
 
     @Override
