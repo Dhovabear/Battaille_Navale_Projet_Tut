@@ -21,7 +21,7 @@ public abstract class Scene{											//classe abstraite car on instancie pas d
     /**
      * Fonction qui va contenir la partie calcul de la scène, elle sera dailleur actualiser plus vite que la fonction draw.
      */
-    public abstract void update();
+    public abstract void update() throws IOException, FontFormatException;
 
     /**
      * La fonction draw va contenir tout ce qui devra etre effectuer sur le JPanel de la classe Game

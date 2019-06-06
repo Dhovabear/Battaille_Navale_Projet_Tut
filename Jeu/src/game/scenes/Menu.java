@@ -27,8 +27,8 @@ public class Menu extends Scene {
     public Menu() throws IOException, FontFormatException {
         bouttonJouer = new BouttonSansFond(22 ,300,40,"Jouer"){
             @Override
-            public void action() {
-
+            public void action() throws IOException, FontFormatException {
+                Game.switchScene(2);
             }
         };
         bouttonOptions = new BouttonSansFond(22,360,40,"Options");
@@ -63,7 +63,7 @@ public class Menu extends Scene {
     }
 
     @Override
-    public void startEvent() throws IOException, FontFormatException {
+    public void startEvent() {
         gn.setM_ypos(Game.fenetre.getHeight()-1);
         gn.setM_heigth(1);
         gn.setM_width(Game.fenetre.getWidth());

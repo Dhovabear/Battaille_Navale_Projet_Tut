@@ -3,6 +3,7 @@ package game.engine.ui;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;
+import java.io.IOException;
 
 public abstract class Boutton {
 
@@ -17,6 +18,6 @@ public abstract class Boutton {
     public abstract void checkMouse(MouseEvent e ,String eventType);
     public abstract void update();
     public abstract void draw(Graphics g, JPanel p);
-    public abstract void action();
+    public abstract void action() throws IOException, FontFormatException;
 
 }

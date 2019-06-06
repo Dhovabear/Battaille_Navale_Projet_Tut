@@ -1,5 +1,6 @@
 package game.engine;
 
+import game.scenes.*;
 import game.scenes.Menu;
 
 import javax.swing.*;
@@ -122,6 +123,7 @@ public class Game {
             public void run(){
                 while(true){
                     disp.repaint();//On affiche direct les graphismes
+                    Toolkit.getDefaultToolkit().sync();
                     try{//On attend 16ms pour faire du 60fps
                         sleep(16);
                     }catch(InterruptedException e){
@@ -134,7 +136,13 @@ public class Game {
         Thread computeProcess = new Thread(){//On crée le second thread qui va gerer les calculs et qui est au passage (plus rapide)
             public void run(){
                 while(true){
-                    sceneIndex[currentscene].update();//On execute la fonction update de la scene
+                    try {
+                        sceneIndex[currentscene].update();//On execute la fonction update de la scene
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    } catch (FontFormatException e) {
+                        e.printStackTrace();
+                    }
                 }
             }
         };
@@ -152,8 +160,12 @@ public class Game {
      * @throws IOException
      */
     public static void loadScenes() throws IOException, FontFormatException { //Fonction qui load les scenes (wow explicite/20)
-        sceneIndex = new Scene[1];//On initialise la liste avec le nombre de scenes que l'on a
+        sceneIndex = new Scene[6];//On initialise la liste avec le nombre de scenes que l'on a
         sceneIndex[0] = new Menu();
+        sceneIndex[2] = new JoueurVsOrdi();
+        sceneIndex[3] = new DifficulteOrdi();
+        sceneIndex[4] = new DrapeauNom();
+        sceneIndex[5] = new Jouer();
         currentscene = 0;//On initialise l'id de la scene actuelle
     }
 

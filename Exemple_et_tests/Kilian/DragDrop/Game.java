@@ -150,6 +150,7 @@ public class Game{
 			public void run(){
 				while(true){
 					disp.repaint();//On affiche direct les graphismes
+					Toolkit.getDefaultToolkit.sync();
 					try{//On attend 16ms pour faire du 60fps
 						sleep(16);
 					}catch(InterruptedException e){

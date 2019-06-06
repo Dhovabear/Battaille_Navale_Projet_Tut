@@ -33,7 +33,13 @@ public class BouttonSansFond extends Boutton{
         m_mousein = true;
 
         if(evenType == "mP"){
-            action();
+            try {
+                action();
+            } catch (IOException e1) {
+                e1.printStackTrace();
+            } catch (FontFormatException e1) {
+                e1.printStackTrace();
+            }
         }
 
 
@@ -67,7 +73,7 @@ public class BouttonSansFond extends Boutton{
     }
 
     @Override
-    public void action() {
+    public void action() throws IOException, FontFormatException {
 
     }
 }
