@@ -52,8 +52,6 @@ public class Jouer extends Scene {
 	private Grid grilleVisuJoueur = new Grid(0,0,30,10); //Servira au joueur pour voir la grille initiale de l'ordi
 	private Grid grilleOrdi = new Grid(0,0,30,10); //Grille personnelle de l'ordi
 	private Grid grilleVisuOrdi = new Grid(0,0,30,10); //Servira à l'ordi pour voir la grille initiale du joueur
-	private Bateau[] bateauxJoueur = new Bateau[5]; //Les bateaux du joueur
-	private Bateau[] bateauxOrdi = new Bateau[5]; //Les bateaux de l'ordi
 	private boolean isJoueur; //Servira dans plusieurs fonctions pour savoir s'il s'agit du joueur ou de l'ordi
 	private int vieJoueur; //Baissera au fur et à mesure que l'ordi touche les bateaux du joueur
 	private int vieOrdi; //Baissera au fur et à mesure que le joueur touche les bateaux ordi
@@ -154,25 +152,11 @@ public class Jouer extends Scene {
 		}
 
 		//On définit les différentes tailles de chaque bateau
-		bateauxJoueur[0].setTaille(5);
-		bateauxJoueur[1].setTaille(4);
-		bateauxJoueur[2].setTaille(3);
-		bateauxJoueur[3].setTaille(3);
-		bateauxJoueur[4].setTaille(2);
-		bateauxOrdi[0].setTaille(5);
-		bateauxOrdi[1].setTaille(4);
-		bateauxOrdi[2].setTaille(3);
-		bateauxOrdi[3].setTaille(3);
-		bateauxOrdi[4].setTaille(2);
+
 
 		//[AFFICHER JOUER]
+		placerBateau();
 
-		//Le joueur choisit où il place ses bateaux
-		this.isJoueur = true;
-		selectionPlacerBateau();
-		//L'ordi choisit où il place ses bateaux 
-		this.isJoueur = false;
-		selectionPlacerBateau(); 
 	}
 
 	public void input(KeyEvent e,String typeOfInput){
@@ -266,7 +250,7 @@ public class Jouer extends Scene {
 		}
 	}
 
-	public void selectionPlacerBateau(){
+	/*public void selectionPlacerBateau(){
 		int compteur = 0;
 		//Le joueur place ses bateaux
 		if(this.isJoueur == true){
@@ -275,10 +259,6 @@ public class Jouer extends Scene {
 				do{ 
 					//[LIRE X,Y,TAILLEBATEAU,SENSBATEAU ET TYPEBATEAU [GRILLEJOUEUR/GRILLEORDI]]
 					//Si le joueur place son bateau à un endroit interdit, on lui affiche un message d'erreur
-					if(autorisationPlacementJoueur()==false){ 
-						//[AFFICHER ERREUR PLACEMENT]
-					}
-				}while(autorisationPlacementJoueur() == false);
 				//On place le bateau selectionné
 				placerBateau(); 
 				compteur++;
@@ -294,7 +274,7 @@ public class Jouer extends Scene {
 				compteur++;
 			}
 		}
-	}
+	}*/
 
 	/*public boolean autorisationPlacementJoueur(){
 		int taille = 1;
@@ -397,7 +377,7 @@ public class Jouer extends Scene {
 				case 1: //Sens - Haut
 					if((this.y-this.tailleBateau)>-1){
 						while(taille<this.tailleBateau){
-							if((this.grilleOrdi.getCellInfo(this.x , this.y)!=0){
+							if(this.grilleOrdi.getCellInfo(this.x , this.y)!=0){
 								return false;
 							}
 							taille++;
@@ -423,7 +403,7 @@ public class Jouer extends Scene {
 				case 3: //Sens - Bas
 					if((this.y+this.tailleBateau)>9){
 						while(taille<this.tailleBateau){
-							if((this.grilleOrdi[this.x][this.y+taille])!=0){
+							if(this.grilleOrdi.getCellInfo(this.x,this.y+taille)!=0){
 								return false;
 							}
 							taille++;
@@ -436,7 +416,7 @@ public class Jouer extends Scene {
 				case 4: //Sens - Droite
 					if((this.x+this.tailleBateau)>9){
 						while(taille<this.tailleBateau){
-							if((this.grilleOrdi[this.x+taille][this.y])!=0){
+							if(this.grilleOrdi.getCellInfo(this.x+taille,this.y)!=0){
 								return false;
 							}
 							taille++;
@@ -455,7 +435,7 @@ public class Jouer extends Scene {
 	}
 
 	//L'objet Bateau est utilisé içi
-	public void placerBateau(){
+	/*public void placerBateau(){
 		int taille = 0;
 		//Le système place le bateau du Joueur ou de l'Ordi sur les grilles respectives
 		if(this.isJoueur == true)
@@ -463,28 +443,28 @@ public class Jouer extends Scene {
 			switch(this.sensBateau){
 				case 1: //Sens - Haut
 					while(taille<this.tailleBateau){
-						this.grilleJoueur[this.x][this.y-taille] = 1;
+						this.grilleJoueur.setCellInfo(this.x , this.y+taille,1);
 						this.bateauxJoueur[typeBateau].setCoordonnees(taille,x,y);
 						taille++;
 					}
 					break;
 				case 2: //Sens - Gauche
 					while(taille<this.tailleBateau){
-						this.grilleJoueur[this.x-taille][this.y] = 1;
+						this.grilleJoueur.setCellInfo(this.x-taille,this.y,1);
 						this.bateauxJoueur[typeBateau].setCoordonnees(taille,x,y);
 						taille++;
 					}
 					break;
 				case 3: //Sens - Bas
 					while(taille<this.tailleBateau){
-						this.grilleJoueur[this.x][this.y+taille] = 1;
+						this.grilleJoueur.setCellInfo(this.x,this.y+taille,1);
 						this.bateauxJoueur[typeBateau].setCoordonnees(taille,x,y);
 						taille++;
 					}
 					break;
 				case 4: //Sens - Droite
 					while(taille<this.tailleBateau){
-						this.grilleJoueur[this.x+taille][this.y] = 1;
+						this.grilleJoueur.setCellInfo(this.x+taille,this.y,1);
 						this.bateauxJoueur[typeBateau].setCoordonnees(taille,x,y);
 						taille++;
 					}
@@ -496,35 +476,35 @@ public class Jouer extends Scene {
 			switch(this.sensBateau){
 				case 1: //Sens - Haut
 					while(taille<this.tailleBateau){
-						this.grilleOrdi[this.x][this.y-taille] = 1;
+						this.grilleOrdi.setCellInfo(this.x,this.y-taille,1);
 						this.bateauxOrdi[typeBateau].setCoordonnees(taille,x,y);
 						taille++;
 					}
 					break;
 				case 2: //Sens - Gauche
 					while(taille<this.tailleBateau){
-						this.grilleOrdi[this.x-taille][this.y] = 1;
+						this.grilleOrdi.setCellInfo(this.x-taille,this.y,1);
 						this.bateauxOrdi[typeBateau].setCoordonnees(taille,x,y);
 						taille++;
 					}
 					break;
 				case 3: //Sens - Bas
 					while(taille<this.tailleBateau){
-						this.grilleOrdi[this.x][this.y+taille] = 1;
+						this.grilleOrdi.setCellInfo(this.x,this.y+taille,1);
 						this.bateauxOrdi[typeBateau].setCoordonnees(taille,x,y);
 						taille++;
 					}
 					break;
 				case 4: //Sens - Droite
 					while(taille<this.tailleBateau){
-						this.grilleOrdi[this.x+taille][this.y] = 1;
+						this.grilleOrdi.setCellInfo(this.x+taille,this.y,1);
 						this.bateauxOrdi[typeBateau].setCoordonnees(taille,x,y);
 						taille++;
 					}
 					break;
 			}
 		}
-	}
+	}*/
 
 	public void selectionTir(){
 		//Le joueur selectionne la case de sa grille de visu 
@@ -565,24 +545,14 @@ public class Jouer extends Scene {
 		}
 	}
 
-	public boolean autorisationTirJoueur(){
-		//Grâce à cette condition, le joueur ne peut pas tirer à un endroit où il a déjà tiré, ainsi que sur des îles (Mode île uniquement)
-		if(this.grilleVisuJoueur[this.x][this.y]>2){
-			return false;
-		}
-		//Grâce à cette condition, les joueur ne peut pas tirer 2 fois de suite avec le même bateau, et il ne peut pas tirer si ce même bateau à été coulé
-		if(this.mode == 3 && (this.bateauxJoueur[typeBateau].getEnVie()==false || this.utilisationTirJoueur==this.typeBateau)){
-			return false;
-		}
-		return true;
-	}
+	
 
 	public boolean autorisationTirOrdi(Coordonnees c){
 		//Les variables passées par l'IA sont définies içi
 		this.x = c.getX();
 		this.y = c.getY();
 		//Ces vérifications sont identiques à celles du joueur, les grilles ont juste été inversées pour l'Ordi
-		if(this.grilleVisuOrdi[this.x][this.y]>2){
+		if(this.grilleVisuOrdi.getCellInfo(this.x,this.y)>2){
 			return false;
 		}
 		if(this.mode == 3 && (this.bateauxOrdi[typeBateau].getEnVie()==false || this.utilisationTirOrdi==this.typeBateau)){
@@ -692,11 +662,11 @@ public class Jouer extends Scene {
 			//Si le tir ne sort pas de la grille (Vérification pour le Mode bateaux tireurs)
 			if((this.x>-1 && this.x<10) && (this.y>-1 && this.y<10)){
 				//Si le tir touche une case bateau adverse
-				if(this.grilleOrdi[this.x][this.y]==1){
+				if(this.grilleOrdi.getCellInfo(this.x,this.y)==1){
 					//On indique sur la grille de l'ordi qu'une de ses cases bateau à été touchée
-					this.grilleOrdi[this.x][this.y]=2;
+					this.grilleOrdi.setCellInfo(this.x,this.y,2);
 					//On indique sur la grille de visu du joueur que le tir à touché
-					this.grilleVisuJoueur[this.x][this.y]=4;
+					this.grilleVisuJoueur.setCellInfo(this.x,this.y,4);
 					//La vie de l'Ordi baisse
 					this.vieOrdi--;
 					this.degatsOrdi++;
@@ -707,8 +677,8 @@ public class Jouer extends Scene {
 						}
 					}
 				}
-				else if(this.grilleOrdi[this.x][this.y] != 0){
-					this.grilleVisuJoueur[this.x][this.y]=5;
+				else if(this.grilleOrdi.getCellInfo(this.x,this.y) != 0){
+					this.grilleVisuJoueur.setCellInfo(this.x,this.y,5);
 					this.precision--;
 				}
 			}
@@ -716,9 +686,9 @@ public class Jouer extends Scene {
 		//Identique au tir du joueur, mais içi les grilles sont inversées pour l'Ordi
 		else{
 			if((this.x>-1 && this.x<10) && (this.y>-1 && this.y<10)){
-				if(this.grilleJoueur[this.x][this.y]==1){
-					this.grilleJoueur[this.x][this.y]=2;
-					this.grilleVisuOrdi[this.x][this.y]=4;
+				if(this.grilleJoueur.getCellInfo(this.x,this.y)==1){
+					this.grilleJoueur.setCellInfo(this.x,this.y,2);
+					this.grilleVisuOrdi.setCellInfo(this.x,this.y,4);
 					this.vieJoueur--;
 					for(int i=0;i<this.bateauxJoueur.length;i++){
 						if(this.bateauxJoueur[i].touche(this.x,this.y)==true){
@@ -726,8 +696,8 @@ public class Jouer extends Scene {
 						}
 					}
 				}
-				else if(this.grilleJoueur[this.x][this.y] != 0){
-					this.grilleVisuOrdi[this.x][this.y]=5;
+				else if(this.grilleJoueur.getCellInfo(this.x,this.y) != 0){
+					this.grilleVisuOrdi.setCellInfo(this.x,this.y,5);
 				}
 			}
 		}
@@ -737,12 +707,12 @@ public class Jouer extends Scene {
 	public void sonar(){
 		//Le sonar analyse si il y a un bateau dans la grille adverse
 		if(this.isJoueur==true){
-			if(this.grilleOrdi[this.x][this.y]==1){
+			if(this.grilleOrdi.getCellInfo(this.x,this.y)==1){
 				this.sonar = true;
 			}
 		}
 		else{
-			if(this.grilleJoueur[this.x][this.y]==1){
+			if(this.grilleJoueur.getCellInfo(this.x,this.y)==1){
 				this.sonar = true;
 			}
 		}
@@ -753,7 +723,7 @@ public class Jouer extends Scene {
 		//On revoie l'état de la case selectionnée
 		this.x = c.getX();
 		this.y = c.getY();
-		return grilleVisuOrdi[this.x][this.y];
+		return grilleVisuOrdi.getCellInfo(this.x,this.y);
 	}
 
 	//Utilisé par l'IA (Mode bateaux tireurs uniquement)

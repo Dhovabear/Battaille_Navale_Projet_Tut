@@ -57,65 +57,67 @@ public class Grid{
 		return true;
 	}
 
-	public boolean addBateau(int x , int y , int o , int type){
+	public boolean addBateau(int x , int y , int o , int taille){
+
 		if((x > m_nbOfCell-1 || x < 0) || (y > m_nbOfCell-1 || y < 0))
 			return false;
 		switch(o){
 			case 0 :
-				for (int i = 0 ; i < type+2 ; i++ ) {
+				for (int i = 0 ; i < taille ; i++ ) {
 					if((x > m_nbOfCell-1 || x < 0) || (y+i > m_nbOfCell-1 || y+i < 0)){return false;}
-					if(grille[x][y+i] == 1){return false;}
+					if(grille[x][y+i] != 0){return false;}
 				}
 				break;
 			case 1 :
-				for (int i = 0 ; i < type+2 ; i++ ) {
+				for (int i = 0 ; i < taille ; i++ ) {
 					if((x-i > m_nbOfCell-1 || x-i < 0) || (y > m_nbOfCell-1 || y < 0)){return false;}
-					if(grille[x-i][y] == 1){return false;}
+					if(grille[x-i][y] != 0){return false;}
 				}
 				break;
 			case 2 :
-				for (int i = 0 ; i < type+2 ; i++ ) {
+				for (int i = 0 ; i < taille ; i++ ) {
 					if((x > m_nbOfCell-1 || x < 0) || (y-i > m_nbOfCell-1 || y-i < 0)){return false;}
-					if(grille[x][y-i] == 1){return false;}
+					if(grille[x][y-i] != 0){return false;}
 				}
 				break;
 			case 3 :
-				for (int i = 0 ; i < type+2 ; i++ ) {
+				for (int i = 0 ; i < taille ; i++ ) {
 					if((x+i > m_nbOfCell-1 || x+i < 0) || (y > m_nbOfCell-1 || y < 0)){return false;}
-					if(grille[x+i][y] == 1){return false;}
+					if(grille[x+i][y] != 0){return false;}
 				}
 				break;
 		}
 
 		switch(o){
 			case 0 :
-				for (int i = 0 ; i < type+2 ; i++ ) {
+				for (int i = 0 ; i < taille ; i++ ) {
 					grille[x][y+i] = 1;
 				}
 				break;
 			case 1 :
-				for (int i = 0 ; i < type+2 ; i++ ) {
+				for (int i = 0 ; i < taille ; i++ ) {
 					grille[x-i][y] = 1;
 				}
 				break;
 			case 2 :
-				for (int i = 0 ; i < type+2 ; i++ ) {
+				for (int i = 0 ; i < taille ; i++ ) {
 					grille[x][y-i] = 1;
 				}
 				break;
 			case 3 :
-				for (int i = 0 ; i < type+2 ; i++ ) {
+				for (int i = 0 ; i < taille ; i++ ) {
 					grille[x+i][y] = 1;
 				}
 				break;
 		}
-		bateaux.add(new Bateau(x,y,o,type));
+		bateaux.add(new Bateau(x,y,o,taille));
 		return true;
 	}
 
 	public int getNbrOfBateau(){
 		return m_nbrBateau;
 	}
+
 
 	public void drawBateaux(Graphics g , JPanel p){
 		Graphics2D g2 = (Graphics2D)g;

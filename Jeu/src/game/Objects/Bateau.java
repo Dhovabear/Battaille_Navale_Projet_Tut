@@ -13,12 +13,22 @@ public class Bateau{
 	public int y;
 	public BufferedImage img;
 	public int type;
+	public int taille;
 
 	public Bateau(int x, int y, int o, int type){
 		this.x = x;
 		this.y = y;
 		this.orientation = o;
 		this.type = type;
+
+		switch (type){
+			case 0: this.taille = 2;
+			case 1: this.taille = 3;
+			case 2: this.taille = 3;
+			case 3: this.taille = 4;
+			case 4: this.taille = 5;
+		}
+
 		img = imgBateaux[type];
 	}
 
@@ -34,7 +44,6 @@ public class Bateau{
 
 		}
 
-		//ON LOADERA LES IMAGES LOL
 	}
 
 	public void setTaille(int taille){
