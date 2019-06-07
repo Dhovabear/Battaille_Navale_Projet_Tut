@@ -1,0 +1,5 @@
+public Bateau getBateauxJoueur(int i) {
+		return bateauxJoueur[i];
+	}
+
+//il faut rajouter cette fonction dans jouer
