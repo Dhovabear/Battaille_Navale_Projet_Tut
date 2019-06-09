@@ -19,24 +19,25 @@ public class DifficulteOrdi extends Scene {
 	public void update() throws IOException, FontFormatException {
 
 
-		if(choixDifficulte != 0){
+		/*if(choixDifficulte != 0){
 			if(choixDifficulte != -1){
 				Game.switchScene(4); //Switch vers la scène DrapeauNom
 			}
 			else {
 				Game.switchScene(2); //Retour vers la scène JoueurVsOrdi
 			}
-		}
+		}*/
 	}
 								
 	public void draw(Graphics g , JPanel p){
-
+		g.setColor(new Color(188, 209, 255));
+		g.fillRect(0,0,p.getWidth(),p.getHeight());
 	}
 	
 	public void startEvent(){
 		this.choixDifficulte = 0;
 		this.texteDifficulte = null;
-
+		System.out.println("plop");
 		//[AFFICHER MENU DIFFICULTE ORDI]
 	}
 

@@ -22,7 +22,7 @@ public class Grid{
 
 	private int[][] grille;
 
-	private int m_nbrBateau;
+
 	private List<Bateau> bateaux = new ArrayList<Bateau>();
 
 	public Grid(int x , int y , int cSize , int nbOC){
@@ -115,7 +115,7 @@ public class Grid{
 	}
 
 	public int getNbrOfBateau(){
-		return m_nbrBateau;
+		return bateaux.size();
 	}
 
 
@@ -190,6 +190,13 @@ public class Grid{
 	public int getXPos(){return m_xPos;}
 	public int getYPos(){return m_yPos;}
 	public int getNbrOfCell(){return m_nbOfCell;}
+	public Bateau getBateauWithType(int type){
+		for (Bateau b: bateaux) {
+			if(b.type == type){return b;}
+		}
+		return null;
+	}
+	public Bateau getBateau(int index){return bateaux.get(index);}
 }
 
 /*

@@ -1,6 +1,5 @@
 package game.scenes;
 
-import game.Objects.Bateau;
 import game.Objects.Coordonnees;
 import game.Objects.Grid;
 import game.engine.Game;
@@ -119,7 +118,7 @@ public class Jouer extends Scene {
 			this.isJoueur = true;
 		}
 		//Le joueur ou l'ordi selectionne l'endroit où il veut tirer (ainsi que le bateau qui tire (Mode bateaux tireurs uniquement))
-		selectionTir();
+		//selectionTir();
 	}
 								
 	public void draw(Graphics g , JPanel p){
@@ -153,9 +152,8 @@ public class Jouer extends Scene {
 
 		//On définit les différentes tailles de chaque bateau
 
-
 		//[AFFICHER JOUER]
-		placerBateau();
+		//placerBateau();
 
 	}
 
@@ -506,7 +504,7 @@ public class Jouer extends Scene {
 		}
 	}*/
 
-	public void selectionTir(){
+	/*public void selectionTir(){
 		//Le joueur selectionne la case de sa grille de visu 
 		if(this.isJoueur==true){
 			//Le joueur lit les variable x et y pour la case selectionnée, on lit aussi typeBateau pour le tir spécial voulu (Mode bateaux tireurs uniquement)
@@ -543,7 +541,7 @@ public class Jouer extends Scene {
 				tir();
 			}
 		}
-	}
+	}*/
 
 	
 
@@ -555,7 +553,7 @@ public class Jouer extends Scene {
 		if(this.grilleVisuOrdi.getCellInfo(this.x,this.y)>2){
 			return false;
 		}
-		if(this.mode == 3 && (this.bateauxOrdi[typeBateau].getEnVie()==false || this.utilisationTirOrdi==this.typeBateau)){
+		if(this.mode == 3 && (this.grilleOrdi.getBateauWithType(typeBateau).getEnVie()==false || this.utilisationTirOrdi==this.typeBateau)){
 			return false;
 		}
 		return true;
@@ -671,8 +669,8 @@ public class Jouer extends Scene {
 					this.vieOrdi--;
 					this.degatsOrdi++;
 					//On vérifie quelle coordonnée de quel bateau à été touchée, on applique le processus en résultant (voir l'objet Bateau et l'objet Coordonnée)
-					for(int i=0;i<this.bateauxOrdi.length;i++){
-						if(this.bateauxOrdi[i].touche(this.x,this.y)==true){
+					for(int i=0;i<this.grilleOrdi.getNbrOfBateau();i++){
+						if(this.grilleOrdi.getBateau(i).touche(this.x,this.y)==true){
 							break;
 						}
 					}
@@ -690,8 +688,8 @@ public class Jouer extends Scene {
 					this.grilleJoueur.setCellInfo(this.x,this.y,2);
 					this.grilleVisuOrdi.setCellInfo(this.x,this.y,4);
 					this.vieJoueur--;
-					for(int i=0;i<this.bateauxJoueur.length;i++){
-						if(this.bateauxJoueur[i].touche(this.x,this.y)==true){
+					for(int i=0;i<this.grilleJoueur.getNbrOfBateau();i++){
+						if(this.grilleJoueur.getBateau(i).touche(this.x,this.y)==true){
 							break;
 						}
 					}
