@@ -8,6 +8,7 @@ import game.engine.Scene;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.awt.image.BufferedImage;
 import java.util.*; //Note 1
 import java.io.*; //Note 2
 
@@ -39,8 +40,8 @@ public class Jouer extends Scene {
 	//On recueille toutes les variables dont on a besoin
 	private int mode = JoueurVsOrdi.getSelectionMode(); //Scène 2 - JoueurVsOrdi
 	private int difficulte = DifficulteOrdi.getDifficulteOrdi(); //Scène 3 - DifficulteOrdi
-	private int drapeauJ = DrapeauNom.getDrapeauJoueur(); //Scène 4 - DrapeauNom
-	private int drapeauO = DrapeauNom.getDrapeauOrdi(); //Scène 4 - DrapeauNom
+	private BufferedImage drapeauJ = DrapeauNom.getDrapeauJoueur(); //Scène 4 - DrapeauNom
+	private BufferedImage drapeauO = DrapeauNom.getDrapeauOrdi(); //Scène 4 - DrapeauNom
 	private String nomJ = DrapeauNom.getNomJoueur(); //Scène 4 - DrapeauNom
 	private String nomO = DrapeauNom.getNomOrdi(); //Scène 4 - DrapeauNom
 	

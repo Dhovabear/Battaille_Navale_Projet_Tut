@@ -20,4 +20,20 @@ public abstract class Boutton {
     public abstract void draw(Graphics g, JPanel p);
     public abstract void action() throws IOException, FontFormatException;
 
+    public void setXpos(int pos){
+        m_xPos = pos;
+    }
+
+    public  void setYpos(int pos){
+        m_yPos = pos;
+    }
+
+    public boolean isEnabled(){
+        return m_isLocked;
+    }
+
+    public void setEnabled(boolean state){
+        m_isLocked = state;
+    }
+
 }

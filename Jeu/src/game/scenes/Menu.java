@@ -12,23 +12,28 @@ import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseWheelEvent;
+import java.awt.image.BufferedImage;
 import java.io.IOException;
 
 public class Menu extends Scene {
 
-    public BouttonSansFond bouttonJouer;
-    public BouttonSansFond bouttonOptions;
-    public BouttonSansFond bouttonQuitter;
-    public BouttonSansFond bouttonCredits;
+    private BouttonSansFond bouttonJouer;
+    private BouttonSansFond bouttonOptions;
+    private BouttonSansFond bouttonQuitter;
+    private BouttonSansFond bouttonCredits;
 
-    public GenerateurDeParticules gn;
-    public SplashText astuce;
+    public static GenerateurDeParticules fond;
+    private SplashText astuce;
+
+    private BufferedImage m_titrePart1;
+    private BufferedImage m_titrePart2;
 
     public Menu() throws IOException, FontFormatException {
         bouttonJouer = new BouttonSansFond(22 ,300,40,"Jouer"){
             @Override
             public void action() throws IOException, FontFormatException {
-                Game.switchScene(3);
+                Game.switchScene(4);
+                setEnabled(true); //Ligne qui corrigera le bug du "spasme" quand on reviens
             }
         };
         bouttonOptions = new BouttonSansFond(22,360,40,"Options");
@@ -39,35 +44,42 @@ public class Menu extends Scene {
             }
         };
         bouttonCredits = new BouttonSansFond(22,420,40,"Crédits");
-        gn = new GenerateurDeParticules(0, 0,0,0,100,100,
+        fond = new GenerateurDeParticules(0, 0,0,0,100,100,
                 ImageIO.read(Game.class.getResourceAsStream("/images/bulle_1.png")));
         SplashText.LoadSplash();
-        astuce = new SplashText(100,0);
+        astuce = new SplashText(0,500);
+
+        m_titrePart1 = ImageIO.read(getClass().getResourceAsStream("/images/TitrePart1.png"));
+        m_titrePart2 = ImageIO.read(getClass().getResourceAsStream("/images/TitrePart2.png"));
     }
 
     @Override
     public void update() {
-        gn.update();
     }
 
     @Override
     public void draw(Graphics g, JPanel p) {
         g.setColor(new Color(188, 209, 255));
         g.fillRect(0,0,p.getWidth(),p.getHeight());
-        gn.draw(g,p);
+        fond.draw(g,p);
         bouttonJouer.draw(g,p);
         bouttonOptions.draw(g,p);
         bouttonCredits.draw(g,p);
         bouttonQuitter.draw(g,p);
         astuce.draw(g);
+        g.drawImage(m_titrePart1,300,20,300,150,p);
+        g.drawImage(m_titrePart2,620,20,300,150,p);
+
     }
 
     @Override
     public void startEvent() {
-        gn.setM_ypos(Game.fenetre.getHeight()-1);
-        gn.setM_heigth(1);
-        gn.setM_width(Game.fenetre.getWidth());
-        astuce.setM_posX(Game.fenetre.getWidth()-360);
+        fond.setM_ypos(Game.fenetre.getHeight()-1);
+        fond.setM_heigth(1);
+        fond.setM_width(Game.fenetre.getWidth());
+        astuce.setM_posX(Game.fenetre.getWidth()-500);
+        bouttonOptions.setEnabled(false);
+        bouttonCredits.setEnabled(false);
     }
 
     @Override

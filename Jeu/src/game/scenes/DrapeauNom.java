@@ -1,10 +1,14 @@
 package game.scenes;
 
 import game.engine.Scene;
+import game.engine.ui.FlagSelector;
+import game.engine.ui.Label;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
 import java.lang.Math; //Note 2
 
 //Scène 4 - DrapeauNom
@@ -21,20 +25,39 @@ import java.lang.Math; //Note 2
 
 public class DrapeauNom extends Scene {
 
-	private static int choixDrapeauJoueur;
+	private static BufferedImage choixDrapeauJoueur;
 	private static String choixNomJoueur;
-	private static int choixDrapeauOrdi;
+	private static BufferedImage choixDrapeauOrdi;
 	private static String choixNomOrdi;
 
 	private static boolean confirmer;
-	private	static final int AMPLEUR = 20;
+	private	static final int AMPLEUR = 12;
+
+	private FlagSelector m_flagSelector;
+	private Label m_titreMenu;
+
+	public DrapeauNom() throws IOException {
+		m_flagSelector = new FlagSelector(30,100,100);
+		m_titreMenu = new Label(300,50,50f,"bitcrusher.ttf","Choisissez votre nom et pays");
+	}
 
 	public void update(){
 		
 	}
 								
 	public void draw(Graphics g , JPanel p){
+		g.setColor(new Color(188, 209, 255));
+		g.fillRect(0,0,p.getWidth(),p.getHeight());
+		Menu.fond.draw(g,p);
+		m_titreMenu.draw(g, p);
+		m_flagSelector.draw(g, p);
 
+		if(choixDrapeauJoueur != null){
+			g.drawImage(choixDrapeauJoueur,300,350,200,100,p);
+		}else{
+			g.setColor(Color.WHITE);
+			g.fillRect(300,350,200,100);
+		}
 	}
 	
 	public void startEvent(){
@@ -47,7 +70,14 @@ public class DrapeauNom extends Scene {
 	}
 
 	public void mouseInput(MouseEvent e,String typeOfInput){
+		m_flagSelector.checkMouse(e,typeOfInput);
 
+		if(typeOfInput.equals("mP")){
+			BufferedImage tmp = m_flagSelector.getSelectedFlag();
+			if(tmp != null){
+				choixDrapeauJoueur = tmp;
+			}
+		}
 	}
 
 	public void mouseWheelInput(MouseWheelEvent e){
@@ -65,116 +95,95 @@ public class DrapeauNom extends Scene {
 		//getTexteDifficulte() ----> Scène 3 - DifficulteOrdi
 		switch(random){
 		case 1:
-			choixDrapeauOrdi = 1;
-			choixNomOrdi = "France"+getTexteDifficulte();
+			choixNomOrdi = "France"+DifficulteOrdi.getTexteDifficulte();
 			break;
 
 		case 2:
-			choixDrapeauOrdi = 2;
-			choixNomOrdi = "Allemagne"+getTexteDifficulte();
+			choixNomOrdi = "Allemagne"+DifficulteOrdi.getTexteDifficulte();
 			break;
 
 		case 3:
-			choixDrapeauOrdi = 3;
-			choixNomOrdi = "Espagne"+getTexteDifficulte();
+			choixNomOrdi = "Espagne"+DifficulteOrdi.getTexteDifficulte();
 			break;
 
 		case 4:
-			choixDrapeauOrdi = 4;
-			choixNomOrdi = "Portugal"+getTexteDifficulte();
+			choixNomOrdi = "Portugal"+DifficulteOrdi.getTexteDifficulte();
 			break;
 
 		case 5:
-			choixDrapeauOrdi = 5;
-			choixNomOrdi = "Italie"+getTexteDifficulte();
+			choixNomOrdi = "Italie"+DifficulteOrdi.getTexteDifficulte();
 			break;
 
 		case 6:
-			choixDrapeauOrdi = 6;
-			choixNomOrdi = "Royaume-Uni"+getTexteDifficulte();
+			choixNomOrdi = "Royaume-Uni"+DifficulteOrdi.getTexteDifficulte();
 			break;
 
 		case 7:
-			choixDrapeauOrdi = 7;
-			choixNomOrdi = "Etats-Unis"+getTexteDifficulte();
+			choixNomOrdi = "Etats-Unis"+DifficulteOrdi.getTexteDifficulte();
 			break;
 
 		case 8:
-			choixDrapeauOrdi = 8;
-			choixNomOrdi = "Mexique"+getTexteDifficulte();
+			choixNomOrdi = "Mexique"+DifficulteOrdi.getTexteDifficulte();
 			break;
 
 		case 9:
-			choixDrapeauOrdi = 9;
-			choixNomOrdi = "Canada"+getTexteDifficulte();
+			choixNomOrdi = "Canada"+DifficulteOrdi.getTexteDifficulte();
 			break;
 
 		case 10:
-			choixDrapeauOrdi = 10;
-			choixNomOrdi = "Brésil"+getTexteDifficulte();
+			choixNomOrdi = "Brésil"+DifficulteOrdi.getTexteDifficulte();
 			break;
 
 		case 11:
-			choixDrapeauOrdi = 11;
-			choixNomOrdi = "Russie"+getTexteDifficulte();
+			choixNomOrdi = "Russie"+DifficulteOrdi.getTexteDifficulte();
 			break;
 
 		case 12:
-			choixDrapeauOrdi = 12;
-			choixNomOrdi = "Chine"+getTexteDifficulte();
+			choixNomOrdi = "Chine"+DifficulteOrdi.getTexteDifficulte();
 			break;
 
 		case 13:
-			choixDrapeauOrdi = 13;
-			choixNomOrdi = "Inde"+getTexteDifficulte();
+			choixNomOrdi = "Inde"+DifficulteOrdi.getTexteDifficulte();
 			break;
 
 		case 14:
-			choixDrapeauOrdi = 14;
-			choixNomOrdi = "Australie"+getTexteDifficulte();
+			choixNomOrdi = "Australie"+DifficulteOrdi.getTexteDifficulte();
 			break;
 
 		case 15:
-			choixDrapeauOrdi = 15;
-			choixNomOrdi = "IUT Info"+getTexteDifficulte();
+			choixNomOrdi = "IUT Info"+DifficulteOrdi.getTexteDifficulte();
 			break;
 
 		case 16:
-			choixDrapeauOrdi = 16;
-			choixNomOrdi = "RaptorRouge"+getTexteDifficulte();
+			choixNomOrdi = "RaptorRouge"+DifficulteOrdi.getTexteDifficulte();
 			break;
 
 		case 17:
-			choixDrapeauOrdi = 17;
-			choixNomOrdi = "Xanix"+getTexteDifficulte();
+			choixNomOrdi = "Xanix"+DifficulteOrdi.getTexteDifficulte();
 			break;
 
 		case 18:
-			choixDrapeauOrdi = 18;
-			choixNomOrdi = "Dovabear"+getTexteDifficulte();
+			choixNomOrdi = "Dovabear"+DifficulteOrdi.getTexteDifficulte();
 			break;
 
 		case 19:
-			choixDrapeauOrdi = 19;
-			choixNomOrdi = "r2r0"+getTexteDifficulte();
+			choixNomOrdi = "r2r0"+DifficulteOrdi.getTexteDifficulte();
 			break;
 
 		case 20:
-			choixDrapeauOrdi = 20;
-			choixNomOrdi = "Nijtus"+getTexteDifficulte();
+			choixNomOrdi = "Nijtus"+DifficulteOrdi.getTexteDifficulte();
 			break;
 		}
+
+		choixDrapeauOrdi = m_flagSelector.getFlag(random);
 	}
 
-	private String getTexteDifficulte() {
-		return "boiiiiiii";
-	}
 
-	public static int getDrapeauJoueur(){ //Utilisée dans la classe Jouer
+	public static BufferedImage getDrapeauJoueur(){ //Utilisée dans la classe Jouer
 		return choixDrapeauJoueur;
 	}
 
-	public static int getDrapeauOrdi(){ //Utilisée dans la classe Jouer
+	public static BufferedImage getDrapeauOrdi(){ //Utilisée dans la classe Jouer
 		return choixDrapeauOrdi;
 	}
 
