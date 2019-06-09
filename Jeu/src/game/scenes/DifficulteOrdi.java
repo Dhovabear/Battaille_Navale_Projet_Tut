@@ -112,6 +112,13 @@ public class DifficulteOrdi extends Scene {
 	public void exitEvent(){
 		//[ENLEVER MENU DIFFICULTE ORDI]
 		m_boutRetour.setEnabled(true);
+		enableAll();
+	}
+
+	public void enableAll(){
+		m_boutFacile.setEnabled(true);
+		m_boutMoyen.setEnabled(true);
+		m_boutDur.setEnabled(true);
 	}
 
 	public static int getDifficulteOrdi(){ //Utilisée dans la classe Jouer et WinLoseScore

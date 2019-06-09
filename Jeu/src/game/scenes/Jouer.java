@@ -243,7 +243,7 @@ public class Jouer extends Scene {
 				}
 			}
 		}
-		catch(Exception e) //Implémentée dû au refus de la compilation quand cette condition n'est pas présente, mais inutile dans les faits
+		catch(Exception e) //Implémentée dû au refus de la compilation quand cette condition n'est pas présente, mais inutile dans les faits (ce qui est faux)
 		{
 			System.out.println("Une erreur s'est produite.");
 		}

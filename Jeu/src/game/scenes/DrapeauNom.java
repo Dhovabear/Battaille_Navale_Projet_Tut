@@ -1,8 +1,11 @@
 package game.scenes;
 
+import game.engine.Game;
 import game.engine.Scene;
+import game.engine.ui.BouttonSansFond;
 import game.engine.ui.FlagSelector;
 import game.engine.ui.Label;
+import game.engine.ui.TextField;
 
 import javax.swing.*;
 import java.awt.*;
@@ -35,14 +38,35 @@ public class DrapeauNom extends Scene {
 
 	private FlagSelector m_flagSelector;
 	private Label m_titreMenu;
+	private TextField m_champNom;
 
-	public DrapeauNom() throws IOException {
+	private BouttonSansFond m_bouttonRetour;
+	private BouttonSansFond m_bouttonSuivant;
+
+	public DrapeauNom() throws IOException, FontFormatException {
 		m_flagSelector = new FlagSelector(30,100,100);
 		m_titreMenu = new Label(300,50,50f,"bitcrusher.ttf","Choisissez votre nom et pays");
+		m_champNom = new TextField(520,400,20,"Enter name here",20);
+		m_bouttonRetour = new BouttonSansFond(5,510,50,"Retour"){
+			@Override
+			public void action() throws IOException, FontFormatException {
+				Game.switchScene(3);
+			}
+		};
+		m_bouttonSuivant = new BouttonSansFond(750,510,50,"Suivant"){
+			@Override
+			public void action() throws IOException, FontFormatException {
+				Game.switchScene(5);
+			}
+		};
 	}
 
 	public void update(){
-		
+		if(!m_champNom.getText().equals("") && choixDrapeauJoueur != null){
+			m_bouttonSuivant.setEnabled(true);
+		}else{
+			m_bouttonSuivant.setEnabled(false);
+		}
 	}
 								
 	public void draw(Graphics g , JPanel p){
@@ -51,26 +75,33 @@ public class DrapeauNom extends Scene {
 		Menu.fond.draw(g,p);
 		m_titreMenu.draw(g, p);
 		m_flagSelector.draw(g, p);
-
+		m_bouttonRetour.draw(g, p);
+		m_bouttonSuivant.draw(g, p);
 		if(choixDrapeauJoueur != null){
 			g.drawImage(choixDrapeauJoueur,300,350,200,100,p);
 		}else{
 			g.setColor(Color.WHITE);
 			g.fillRect(300,350,200,100);
 		}
+
+		m_champNom.draw(g, p);
 	}
 	
 	public void startEvent(){
 		this.confirmer = false;
+		m_bouttonSuivant.setEnabled(false);
 		//[AFFICHER MENU NOM ET DRAPEAU]
 	}
 
 	public void input(KeyEvent e,String typeOfInput){
-
+		m_champNom.checkKeys(e,typeOfInput);
 	}
 
 	public void mouseInput(MouseEvent e,String typeOfInput){
 		m_flagSelector.checkMouse(e,typeOfInput);
+		m_champNom.checkMouse(e, typeOfInput);
+		m_bouttonRetour.checkMouse(e, typeOfInput);
+		m_bouttonSuivant.checkMouse(e, typeOfInput);
 
 		if(typeOfInput.equals("mP")){
 			BufferedImage tmp = m_flagSelector.getSelectedFlag();
@@ -89,93 +120,9 @@ public class DrapeauNom extends Scene {
 
 		//Choix aléatoire du drapeau et du nom pour l'ORDI
 		int random = (int)(Math.round(Math.random()*AMPLEUR));
-		if(random == 0){
-			random++;
-		}
-		//getTexteDifficulte() ----> Scène 3 - DifficulteOrdi
-		switch(random){
-		case 1:
-			choixNomOrdi = "France"+DifficulteOrdi.getTexteDifficulte();
-			break;
-
-		case 2:
-			choixNomOrdi = "Allemagne"+DifficulteOrdi.getTexteDifficulte();
-			break;
-
-		case 3:
-			choixNomOrdi = "Espagne"+DifficulteOrdi.getTexteDifficulte();
-			break;
-
-		case 4:
-			choixNomOrdi = "Portugal"+DifficulteOrdi.getTexteDifficulte();
-			break;
-
-		case 5:
-			choixNomOrdi = "Italie"+DifficulteOrdi.getTexteDifficulte();
-			break;
-
-		case 6:
-			choixNomOrdi = "Royaume-Uni"+DifficulteOrdi.getTexteDifficulte();
-			break;
-
-		case 7:
-			choixNomOrdi = "Etats-Unis"+DifficulteOrdi.getTexteDifficulte();
-			break;
-
-		case 8:
-			choixNomOrdi = "Mexique"+DifficulteOrdi.getTexteDifficulte();
-			break;
-
-		case 9:
-			choixNomOrdi = "Canada"+DifficulteOrdi.getTexteDifficulte();
-			break;
-
-		case 10:
-			choixNomOrdi = "Brésil"+DifficulteOrdi.getTexteDifficulte();
-			break;
-
-		case 11:
-			choixNomOrdi = "Russie"+DifficulteOrdi.getTexteDifficulte();
-			break;
-
-		case 12:
-			choixNomOrdi = "Chine"+DifficulteOrdi.getTexteDifficulte();
-			break;
-
-		case 13:
-			choixNomOrdi = "Inde"+DifficulteOrdi.getTexteDifficulte();
-			break;
-
-		case 14:
-			choixNomOrdi = "Australie"+DifficulteOrdi.getTexteDifficulte();
-			break;
-
-		case 15:
-			choixNomOrdi = "IUT Info"+DifficulteOrdi.getTexteDifficulte();
-			break;
-
-		case 16:
-			choixNomOrdi = "RaptorRouge"+DifficulteOrdi.getTexteDifficulte();
-			break;
-
-		case 17:
-			choixNomOrdi = "Xanix"+DifficulteOrdi.getTexteDifficulte();
-			break;
-
-		case 18:
-			choixNomOrdi = "Dovabear"+DifficulteOrdi.getTexteDifficulte();
-			break;
-
-		case 19:
-			choixNomOrdi = "r2r0"+DifficulteOrdi.getTexteDifficulte();
-			break;
-
-		case 20:
-			choixNomOrdi = "Nijtus"+DifficulteOrdi.getTexteDifficulte();
-			break;
-		}
-
 		choixDrapeauOrdi = m_flagSelector.getFlag(random);
+		choixNomOrdi = m_flagSelector.getNameOfSelectedFlag();
+		m_bouttonRetour.setEnabled(true);
 	}
 
 
