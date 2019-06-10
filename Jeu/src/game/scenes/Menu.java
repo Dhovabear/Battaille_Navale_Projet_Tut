@@ -18,6 +18,8 @@ import java.io.IOException;
 public class Menu extends Scene {
 
     private BouttonSansFond bouttonJouer;
+    private BouttonSansFond bouttonAide;
+    private BouttonSansFond bouttonScores;
     private BouttonSansFond bouttonOptions;
     private BouttonSansFond bouttonQuitter;
     private BouttonSansFond bouttonCredits;
@@ -29,11 +31,17 @@ public class Menu extends Scene {
     private BufferedImage m_titrePart2;
 
     public Menu() throws IOException, FontFormatException {
-        bouttonJouer = new BouttonSansFond(22 ,300,40,"Jouer"){
+        bouttonJouer = new BouttonSansFond(22 ,240,40,"Jouer"){
             @Override
             public void action() throws IOException, FontFormatException {
-                Game.switchScene(4);
+                Game.switchScene(2);
                 setEnabled(true); //Ligne qui corrigera le bug du "spasme" quand on reviens
+            }
+        };
+        bouttonAide = new BouttonSansFond(22,300,40,"Aide"){
+            @Override
+            public void action() throws IOException, FontFormatException {
+                //Switch vers aide
             }
         };
         bouttonOptions = new BouttonSansFond(22,360,40,"Options");
@@ -66,6 +74,7 @@ public class Menu extends Scene {
         bouttonOptions.draw(g,p);
         bouttonCredits.draw(g,p);
         bouttonQuitter.draw(g,p);
+        bouttonAide.draw(g, p);
         astuce.draw(g);
         g.drawImage(m_titrePart1,300,20,300,150,p);
         g.drawImage(m_titrePart2,620,20,300,150,p);
@@ -80,6 +89,7 @@ public class Menu extends Scene {
         astuce.setM_posX(Game.fenetre.getWidth()-500);
         bouttonOptions.setEnabled(false);
         bouttonCredits.setEnabled(false);
+        bouttonAide.setEnabled(false);
     }
 
     @Override
@@ -93,6 +103,7 @@ public class Menu extends Scene {
         bouttonOptions.checkMouse(e,typeOfInput);
         bouttonCredits.checkMouse(e,typeOfInput);
         bouttonQuitter.checkMouse(e,typeOfInput);
+        bouttonAide.checkMouse(e, typeOfInput);
     }
 
     @Override

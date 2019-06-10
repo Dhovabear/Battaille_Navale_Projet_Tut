@@ -145,4 +145,9 @@ public class TextField {
     public String getText() {
         return m_contenu;
     }
+
+    public void clearText() {
+        m_contenu = "";
+        m_cursorPlace = 0;
+    }
 }

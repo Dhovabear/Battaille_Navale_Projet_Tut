@@ -53,9 +53,12 @@ public class DrapeauNom extends Scene {
 				Game.switchScene(3);
 			}
 		};
-		m_bouttonSuivant = new BouttonSansFond(750,510,50,"Suivant"){
+		m_bouttonSuivant = new BouttonSansFond(800,510,50,"Suivant"){
 			@Override
 			public void action() throws IOException, FontFormatException {
+				int random = (int)(Math.round(Math.random()*AMPLEUR));
+				choixDrapeauOrdi = m_flagSelector.getFlag(random);
+				choixNomOrdi = m_flagSelector.getNameOfSelectedFlag();
 				Game.switchScene(5);
 			}
 		};
@@ -63,7 +66,9 @@ public class DrapeauNom extends Scene {
 
 	public void update(){
 		if(!m_champNom.getText().equals("") && choixDrapeauJoueur != null){
-			m_bouttonSuivant.setEnabled(true);
+			if(!m_bouttonSuivant.isEnabled()){
+				m_bouttonSuivant.setEnabled(true);
+			}
 		}else{
 			m_bouttonSuivant.setEnabled(false);
 		}
@@ -90,6 +95,9 @@ public class DrapeauNom extends Scene {
 	public void startEvent(){
 		this.confirmer = false;
 		m_bouttonSuivant.setEnabled(false);
+		m_champNom.clearText();
+		m_flagSelector.deselect();
+		choixDrapeauJoueur = null;
 		//[AFFICHER MENU NOM ET DRAPEAU]
 	}
 
@@ -119,9 +127,7 @@ public class DrapeauNom extends Scene {
 		//[ENLEVER MENU DIFFICULTE ORDI]
 
 		//Choix aléatoire du drapeau et du nom pour l'ORDI
-		int random = (int)(Math.round(Math.random()*AMPLEUR));
-		choixDrapeauOrdi = m_flagSelector.getFlag(random);
-		choixNomOrdi = m_flagSelector.getNameOfSelectedFlag();
+
 		m_bouttonRetour.setEnabled(true);
 	}
 

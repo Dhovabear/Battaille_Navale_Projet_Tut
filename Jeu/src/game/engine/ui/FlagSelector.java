@@ -87,4 +87,8 @@ public class FlagSelector {
     public String getNameOfSelectedFlag(){
         return m_flagsName[m_selectedFlag];
     }
+
+    public void deselect() {
+        m_selectedFlag = -1;
+    }
 }
