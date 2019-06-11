@@ -15,6 +15,9 @@ public class IA {
             case 2:
                 ia = new IANiv2(controleur,mode);
                 break;
+            case 3:
+                ia = new IANiv3(controleur,mode);
+                break;
             default:
                 System.err.println("ERREUR 002 : Entrée invalide : niveau invalide");
                 break;

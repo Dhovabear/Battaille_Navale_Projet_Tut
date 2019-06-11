@@ -34,11 +34,11 @@ public class IANiv2 extends IANiv1 {
             } else {
                 derTouche = derTouche.add(listeOrientation[stable(tourne + tourneI)]);
                 p = derTouche;
-                if(depassementGrille(i,j)){
+                if(depassementGrille(derTouche.getX(),derTouche.getY())){
                     mode=0;
                 }
             }
-        }while(grilleAdverse[i][j]!=0 || !ctrl.autorisationTirOrdi(p) || depassementGrille(i,j));
+        }while(grilleAdverse[i][j]!=0 || !ctrl.autorisationTirOrdi(p) || depassementGrille(derTouche.getX(),derTouche.getY()));
         grilleAdverse[i][j]=1;
     }
 
@@ -85,7 +85,7 @@ public class IANiv2 extends IANiv1 {
         }else if(r == 1 && mode == 1){
             mode++;
             derTouche= derTouche.add(listeOrientation[stable(tourne+tourneI)]);
-        }else if((r == 2)||(r==0 && mode==3)){
+        }else if((r == 2)||(r==0 && mode==2)){
             this.mode = 0;
         }
 
