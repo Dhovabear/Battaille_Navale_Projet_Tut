@@ -1,6 +1,8 @@
 package game.scenes;
 
+import game.Objects.Bateau;
 import game.Objects.Coordonnees;
+import game.Objects.DGBateau;
 import game.Objects.Grid;
 import game.engine.Game;
 import game.engine.Scene;
@@ -48,10 +50,10 @@ public class Jouer extends Scene {
 	//Variables servant pour le système de base de la bataille navale
 	private int x; //Axe des abscisses
 	private int y; //Axe des ordonnées
-	private Grid grilleJoueur = new Grid(0,0,30,10); //Grille personnelle du joueur
-	private Grid grilleVisuJoueur = new Grid(0,0,30,10); //Servira au joueur pour voir la grille initiale de l'ordi
-	private Grid grilleOrdi = new Grid(0,0,30,10); //Grille personnelle de l'ordi
-	private Grid grilleVisuOrdi = new Grid(0,0,30,10); //Servira à l'ordi pour voir la grille initiale du joueur
+	private Grid grilleJoueur =  new Grid(60,40,50,10,false); //Grille personnelle du joueur
+	private Grid grilleVisuJoueur = new Grid(460,40,40,10,true); //Servira au joueur pour voir la grille initiale de l'ordi
+	private Grid grilleOrdi = new Grid(0,0,40,10,false); //Grille personnelle de l'ordi
+	private Grid grilleVisuOrdi = new Grid(0,0,40,10,true); //Servira à l'ordi pour voir la grille initiale du joueur
 	private boolean isJoueur; //Servira dans plusieurs fonctions pour savoir s'il s'agit du joueur ou de l'ordi
 	private int vieJoueur; //Baissera au fur et à mesure que l'ordi touche les bateaux du joueur
 	private int vieOrdi; //Baissera au fur et à mesure que le joueur touche les bateaux ordi
@@ -89,7 +91,18 @@ public class Jouer extends Scene {
 	private int utilisationTirJoueur; //Utilisée pour le Mode bateaux tireurs uniquement (Un même bateau ne peux pas tirer 2 tours de suite)
 	private int utilisationTirOrdi; //Utilisée pour le Mode bateaux tireurs uniquement (Un même bateau ne peux pas tirer 2 tours de suite)
 	private int randomTirTorpilleur; //Utilisé pour le tir aléatoire du torpilleur (Mode bateaux tireurs uniquement)
+
+	//pour le drag and drop
 	private boolean dragAndDropEnded = false;
+	private boolean m_IntroDragFini = false;
+	private int m_timeintroDrag = 0;
+	private ArrayList<DGBateau> m_boatToPlace;
+
+	private Font bitcrusher;
+
+	public Jouer() throws IOException, FontFormatException {
+		bitcrusher = Font.createFont(Font.TRUETYPE_FONT,getClass().getResourceAsStream("/polices/bitcrusher.ttf"));
+	}
 
 	public void update() throws IOException, FontFormatException {
 		//Si le joueur abandonne, il retourne au menu principal
@@ -126,8 +139,25 @@ public class Jouer extends Scene {
 		g.setColor(Color.WHITE);
 		g.fillRect(0,0,p.getWidth(),p.getHeight());
 
-		if(!dragAndDropEnded){
+		if(!dragAndDropEnded && !m_IntroDragFini){
+			if(m_timeintroDrag < 120){
+				g.setColor(Color.BLACK);
+				g.setFont(bitcrusher.deriveFont(60f));
+				g.drawString("Placer vos bateaux!",450,300);
+				m_timeintroDrag++;
+			}else{
+				m_IntroDragFini = true;
+			}
+			return;
+		}
 
+
+
+		if(!dragAndDropEnded){
+			grilleJoueur.draw(g,p);
+			for (DGBateau b: m_boatToPlace) {
+				b.draw(g,p);
+			}
 			return;
 		}
 
@@ -144,12 +174,15 @@ public class Jouer extends Scene {
 		this.abandon = false;
 
 		this.isJoueur = true;
-		remplissage();
-		//Dans le Mode île, les grilles du Joueur et de l'ordi peuvent être différentes 
-		if(this.mode == 2){ 
-			this.isJoueur = false;
-			remplissage();
-		}
+		grilleJoueur.remplissage();
+		grilleOrdi.remplissage();
+
+		m_boatToPlace = new ArrayList<DGBateau>();
+		m_boatToPlace.add(new DGBateau(700,200,0,grilleJoueur));
+		m_boatToPlace.add(new DGBateau(760,200,1,grilleJoueur));
+		m_boatToPlace.add(new DGBateau(820,200,2,grilleJoueur));
+		m_boatToPlace.add(new DGBateau(880,200,3,grilleJoueur));
+		m_boatToPlace.add(new DGBateau(940,200,4,grilleJoueur));
 
 		//On définit les différentes tailles de chaque bateau
 
@@ -163,11 +196,44 @@ public class Jouer extends Scene {
 	}
 
 	public void mouseInput(MouseEvent e,String typeOfInput){
-
+		if(!dragAndDropEnded){
+			if(typeOfInput == "mP"){
+				if(e.getButton() == 1){
+					for (DGBateau b : m_boatToPlace ) {
+						b.isIn(e);
+					}
+				}
+				if(e.getButton() == 3){
+					for (DGBateau b : m_boatToPlace ) {
+						b.rotate();
+					}
+				}
+			}else if(typeOfInput == "mD"){
+				for (DGBateau b : m_boatToPlace ) {
+					b.drag(e);
+				}
+			}else if(typeOfInput == "mR"){
+				for (DGBateau b : m_boatToPlace ) {
+					b.stopDrag();
+				}
+			}
+			return;
+		}
 	}
 
 	public void mouseWheelInput(MouseWheelEvent e){
-
+		if(!dragAndDropEnded){
+			if(e.getWheelRotation() < 0){
+				for (DGBateau b: m_boatToPlace) {
+					b.rotateBack();
+				}
+			}else if(e.getWheelRotation() > 0){
+				for (DGBateau b: m_boatToPlace) {
+					b.rotate();
+				}
+			}
+			return;
+		}
 	}
 
 	public void exitEvent(){
@@ -185,69 +251,7 @@ public class Jouer extends Scene {
 		}
 	}
 
-	public void remplissage(){
-		String fichier = new String();
-		int random = (int)(Math.round(Math.random()*AMPLEUR_ILE));
-		//L'emplacement de fichiers sera sûrement changé au fil du temps, il faudra donc modifier les chemins (commentaire à effacer par la suite)
-		//On choisit une carte dans un fichier aléatoire (Utile pour le mode île)
-		switch(random){
-			case 0:
-				fichier = "iles/ile0";
-				break;
-			case 1:
-				fichier = "iles/ile1";
-				break;
-			case 2:
-				fichier = "iles/ile2";
-				break;
-			case 3:
-				fichier = "iles/ile3";
-				break;
-			case 4:
-				fichier = "iles/ile4";
-				break;
-			case 5:
-				fichier = "iles/ile5";
-				break;
-		}
-		try //On ouvre le fichier
-		{
-			File file = new File(fichier);
-			Scanner scan = new Scanner(file);
-			//On remplit les grilles avec le contenu du fichier selectionné au hasard (Mode île uniquement)
-			if(this.mode == 2){ 
-				while(scan.hasNextInt()){
-					for(int i=0;i<10;i++){
-						for(int j=0;j<10;j++){
-							if(this.isJoueur == true){
-								this.grilleJoueur.setCellInfo(i,j,scan.nextInt());
-								this.grilleVisuOrdi.setCellInfo(i,j,grilleJoueur.getCellInfo(i,j));
-							}
-							else{
-								this.grilleOrdi.setCellInfo(i,j,scan.nextInt());
-								this.grilleVisuJoueur.setCellInfo(i,j,this.grilleOrdi.getCellInfo(i,j));
-							}
-						}
-					}
-				}
-			}
-			//On remplit entièrement toutes les grilles avec de l'eau (valeur 0)
-			else{ 
-				for(int i=0;i<10;i++){
-					for(int j=0;j<10;j++){
-						this.grilleJoueur.setCellInfo(i,j,0);
-						this.grilleVisuJoueur.setCellInfo(i,j,0);
-						this.grilleOrdi.setCellInfo(i,j,0);
-						this.grilleVisuOrdi.setCellInfo(i,j,0);
-					}
-				}
-			}
-		}
-		catch(Exception e) //Implémentée dû au refus de la compilation quand cette condition n'est pas présente, mais inutile dans les faits (ce qui est faux)
-		{
-			System.out.println("Une erreur s'est produite.");
-		}
-	}
+
 
 	/*public void selectionPlacerBateau(){
 		int compteur = 0;

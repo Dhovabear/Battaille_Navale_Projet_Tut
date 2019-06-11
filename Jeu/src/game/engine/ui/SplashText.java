@@ -23,6 +23,7 @@ public class SplashText {
     public static void LoadSplash() throws IOException {
         BufferedReader rd = new BufferedReader(new InputStreamReader(Game.class.getResourceAsStream("/donnes/splash.txt")));
         String tmp;
+
         while ((tmp = rd.readLine()) !=null){
             m_splashTexts.add(tmp);
         }
@@ -36,8 +37,6 @@ public class SplashText {
         this.m_posX = posX;
         this.m_posY = posY;
         this.m_currentText = getRandomSplash();
-        System.out.println(m_currentText);
-        System.out.println(m_posX + " " + m_posY);
         this.m_fnt = Font.createFont(Font.TRUETYPE_FONT,Game.class.getResourceAsStream("/polices/autoradio.ttf"));
         this.m_fnt = m_fnt.deriveFont((float) size);
 
@@ -53,6 +52,10 @@ public class SplashText {
         g.drawString("ASTUCE:",m_posX+10,m_posY+30);
         g.setFont(m_fnt);
         g.drawString(m_currentText,m_posX+10,m_posY+50);
+    }
+
+    public void reRollText(){
+        m_currentText = getRandomSplash();
     }
 
     public void setM_posX(int m_posX) {

@@ -90,6 +90,7 @@ public class Menu extends Scene {
         bouttonOptions.setEnabled(false);
         bouttonCredits.setEnabled(false);
         bouttonAide.setEnabled(false);
+        astuce.reRollText();
     }
 
     @Override

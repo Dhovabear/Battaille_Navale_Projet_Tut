@@ -1,12 +1,14 @@
 package game.Objects;
 
+import game.engine.Game;
+
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.File;
 
 public class Bateau{
 
-	private static BufferedImage[] imgBateaux;
+    public static BufferedImage[] imgBateaux;
 	public int orientation;
 	private Coordonnees[] cases;
 	public int x;
@@ -35,13 +37,13 @@ public class Bateau{
 	public static void loadBoatImages(){
 		imgBateaux = new BufferedImage[5];
 		try{
-			imgBateaux[0] = ImageIO.read(Bateau.class.getResource("/images/batDeuxCases.png"));
-			imgBateaux[1] = ImageIO.read(Bateau.class.getResource("/images/batTroisCase.png"));
-			imgBateaux[2] = ImageIO.read(Bateau.class.getResource("/images/batDeuxCases.png"));
-			imgBateaux[3] = ImageIO.read(Bateau.class.getResource("/images/batQuatreCase.png"));
-			imgBateaux[4] = ImageIO.read(Bateau.class.getResource("/images/batCinqCase.png"));
+			imgBateaux[0] = ImageIO.read(Game.class.getResource("/images/batDeuxCase.png"));
+			imgBateaux[1] = ImageIO.read(Game.class.getResource("/images/batTroisCase.png"));
+			imgBateaux[2] = ImageIO.read(Game.class.getResource("/images/sousousmarin.png"));
+			imgBateaux[3] = ImageIO.read(Game.class.getResource("/images/batQuatreCase.png"));
+			imgBateaux[4] = ImageIO.read(Game.class.getResource("/images/batCinqCase.png"));
 		}catch(Exception e){
-
+			e.printStackTrace();
 		}
 
 	}

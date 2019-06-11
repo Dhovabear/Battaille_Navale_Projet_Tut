@@ -38,7 +38,7 @@ public class DrapeauNom extends Scene {
 
 	private FlagSelector m_flagSelector;
 	private Label m_titreMenu;
-	private TextField m_champNom;
+	private volatile TextField m_champNom;
 
 	private BouttonSansFond m_bouttonRetour;
 	private BouttonSansFond m_bouttonSuivant;
@@ -65,7 +65,10 @@ public class DrapeauNom extends Scene {
 	}
 
 	public void update(){
+		//System.out.println("plop");
+		//System.out.println(m_champNom + " " + (choixDrapeauJoueur == null));
 		if(!m_champNom.getText().equals("") && choixDrapeauJoueur != null){
+
 			if(!m_bouttonSuivant.isEnabled()){
 				m_bouttonSuivant.setEnabled(true);
 			}

@@ -36,8 +36,6 @@ public class BouttonSansFond extends Boutton{
         }
         m_mousein = true;
 
-        System.out.println("ui" + m_mousein + m_text);
-
         if(evenType == "mP"){
             try {
                 action();
@@ -71,7 +69,6 @@ public class BouttonSansFond extends Boutton{
         if(m_isLocked){
 
             if(m_zoomValue <= m_height*1.3 && m_mousein){
-                System.out.println("ui" + m_text);
                 m_zoomValue += 1;
             }else if(m_zoomValue > m_height && !m_mousein){
                 m_zoomValue -= 1;

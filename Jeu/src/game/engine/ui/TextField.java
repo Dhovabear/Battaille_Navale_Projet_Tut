@@ -21,7 +21,7 @@ public class TextField {
     private int m_blinkCompt;
     private boolean m_isCursorVisible;
 
-    private int[] m_excludedKeys = {8,16,37,38,39,40,10,17,18,19,20,112,113,114,115,116,117,118,119,120,121,122,123,27,222};
+    private int[] m_excludedKeys = {8,16,35,37,38,39,40,46,10,17,18,19,20,112,113,114,115,116,117,118,119,120,121,122,123,27,222};
 
     public TextField(int x , int y, int taille , String placeHolder, int maxChar) throws IOException, FontFormatException {
         this.m_posx = x;
@@ -45,7 +45,6 @@ public class TextField {
         g.fillRect(m_posx+3,m_posy+3,m_width,m_taille);
         g.setFont(m_police);
 
-        System.out.println(m_cursorPlace);
         if(m_hadFocus){
             g.setColor(Color.BLACK);
             FontMetrics fm = g.getFontMetrics(m_police);

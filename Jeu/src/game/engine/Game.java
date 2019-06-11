@@ -1,5 +1,7 @@
 package game.engine;
 
+import game.Objects.Bateau;
+import game.Objects.Grid;
 import game.scenes.*;
 import game.scenes.Menu;
 
@@ -51,7 +53,9 @@ public class Game {
 
         disp = new JPanel(true){//On crée un nouveau JPanel
             public void paintComponent(Graphics g){//On redéfinit la méthode paintcomponent
-                sceneIndex[currentscene].draw(g,this);
+                synchronized (sceneIndex[currentscene]){
+                    sceneIndex[currentscene].draw(g,this);
+                }
             }
         };
         disp.addMouseListener(new MouseListener(){
@@ -136,14 +140,21 @@ public class Game {
         Thread computeProcess = new Thread(){//On crée le second thread qui va gerer les calculs et qui est au passage (plus rapide)
             public void run(){
                 while(true){
+
                     try {
-                        sceneIndex[currentscene].update();//On execute la fonction update de la scene
+                        //System.out.println(currentscene);
+                        synchronized (sceneIndex[currentscene]){
+                            sceneIndex[currentscene].update();//On execute la fonction update de la scene
+                        }
+
                     } catch (IOException e) {
                         e.printStackTrace();
                     } catch (FontFormatException e) {
                         e.printStackTrace();
                     }
+
                 }
+
             }
         };
 
@@ -160,6 +171,8 @@ public class Game {
      * @throws IOException
      */
     public static void loadScenes() throws IOException, FontFormatException { //Fonction qui load les scenes (wow explicite/20)
+        Bateau.loadBoatImages();
+        Grid.loadTiles();
         sceneIndex = new Scene[6];//On initialise la liste avec le nombre de scenes que l'on a
         sceneIndex[0] = new Menu();
         sceneIndex[2] = new JoueurVsOrdi();

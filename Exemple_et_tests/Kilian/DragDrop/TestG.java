@@ -51,9 +51,8 @@ public class TestG extends Scene{
 	}
 
 	public void mouseInput(MouseEvent e , String typeOfInput){
-		if(typeOfInput == "mM"){
-			
-		}else if(typeOfInput == "mP"){
+		
+		if(typeOfInput == "mP"){
 			for (DGBateau b : bts ) {
 				b.isIn(e);
 			}

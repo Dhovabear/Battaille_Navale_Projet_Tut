@@ -11,7 +11,7 @@ import java.util.ArrayList;
 public class FlagSelector {
 
     private ArrayList<BufferedImage> m_flags;
-    private int m_nbrOfFlags = 12;
+    private int m_nbrOfFlags = 20;
 
     private int m_posx;
     private int m_posy;
@@ -22,7 +22,7 @@ public class FlagSelector {
 
     private int m_selectedFlag;
 
-    private String[] m_flagsName = {"Inde","Russie","Allemagne","Italie","Belgique","France","Angleterre","Etats-Unis","Canada","Chine","IUT-Info","Dovabear"};
+    private String[] m_flagsName = {"Inde","Russie","Allemagne","Italie","Belgique","France","Angleterre","Etats-Unis","Canada","Chine","IUT-Info","Dovabear","Japon","Brésil","Portugal","Espagne","Xanix","r2r0","RaptorRouge","Nijtus"};
 
     public FlagSelector(int x , int y , int flagSize) throws IOException {
         m_flags = new ArrayList<BufferedImage>();
