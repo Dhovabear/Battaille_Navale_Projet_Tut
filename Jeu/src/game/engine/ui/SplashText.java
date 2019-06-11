@@ -32,11 +32,12 @@ public class SplashText {
         return m_splashTexts.get(rng.nextInt(m_splashTexts.size()));
     }
 
-    public SplashText(int m_posX, int m_posY) throws IOException, FontFormatException {
-        this.m_posX = m_posX;
-        this.m_posY = m_posY;
+    public SplashText(int posX, int posY) throws IOException, FontFormatException {
+        this.m_posX = posX;
+        this.m_posY = posY;
         this.m_currentText = getRandomSplash();
         System.out.println(m_currentText);
+        System.out.println(m_posX + " " + m_posY);
         this.m_fnt = Font.createFont(Font.TRUETYPE_FONT,Game.class.getResourceAsStream("/polices/autoradio.ttf"));
         this.m_fnt = m_fnt.deriveFont((float) size);
 

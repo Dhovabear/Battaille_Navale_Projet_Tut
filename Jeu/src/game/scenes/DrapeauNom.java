@@ -1,10 +1,17 @@
 package game.scenes;
 
+import game.engine.Game;
 import game.engine.Scene;
+import game.engine.ui.BouttonSansFond;
+import game.engine.ui.FlagSelector;
+import game.engine.ui.Label;
+import game.engine.ui.TextField;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
 import java.lang.Math; //Note 2
 
 //Scène 4 - DrapeauNom
@@ -21,33 +28,95 @@ import java.lang.Math; //Note 2
 
 public class DrapeauNom extends Scene {
 
-	private static int choixDrapeauJoueur;
+	private static BufferedImage choixDrapeauJoueur;
 	private static String choixNomJoueur;
-	private static int choixDrapeauOrdi;
+	private static BufferedImage choixDrapeauOrdi;
 	private static String choixNomOrdi;
 
 	private static boolean confirmer;
-	private	static final int AMPLEUR = 20;
+	private	static final int AMPLEUR = 12;
+
+	private FlagSelector m_flagSelector;
+	private Label m_titreMenu;
+	private TextField m_champNom;
+
+	private BouttonSansFond m_bouttonRetour;
+	private BouttonSansFond m_bouttonSuivant;
+
+	public DrapeauNom() throws IOException, FontFormatException {
+		m_flagSelector = new FlagSelector(30,100,100);
+		m_titreMenu = new Label(300,50,50f,"bitcrusher.ttf","Choisissez votre nom et pays");
+		m_champNom = new TextField(520,400,20,"Enter name here",20);
+		m_bouttonRetour = new BouttonSansFond(5,510,50,"Retour"){
+			@Override
+			public void action() throws IOException, FontFormatException {
+				Game.switchScene(3);
+			}
+		};
+		m_bouttonSuivant = new BouttonSansFond(800,510,50,"Suivant"){
+			@Override
+			public void action() throws IOException, FontFormatException {
+				int random = (int)(Math.round(Math.random()*AMPLEUR));
+				choixDrapeauOrdi = m_flagSelector.getFlag(random);
+				choixNomOrdi = m_flagSelector.getNameOfSelectedFlag();
+				Game.switchScene(5);
+			}
+		};
+	}
 
 	public void update(){
-		
+		if(!m_champNom.getText().equals("") && choixDrapeauJoueur != null){
+			if(!m_bouttonSuivant.isEnabled()){
+				m_bouttonSuivant.setEnabled(true);
+			}
+		}else{
+			m_bouttonSuivant.setEnabled(false);
+		}
 	}
 								
 	public void draw(Graphics g , JPanel p){
+		g.setColor(new Color(188, 209, 255));
+		g.fillRect(0,0,p.getWidth(),p.getHeight());
+		Menu.fond.draw(g,p);
+		m_titreMenu.draw(g, p);
+		m_flagSelector.draw(g, p);
+		m_bouttonRetour.draw(g, p);
+		m_bouttonSuivant.draw(g, p);
+		if(choixDrapeauJoueur != null){
+			g.drawImage(choixDrapeauJoueur,300,350,200,100,p);
+		}else{
+			g.setColor(Color.WHITE);
+			g.fillRect(300,350,200,100);
+		}
 
+		m_champNom.draw(g, p);
 	}
 	
 	public void startEvent(){
 		this.confirmer = false;
+		m_bouttonSuivant.setEnabled(false);
+		m_champNom.clearText();
+		m_flagSelector.deselect();
+		choixDrapeauJoueur = null;
 		//[AFFICHER MENU NOM ET DRAPEAU]
 	}
 
 	public void input(KeyEvent e,String typeOfInput){
-
+		m_champNom.checkKeys(e,typeOfInput);
 	}
 
 	public void mouseInput(MouseEvent e,String typeOfInput){
+		m_flagSelector.checkMouse(e,typeOfInput);
+		m_champNom.checkMouse(e, typeOfInput);
+		m_bouttonRetour.checkMouse(e, typeOfInput);
+		m_bouttonSuivant.checkMouse(e, typeOfInput);
 
+		if(typeOfInput.equals("mP")){
+			BufferedImage tmp = m_flagSelector.getSelectedFlag();
+			if(tmp != null){
+				choixDrapeauJoueur = tmp;
+			}
+		}
 	}
 
 	public void mouseWheelInput(MouseWheelEvent e){
@@ -58,123 +127,16 @@ public class DrapeauNom extends Scene {
 		//[ENLEVER MENU DIFFICULTE ORDI]
 
 		//Choix aléatoire du drapeau et du nom pour l'ORDI
-		int random = (int)(Math.round(Math.random()*AMPLEUR));
-		if(random == 0){
-			random++;
-		}
-		//getTexteDifficulte() ----> Scène 3 - DifficulteOrdi
-		switch(random){
-		case 1:
-			choixDrapeauOrdi = 1;
-			choixNomOrdi = "France"+getTexteDifficulte();
-			break;
 
-		case 2:
-			choixDrapeauOrdi = 2;
-			choixNomOrdi = "Allemagne"+getTexteDifficulte();
-			break;
-
-		case 3:
-			choixDrapeauOrdi = 3;
-			choixNomOrdi = "Espagne"+getTexteDifficulte();
-			break;
-
-		case 4:
-			choixDrapeauOrdi = 4;
-			choixNomOrdi = "Portugal"+getTexteDifficulte();
-			break;
-
-		case 5:
-			choixDrapeauOrdi = 5;
-			choixNomOrdi = "Italie"+getTexteDifficulte();
-			break;
-
-		case 6:
-			choixDrapeauOrdi = 6;
-			choixNomOrdi = "Royaume-Uni"+getTexteDifficulte();
-			break;
-
-		case 7:
-			choixDrapeauOrdi = 7;
-			choixNomOrdi = "Etats-Unis"+getTexteDifficulte();
-			break;
-
-		case 8:
-			choixDrapeauOrdi = 8;
-			choixNomOrdi = "Mexique"+getTexteDifficulte();
-			break;
-
-		case 9:
-			choixDrapeauOrdi = 9;
-			choixNomOrdi = "Canada"+getTexteDifficulte();
-			break;
-
-		case 10:
-			choixDrapeauOrdi = 10;
-			choixNomOrdi = "Brésil"+getTexteDifficulte();
-			break;
-
-		case 11:
-			choixDrapeauOrdi = 11;
-			choixNomOrdi = "Russie"+getTexteDifficulte();
-			break;
-
-		case 12:
-			choixDrapeauOrdi = 12;
-			choixNomOrdi = "Chine"+getTexteDifficulte();
-			break;
-
-		case 13:
-			choixDrapeauOrdi = 13;
-			choixNomOrdi = "Inde"+getTexteDifficulte();
-			break;
-
-		case 14:
-			choixDrapeauOrdi = 14;
-			choixNomOrdi = "Australie"+getTexteDifficulte();
-			break;
-
-		case 15:
-			choixDrapeauOrdi = 15;
-			choixNomOrdi = "IUT Info"+getTexteDifficulte();
-			break;
-
-		case 16:
-			choixDrapeauOrdi = 16;
-			choixNomOrdi = "RaptorRouge"+getTexteDifficulte();
-			break;
-
-		case 17:
-			choixDrapeauOrdi = 17;
-			choixNomOrdi = "Xanix"+getTexteDifficulte();
-			break;
-
-		case 18:
-			choixDrapeauOrdi = 18;
-			choixNomOrdi = "Dovabear"+getTexteDifficulte();
-			break;
-
-		case 19:
-			choixDrapeauOrdi = 19;
-			choixNomOrdi = "r2r0"+getTexteDifficulte();
-			break;
-
-		case 20:
-			choixDrapeauOrdi = 20;
-			choixNomOrdi = "Nijtus"+getTexteDifficulte();
-			break;
-		}
+		m_bouttonRetour.setEnabled(true);
 	}
 
-	private String getTexteDifficulte() {
-		return "boiiiiiii";
-	}
 
-	public static int getDrapeauJoueur(){ //Utilisée dans la classe Jouer
+	public static BufferedImage getDrapeauJoueur(){ //Utilisée dans la classe Jouer
 		return choixDrapeauJoueur;
 	}
 
-	public static int getDrapeauOrdi(){ //Utilisée dans la classe Jouer
+	public static BufferedImage getDrapeauOrdi(){ //Utilisée dans la classe Jouer
 		return choixDrapeauOrdi;
 	}
 

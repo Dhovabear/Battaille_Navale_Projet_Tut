@@ -22,15 +22,21 @@ public class BouttonSansFond extends Boutton{
         m_police = Font.createFont(Font.TRUETYPE_FONT,Game.class.getResourceAsStream("/polices/bitcrusher.ttf"));
         m_police = m_police.deriveFont((float)taille);
         m_zoomValue = taille;
+        m_isLocked = true;
     }
 
     @Override
     public void checkMouse(MouseEvent e,String evenType) {
+        if(!m_isLocked){
+            return;
+        }
         if(e.getX() < m_xPos || e.getY() < m_yPos || e.getX() > (m_xPos + m_width) || e.getY() > (m_yPos + m_height)){
             m_mousein = false;
             return;
         }
         m_mousein = true;
+
+        System.out.println("ui" + m_mousein + m_text);
 
         if(evenType == "mP"){
             try {
@@ -41,6 +47,7 @@ public class BouttonSansFond extends Boutton{
                 e1.printStackTrace();
             }
         }
+
 
 
     }
@@ -60,16 +67,33 @@ public class BouttonSansFond extends Boutton{
             g.drawLine(m_xPos+m_width,m_yPos,m_xPos+m_width,m_yPos+m_height);
         }
 
-        if(m_zoomValue <= m_height*1.3 && m_mousein){
-            m_zoomValue += 1;
-        }else if(m_zoomValue > m_height && !m_mousein){
-            m_zoomValue -= 1;
+
+        if(m_isLocked){
+
+            if(m_zoomValue <= m_height*1.3 && m_mousein){
+                System.out.println("ui" + m_text);
+                m_zoomValue += 1;
+            }else if(m_zoomValue > m_height && !m_mousein){
+                m_zoomValue -= 1;
+            }
+
+            g.setColor(Color.BLACK);
+        }else{
+            m_zoomValue = m_height;
+            g.setColor(Color.gray);
         }
+
         m_police = m_police.deriveFont(m_zoomValue);
 
-        g.setColor(Color.BLACK);
         g.setFont(m_police);
         g.drawString(m_text,m_xPos,(m_yPos+m_height));
+    }
+
+    @Override
+    public void setEnabled(boolean state){
+        m_zoomValue = m_height;
+        m_mousein = false;
+        m_isLocked = state;
     }
 
     @Override
