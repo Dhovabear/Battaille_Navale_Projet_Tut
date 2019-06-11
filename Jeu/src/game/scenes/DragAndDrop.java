@@ -3,6 +3,7 @@ package game.scenes;
 import game.Objects.DGBateau;
 import game.Objects.Grid;
 import game.engine.Scene;
+import game.engine.ui.BouttonImage;
 
 import javax.swing.*;
 import java.awt.*;
@@ -22,6 +23,7 @@ public class DragAndDrop extends Scene {
     private Grid grilleVisuJoueur; //Servira au joueur pour voir la grille initiale de l'ordi
     private Grid grilleOrdi; //Grille personnelle de l'ordi
     private Grid grilleVisuOrdi;
+    private BouttonImage m_nextButton;
 
     private Font bitcrusher;
 
@@ -31,6 +33,13 @@ public class DragAndDrop extends Scene {
         grilleVisuJoueur = new Grid(460,40,40,10,true);
         grilleOrdi = new Grid(0,0,40,10,false);
         grilleVisuOrdi  = new Grid(0,0,40,10,true);
+        m_nextButton = new BouttonImage(950,470,205,65,"/images/bouttonContinuer1.png","/images/bouttonContinuer0.png"){
+            @Override
+            public void action() throws IOException, FontFormatException {
+                
+            }
+        };
+
     }
 
     @Override
@@ -58,6 +67,24 @@ public class DragAndDrop extends Scene {
         for (DGBateau b: m_boatToPlace) {
             b.draw(g,p);
         }
+
+        m_nextButton.draw(g, p);
+
+        boolean bienMit = true;
+        System.out.println("prout");
+        for (DGBateau b:m_boatToPlace) {
+            System.out.println(b.estBienPlacer());
+            if(!b.estBienPlacer()){
+                bienMit = false;
+            }
+        }
+
+        if(bienMit){
+            System.out.println("biiient");
+            m_nextButton.setEnabled(false);
+        }else{
+            m_nextButton.setEnabled(true);
+        }
     }
 
     @Override
@@ -71,6 +98,7 @@ public class DragAndDrop extends Scene {
         m_boatToPlace.add(new DGBateau(820,200,2,grilleJoueur));
         m_boatToPlace.add(new DGBateau(880,200,3,grilleJoueur));
         m_boatToPlace.add(new DGBateau(940,200,4,grilleJoueur));
+        m_nextButton.setEnabled(true);
     }
 
     @Override
@@ -100,6 +128,7 @@ public class DragAndDrop extends Scene {
                 b.stopDrag();
             }
         }
+        m_nextButton.checkMouse(e, typeOfInput);
     }
 
     @Override
