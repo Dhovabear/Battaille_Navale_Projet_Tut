@@ -43,21 +43,25 @@ public class Son{
     }
 
     public void start(){
+
         try {
             c = AudioSystem.getClip();
             c.addLineListener( new LineListener() {
                 public void update(LineEvent evt) {
                     if (evt.getType() == LineEvent.Type.STOP) {
-                        evt.getLine().close();
+
+                        if(!isInLoop){
+                            evt.getLine().close();
+                            System.out.println("Closed !");
+                        }else{
+                            c.setMicrosecondPosition(0);
+                            c.start();
+                        }
                     }
                 }
             });
         } catch (LineUnavailableException e) {
             e.printStackTrace();
-        }
-
-        if(isInLoop){
-            c.loop(Clip.LOOP_CONTINUOUSLY);
         }
         try{
             Son moi = this;
@@ -81,9 +85,8 @@ public class Son{
     }
 
     public void stop(){
-        tmcd = 0;
-        c.setFramePosition(0);
-        c.close();
+        isInLoop = false;
+        c.setFramePosition(c.getFrameLength());
     }
 
     void reset() throws Exception{

@@ -10,7 +10,6 @@ import java.io.File;
 
 public class Bateau{
 
-    public static BufferedImage[] imgBateaux;
 	public int orientation;
 	private Coordonnees[] cases;
 	public int x;
@@ -35,7 +34,7 @@ public class Bateau{
 			case 4: this.taille = 5;break;
 		}
 		System.out.println("Taille: "+taille + "  Type: " + type);
-		img = imgBateaux[type];
+		img = SpriteIndex.imagesBateaux[type];
 		cases = new Coordonnees[taille];
 		placerBateau();
 	}
@@ -73,20 +72,6 @@ public class Bateau{
 				}
 				break;
 		}
-	}
-
-	public static void loadBoatImages(){
-		imgBateaux = new BufferedImage[5];
-		try{
-			imgBateaux[0] = ImageIO.read(Game.class.getResource("/images/batDeuxCase.png"));
-			imgBateaux[1] = ImageIO.read(Game.class.getResource("/images/batTroisCase.png"));
-			imgBateaux[2] = ImageIO.read(Game.class.getResource("/images/sousousmarin.png"));
-			imgBateaux[3] = ImageIO.read(Game.class.getResource("/images/batQuatreCase.png"));
-			imgBateaux[4] = ImageIO.read(Game.class.getResource("/images/batCinqCase.png"));
-		}catch(Exception e){
-			e.printStackTrace();
-		}
-
 	}
 
 	public void setTaille(int taille){
@@ -147,7 +132,7 @@ public class Bateau{
 				break;
 		}
 		g2.rotate(Math.toRadians(rt),((x*m_parent.getCellSize())+m_parent.getXPos())+(m_parent.getCellSize()/2),((y*m_parent.getCellSize())+m_parent.getYPos())+(m_parent.getCellSize()/2));
-		g.drawImage(imgBateaux[type],m_parent.getXPos()+(x*m_parent.getCellSize()),m_parent.getYPos()+(y*m_parent.getCellSize()),m_parent.getCellSize(),m_parent.getCellSize()*taille,p);
+		g.drawImage(SpriteIndex.imagesBateaux[type],m_parent.getXPos()+(x*m_parent.getCellSize()),m_parent.getYPos()+(y*m_parent.getCellSize()),m_parent.getCellSize(),m_parent.getCellSize()*taille,p);
 		g2.rotate(Math.toRadians(-rt),((x*m_parent.getCellSize())+m_parent.getXPos())+(m_parent.getCellSize()/2),((y*m_parent.getCellSize())+m_parent.getYPos())+(m_parent.getCellSize()/2));
 
 	}

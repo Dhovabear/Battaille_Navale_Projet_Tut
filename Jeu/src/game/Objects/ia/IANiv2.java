@@ -1,3 +1,9 @@
+/*
+package game.Objects.ia;
+
+import game.Objects.Coordonnees;
+import game.scenes.Jouer;
+
 public class IANiv2 extends IANiv1 {
     protected int mode = 0;
     protected Coordonnees[] listeOrientation;
@@ -5,7 +11,7 @@ public class IANiv2 extends IANiv1 {
     protected int tourneI;
 
 
-    public IANiv2(Jouer j,int m){
+    public IANiv2(Jouer j, int m){
         super(j,m);
         this.tourneI = 0;
         this.tourne = 0;
@@ -106,3 +112,4 @@ public class IANiv2 extends IANiv1 {
 
 
 }
+*/

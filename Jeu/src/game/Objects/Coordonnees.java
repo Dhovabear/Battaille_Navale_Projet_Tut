@@ -10,6 +10,11 @@ public class Coordonnees{
 		this.touche = false;
 	}
 
+	public Coordonnees(int x,int y){
+		this();
+		setXY(x,y);
+	}
+
 	public void setXY(int x,int y){
 		this.x = x;
 		this.y = y;

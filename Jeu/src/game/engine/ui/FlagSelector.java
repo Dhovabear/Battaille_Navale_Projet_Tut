@@ -1,6 +1,7 @@
 package game.engine.ui;
 
 import game.Objects.SoundLibrary;
+import game.Objects.SpriteIndex;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -9,6 +10,7 @@ import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Random;
 
 public class FlagSelector {
@@ -28,10 +30,7 @@ public class FlagSelector {
     private String[] m_flagsName = {"Inde","Russie","Allemagne","Italie","Belgique","France","Angleterre","Etats-Unis","Canada","Chine","IUT-Info","Dovabear","Japon","Brésil","Portugal","Espagne","Xanix","r2r0","RaptorRouge","Nijtus"};
 
     public FlagSelector(int x , int y , int flagSize) throws IOException {
-        m_flags = new ArrayList<BufferedImage>();
-        for(int i = 0; i < m_nbrOfFlags ; i++){
-            m_flags.add(ImageIO.read(getClass().getResourceAsStream("/images/drapeaux/drapeau_"+i+".png")));
-        }
+        m_flags = new ArrayList<BufferedImage>(Arrays.asList(SpriteIndex.imagesFlags));
 
         this.m_posx = x;
         this.m_posy = y;

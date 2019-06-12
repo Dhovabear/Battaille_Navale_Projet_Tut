@@ -1,6 +1,7 @@
 package game.scenes;
 
 import game.Objects.SoundLibrary;
+import game.Objects.SpriteIndex;
 import game.engine.Game;
 import game.engine.Scene;
 import game.engine.ui.BouttonSansFond;
@@ -54,16 +55,15 @@ public class DrapeauNom extends Scene {
 				Game.switchScene(3);
 			}
 		};
-		m_bouttonSuivant = new BouttonSansFond(800,510,50,"Suivant"){
+		m_bouttonSuivant = new BouttonSansFond(1060,510,50,"Suivant"){
 			@Override
 			public void action() throws IOException, FontFormatException {
 				int random = (int)(Math.round(Math.random()*AMPLEUR));
 				choixDrapeauOrdi = m_flagSelector.getFlag(random);
 				choixNomOrdi = m_flagSelector.getNameOfFlag(random) + DifficulteOrdi.getTexteDifficulte();
 				choixNomJoueur = m_champNom.getText();
-				Game.switchScene(5);
-				SoundLibrary.musicMenu.pause();
-				SoundLibrary.musicMenu.resume();
+				Game.switchScene(7);
+				SoundLibrary.musicMenu.stop();
 			}
 		};
 	}
@@ -86,6 +86,7 @@ public class DrapeauNom extends Scene {
 		g.fillRect(0,0,p.getWidth(),p.getHeight());
 		Menu.fond.draw(g,p);
 		m_titreMenu.draw(g, p);
+		g.drawImage(SpriteIndex.woodPancart,230,320,660,312,p);
 		m_flagSelector.draw(g, p);
 		m_bouttonRetour.draw(g, p);
 		m_bouttonSuivant.draw(g, p);

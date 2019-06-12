@@ -93,6 +93,7 @@ public class Menu extends Scene {
         bouttonAide.setEnabled(false);
         astuce.reRollText();
         SoundLibrary.musicMenu.start();
+        //SoundLibrary.playJingleDebutPartie();
     }
 
     @Override

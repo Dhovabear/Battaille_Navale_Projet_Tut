@@ -1,3 +1,8 @@
+package game.Objects.ia;
+
+import game.Objects.Coordonnees;
+import game.scenes.Jouer;
+
 import java.util.ArrayList;
 import java.io.*;
 
@@ -63,7 +68,7 @@ public class IANiv1 {
                 }
             }
 
-        }while (grilleAdverse[i][j]!=0 || !ctrl.autorisationTirOrdi(p,k)|| depassementGrille(i,j));
+        }while (grilleAdverse[i][j]!=0 || !ctrl.autorisationTirOrdi(p)|| depassementGrille(i,j));
 
         grilleAdverse[i][j]=1;
         derTouche.setXY(i,j);

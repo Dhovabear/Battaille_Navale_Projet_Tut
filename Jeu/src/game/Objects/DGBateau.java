@@ -43,7 +43,7 @@ public class DGBateau {
 	public DGBateau(int x , int y , int bateauToSpawn , Grid parent){
 		this.x = x;
 		this.y = y;
-		img = Bateau.imgBateaux[bateauToSpawn];
+		img = SpriteIndex.imagesBateaux[bateauToSpawn];
 		this.m_type = bateauToSpawn;
 		this.parent = parent;
 

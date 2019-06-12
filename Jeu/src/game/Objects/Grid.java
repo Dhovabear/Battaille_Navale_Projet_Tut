@@ -2,10 +2,8 @@ package game.Objects;
 
 import game.engine.Game;
 import game.scenes.JoueurVsOrdi;
-import game.scenes.PoliceIndex;
 
 import javax.swing.*;
-import javax.imageio.*;
 import java.awt.event.*;
 import java.awt.Color;
 import java.awt.Graphics;
@@ -14,7 +12,6 @@ import java.util.List;
 import java.util.ArrayList;
 import java.awt.image.*;
 import java.io.*;
-import javax.sound.sampled.*;
 import java.lang.Math;
 import java.util.Scanner;
 
@@ -29,10 +26,6 @@ public class Grid{
 	private int[][] grille;
 	private int[][] gizmoGrid;
 
-	private static BufferedImage baseEau;
-	private static BufferedImage baseIle;
-	private static BufferedImage radarEau;
-	private static BufferedImage radarIle;
 
 	private BufferedImage baseTile;
 	private BufferedImage ileTile;
@@ -46,13 +39,7 @@ public class Grid{
 	private List<Bateau> bateaux = new ArrayList<Bateau>();
 	private boolean m_mouseIn;
 
-	public static void loadTiles() throws IOException {
-		baseEau = ImageIO.read(Grid.class.getResourceAsStream("/images/Tiles/tileEau.png"));
-		baseIle = ImageIO.read(Grid.class.getResourceAsStream("/images/Tiles/tileSable.png"));
-		radarEau = ImageIO.read(Grid.class.getResourceAsStream("/images/Tiles/sprite_1.png"));
-		radarIle = ImageIO.read(Grid.class.getResourceAsStream("/images/Tiles/sprite_0.png"));
-
-	}
+	private AnimatedSprite water;
 
 	public Grid(int x , int y , int cSize , int nbOC,boolean isVisu){
 		m_xPos = x;
@@ -63,12 +50,13 @@ public class Grid{
 		grille = new int[m_nbOfCell][m_nbOfCell];
 		gizmoGrid = new int[m_nbOfCell][m_nbOfCell];
 
+		water = new AnimatedSprite(0,0,cSize,cSize,5,SpriteIndex.waterTiles);
+
 		if(!isVisu){
-			baseTile = baseEau;
-			ileTile = baseIle;
+			ileTile = SpriteIndex.normalIleTile;
 		}else{
-			baseTile = radarEau;
-			ileTile = radarIle;
+			baseTile = SpriteIndex.radarWaterTile;
+			ileTile = SpriteIndex.radarIleTile;
 		}
 
 	}
@@ -81,7 +69,13 @@ public class Grid{
 				if(getCellInfo(j,i) == 3){
 					g.drawImage(ileTile,m_xPos+(j*getCellSize()),m_yPos+(i*getCellSize()),getCellSize(),getCellSize(),p);
 				}else{
-					g.drawImage(baseTile,m_xPos+(j*getCellSize()),m_yPos+(i*getCellSize()),getCellSize(),getCellSize(),p);
+					if(!m_isVisu){
+						water.drawAt(m_xPos+(j*getCellSize()),m_yPos+(i*getCellSize()),getCellSize(),getCellSize(),g,p);
+					}else{
+						g.drawImage(baseTile,m_xPos+(j*getCellSize()),m_yPos+(i*getCellSize()),getCellSize(),getCellSize(),p);
+					}
+
+
 				}
 				if(getCellInfo(j,i) == 1 && Game.debugModeEnabled){
 					g.setColor(Color.RED);
@@ -121,6 +115,7 @@ public class Grid{
 		for (Bateau b: bateaux) {
 			b.draw(g, p);
 		}
+		water.updateTime();
 	}
 
 	public int getCellInfo(int x,int y){
@@ -274,6 +269,11 @@ public class Grid{
 						break;
 
 					case 5:
+						g.setColor(Color.WHITE);
+						g.fillOval((x*m_cellSize)+m_xPos , (y*m_cellSize)+m_yPos , m_cellSize , m_cellSize );
+						break;
+
+					case 6:
 						g.setColor(Color.RED);
 						g.fillOval((x*m_cellSize)+m_xPos , (y*m_cellSize)+m_yPos , m_cellSize , m_cellSize );
 						break;
@@ -384,6 +384,10 @@ public class Grid{
 			}
 		}
 		return null;
+	}
+
+	public int getGizmoInfo(int x, int y) {
+		return gizmoGrid[x][y];
 	}
 
 }

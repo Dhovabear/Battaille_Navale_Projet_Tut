@@ -1,9 +1,7 @@
 package game.scenes;
 
-import game.Objects.Bateau;
-import game.Objects.Coordonnees;
-import game.Objects.DGBateau;
-import game.Objects.Grid;
+import game.Objects.*;
+import game.Objects.ia.IA;
 import game.engine.Game;
 import game.engine.Scene;
 
@@ -40,8 +38,8 @@ import java.io.*; //Note 2
 public class Jouer extends Scene {
 
 	//On recueille toutes les variables dont on a besoin
-	private int mode = JoueurVsOrdi.getSelectionMode(); //Scène 2 - JoueurVsOrdi
-	private int difficulte = DifficulteOrdi.getDifficulteOrdi(); //Scène 3 - DifficulteOrdi
+	private int mode; //Scène 2 - JoueurVsOrdi
+	private int difficulte; //Scène 3 - DifficulteOrdi
 	private BufferedImage drapeauJ; //Scène 4 - DrapeauNom
 	private BufferedImage drapeauO; //Scène 4 - DrapeauNom
 	private String nomJ = DrapeauNom.getNomJoueur(); //Scène 4 - DrapeauNom
@@ -98,12 +96,17 @@ public class Jouer extends Scene {
 	private int m_timeintroDrag = 0;
 	private ArrayList<DGBateau> m_boatToPlace;
 
+	private AnimatedSprite test;
+
 	private Font bitcrusher;
 
 	private boolean waitForTir;
 
+	private IA ordi;
+
 	public Jouer() throws IOException, FontFormatException {
 		bitcrusher = Font.createFont(Font.TRUETYPE_FONT,getClass().getResourceAsStream("/polices/bitcrusher.ttf"));
+		test = new AnimatedSprite(0,0,100,100,30,new String[]{"/images/moutons/mAlert_0.png", "/images/moutons/mAlert_1.png", "/images/moutons/mAlert_2.png"});
 	}
 
 	public void update() throws IOException, FontFormatException {
@@ -117,7 +120,7 @@ public class Jouer extends Scene {
 			else{
 				this.victoire = false;
 			}
-			Game.switchScene(6);
+			Game.switchScene(0);
 		}
 
 
@@ -143,6 +146,24 @@ public class Jouer extends Scene {
 		if(this.isJoueur==true){
 			this.isJoueur = false;
 			System.out.println("Tour Ordi !");
+			Thread t = new Thread(){
+				@Override
+				public void run() {
+					try {
+						sleep(1000);
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
+					ordi.jouerIA();
+					try {
+						sleep(1000);
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
+					finTour();
+				}
+			};
+			t.start();
 		}
 		else{
 			this.isJoueur = true;
@@ -156,14 +177,18 @@ public class Jouer extends Scene {
 		g.fillRect(0,0,p.getWidth(),p.getHeight());
 
 		grilleJoueur.draw(g, p);
+		grilleJoueur.drawGizmos(g);
 		grilleVisuJoueur.draw(g, p);
+		grilleVisuJoueur.drawGizmos(g);
 
 		g.drawImage(drapeauJ,60,450,150,75,p);
 		g.drawImage(drapeauO, p.getWidth()-((grilleVisuOrdi.getCellSize()*10)+50),450,150,75,p);
 		g.setFont(PoliceIndex.autoradio.deriveFont(20f));
+		g.setColor(Color.BLACK);
 		g.drawString(nomJ,220,500);
 		g.drawString(nomO,p.getWidth()-((grilleVisuOrdi.getCellSize()*10)-120),500);
 
+		//test.draw(g, p);
 		if(waitForTir){
 			if(grilleVisuJoueur.isMouseIn()){
 				this.x = grilleVisuJoueur.getCursorXInGrid();
@@ -177,6 +202,8 @@ public class Jouer extends Scene {
 			}
 			return;
 		}
+
+
 
 	}
 	
@@ -205,9 +232,22 @@ public class Jouer extends Scene {
 
 		waitForTir = true;
 		//On définit les différentes tailles de chaque bateau
+		mode= JoueurVsOrdi.getSelectionMode();
+		difficulte = DifficulteOrdi.getDifficulteOrdi();
 
 		//[AFFICHER JOUER]
 		//placerBateau();
+		System.out.println(difficulte);
+		System.out.println(mode);
+		ordi = new IA(difficulte,mode,this);
+		ordi.placement();
+
+		//TESTTTTT
+		/*grilleOrdi.addBateau(0,0,0,0);
+		grilleOrdi.addBateau(1,0,0,1);
+		grilleOrdi.addBateau(2,0,0,2);
+		grilleOrdi.addBateau(3,0,0,3);
+		grilleOrdi.addBateau(4,0,0,4);*/
 
 	}
 
@@ -218,9 +258,10 @@ public class Jouer extends Scene {
 	public void mouseInput(MouseEvent e,String typeOfInput){
 		grilleVisuJoueur.checkMouse(e, typeOfInput);
 
-		if(waitForTir){
-			if(typeOfInput.equals("mP")){
-
+		if(waitForTir && isJoueur){
+			if(typeOfInput.equals("mP") && grilleVisuJoueur.isMouseIn()){
+				tir();
+				finTour();
 			}
 			return;
 		}
@@ -243,107 +284,6 @@ public class Jouer extends Scene {
 			}
 		}
 	}
-
-
-
-	/*public void selectionPlacerBateau(){
-		int compteur = 0;
-		//Le joueur place ses bateaux
-		if(this.isJoueur == true){
-			while(compteur<5){ //5 car il y a 5 bateaux à placer
-				//On lit dans cette boucle , les variables x, y, tailleBateau, sensBateau et typeBateau (se référer aux légendes de sensBateau et typeBateau)
-				do{ 
-					//[LIRE X,Y,TAILLEBATEAU,SENSBATEAU ET TYPEBATEAU [GRILLEJOUEUR/GRILLEORDI]]
-					//Si le joueur place son bateau à un endroit interdit, on lui affiche un message d'erreur
-				//On place le bateau selectionné
-				placerBateau(); 
-				compteur++;
-			}
-		}
-		//L'ordi place ses bateaux
-		else{
-			while(compteur<5){
-				
-				//[Appel d'IA à implémenter içi]
-
-				placerBateau();
-				compteur++;
-			}
-		}
-	}*/
-
-	/*public boolean autorisationPlacementJoueur(){
-		int taille = 1;
-		//Si l'endroit selectionné est invalide, on revoit false, il est inutile de vérifier le reste
-		if(this.grilleJoueur.getCellInfo(this.x,this.y) == 0){
-			switch(this.sensBateau){
-				case 1: //Sens - Haut
-					//On vérifie si le bateau ne dépasse pas de la grille
-					if((this.y-this.tailleBateau)>-1){
-						//On vérifie que toutes les cases du bateau sont dans de l'eau
-						while(taille<this.tailleBateau){
-							if((this.grilleJoueur[this.x][this.y-taille])!=0){
-								return false;
-							}
-							taille++;
-						}
-					}
-					else{
-						return false;
-					}
-					break;
-				case 2: //Sens - Gauche
-					//On vérifie si le bateau ne dépasse pas de la grille
-					if((this.x-this.tailleBateau)>-1){
-						//On vérifie que toutes les cases du bateau sont dans de l'eau
-						while(taille<this.tailleBateau){
-							if((this.grilleJoueur[this.x-taille][this.y])!=0){
-								return false;
-							}
-							taille++;
-						}
-					}
-					else{
-						return false;
-					}
-					break;
-				case 3: //Sens - Bas
-					//On vérifie si le bateau ne dépasse pas de la grille
-					if((this.y+this.tailleBateau)>9){
-						//On vérifie que toutes les cases du bateau sont dans de l'eau
-						while(taille<this.tailleBateau){
-							if((this.grilleJoueur[this.x][this.y+taille])!=0){
-								return false;
-							}
-							taille++;
-						}
-					}
-					else{
-						return false;
-					}
-					break;
-				case 4: //Sens - Droite
-					//On vérifie si le bateau ne dépasse pas de la grille
-					if((this.x+this.tailleBateau)>9){
-						//On vérifie que toutes les cases du bateau sont dans de l'eau
-						while(taille<this.tailleBateau){
-							if((this.grilleJoueur[this.x+taille][this.y])!=0){
-								return false;
-							}
-							taille++;
-						}
-					}
-					else{
-						return false;
-					}
-					break;
-				}
-			}
-		else{
-			return false;
-		}
-		return true; //Si toutes les vérifications ont été validées, le placement est accepté
-	}*/
 
 	public boolean autorisationPlacementOrdi(Coordonnees c, int t, int s){
 		int taille = 1;
@@ -430,49 +370,6 @@ public class Jouer extends Scene {
 		return true; //Utilisé par l'IA
 	}
 
-	//L'objet Bateau est utilisé içi
-	/**/
-
-	/*public void selectionTir(){
-		//Le joueur selectionne la case de sa grille de visu 
-		if(this.isJoueur==true){
-			//Le joueur lit les variable x et y pour la case selectionnée, on lit aussi typeBateau pour le tir spécial voulu (Mode bateaux tireurs uniquement)
-			do{ 
-				//[LIRE X,Y (ET TYPEBATEAU(Mode bateau tireurs uniquement)) GRILLEVISUORDI/GRILLEVISUJOUEUR]
-				//Si le joueur veut tirer à un endroit interdi
-				if(autorisationTirJoueur()==false){
-					//[AFFICHER ERREUR TIR]
-				}
-			}while(autorisationTirJoueur()==false);
-			if(this.mode==3){
-				typeTir();
-				if(this.typeBateau==2){
-					if(this.sonar==true){
-						//[AFFICHER "Il y a un ou plusieurs bateaux dans cette zone"]
-					}
-					else{
-						//[AFFICHER "Le radar n'a rien trouvé dans cette zone"]
-					}
-				}
-			}
-			else{
-				tir();
-			}
-		}
-		else{
-			
-			//[Appel d'IA à implémenter içi]
-			
-			if(this.mode==3){
-				typeTir();
-			}
-			else{
-				tir();
-			}
-		}
-	}*/
-
-
 	public boolean autorisationTirJoueur(){
 		//Grâce à cette condition, le joueur ne peut pas tirer à un endroit où il a déjà tiré, ainsi que sur des îles (Mode île uniqueme;
 		//Grâce à cette condition, les joueur ne peut pas tirer 2 fois de suite avec le même bateau, et il ne peut pas tirer si ce même bateau à été coulé
@@ -482,7 +379,6 @@ public class Jouer extends Scene {
 		//System.out.println("pjopjiosfepji");
 		return true;
 	}
-
 
 	public boolean autorisationTirOrdi(Coordonnees c){
 		//Les variables passées par l'IA sont définies içi
@@ -611,11 +507,11 @@ public class Jouer extends Scene {
 			//Si le tir ne sort pas de la grille (Vérification pour le Mode bateaux tireurs)
 			if((this.x>-1 && this.x<10) && (this.y>-1 && this.y<10)){
 				//Si le tir touche une case bateau adverse
-				if(focusedGrid.getCellInfo(this.x,this.y)==1){
+				if(focusedGrid.getCellInfo(this.x,this.y)==1 && (focusedGrid.getGizmoInfo(this.x,this.y) != 6 || focusedGrid.getGizmoInfo(this.x,this.y) != 4 )){
 					//On indique sur la grille de l'ordi qu'une de ses cases bateau à été touchée
-					focusedGrid.setCellInfo(this.x,this.y,2);
+					focusedGrid.setGizmo(this.x,this.y,2);
 					//On indique sur la grille de visu du joueur que le tir à touché
-					grilleVisu.setCellInfo(this.x,this.y,4);
+					grilleVisu.setGizmo(this.x,this.y,6);
 					//La vie de l'Ordi baisse
 					if(isJoueur){
 						this.vieOrdi--;
@@ -631,8 +527,8 @@ public class Jouer extends Scene {
 
 					//BOUCLE POUR METTRE LES PIONS SUR SI CA A COULER
 				}
-				else if(focusedGrid.getCellInfo(this.x,this.y) != 0){
-					grilleVisu.setCellInfo(this.x,this.y,5);
+				else /*if(focusedGrid.getCellInfo(this.x,this.y) != 0)*/{
+					grilleVisu.setGizmo(this.x,this.y,5);
 					this.precision--;
 				}
 			}
@@ -682,5 +578,9 @@ public class Jouer extends Scene {
 	//Utilisé dans la scène WinLoseScore
 	public int getScore(){
 		return this.score;
+	}
+
+	public Bateau getBateauxJoueur(int i) {
+		return grilleJoueur.getBateau(i);
 	}
 }

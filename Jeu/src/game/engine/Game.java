@@ -1,8 +1,6 @@
 package game.engine;
 
-import game.Objects.Bateau;
-import game.Objects.Grid;
-import game.Objects.SoundLibrary;
+import game.Objects.*;
 import game.scenes.*;
 import game.scenes.Menu;
 
@@ -173,17 +171,17 @@ public class Game {
      * @throws IOException
      */
     public static void loadScenes() throws IOException, FontFormatException, UnsupportedAudioFileException { //Fonction qui load les scenes (wow explicite/20)
-        Bateau.loadBoatImages();
-        Grid.loadTiles();
         SoundLibrary.loadSounds();
         PoliceIndex.loadFonts();
-        sceneIndex = new Scene[7];//On initialise la liste avec le nombre de scenes que l'on a
+        SpriteIndex.loadImages();
+        sceneIndex = new Scene[8];//On initialise la liste avec le nombre de scenes que l'on a
         sceneIndex[0] = new Menu();
         sceneIndex[2] = new JoueurVsOrdi();
         sceneIndex[3] = new DifficulteOrdi();
         sceneIndex[4] = new DrapeauNom();
         sceneIndex[5] = new DragAndDrop();
         sceneIndex[6] = new Jouer();
+        sceneIndex[7] = new VSshow();
         currentscene = 0;//On initialise l'id de la scene actuelle
     }
 
