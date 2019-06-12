@@ -1,5 +1,7 @@
 package game.engine.ui;
 
+import game.Objects.SoundLibrary;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;
@@ -13,11 +15,11 @@ public abstract class Boutton {
     protected int m_height;
     protected String m_text;
     protected Font m_police;
-    protected boolean m_isLocked;
+    protected boolean m_isEnabled;
     protected boolean m_mousein;
 
     public void checkMouse(MouseEvent e ,String eventType){
-        if(!m_isLocked){
+        if(!m_isEnabled){
             return;
         }
         if(e.getX() < m_xPos || e.getY() < m_yPos || e.getX() > (m_xPos + m_width) || e.getY() > (m_yPos + m_height)){
@@ -28,6 +30,7 @@ public abstract class Boutton {
 
         if(eventType == "mP"){
             try {
+                SoundLibrary.playClickSound();
                 action();
             } catch (IOException e1) {
                 e1.printStackTrace();
@@ -49,11 +52,11 @@ public abstract class Boutton {
     }
 
     public boolean isEnabled(){
-        return m_isLocked;
+        return m_isEnabled;
     }
 
     public void setEnabled(boolean state){
-        m_isLocked = state;
+        m_isEnabled = state;
     }
 
 }

@@ -1,5 +1,6 @@
 package game.scenes;
 
+import game.Objects.SoundLibrary;
 import game.engine.Game;
 import game.engine.GenerateurDeParticules;
 import game.engine.Scene;
@@ -91,6 +92,7 @@ public class Menu extends Scene {
         bouttonCredits.setEnabled(false);
         bouttonAide.setEnabled(false);
         astuce.reRollText();
+        SoundLibrary.musicMenu.start();
     }
 
     @Override
@@ -114,6 +116,5 @@ public class Menu extends Scene {
 
     @Override
     public void exitEvent() {
-
     }
 }

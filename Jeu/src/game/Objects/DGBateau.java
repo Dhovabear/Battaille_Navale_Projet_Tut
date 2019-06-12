@@ -37,11 +37,14 @@ public class DGBateau {
 
 	private boolean  m_estBienPlacer;
 
+	private int m_type;
+
 
 	public DGBateau(int x , int y , int bateauToSpawn , Grid parent){
 		this.x = x;
 		this.y = y;
 		img = Bateau.imgBateaux[bateauToSpawn];
+		this.m_type = bateauToSpawn;
 		this.parent = parent;
 
 		if(bateauToSpawn == 1 || bateauToSpawn == 2){
@@ -312,5 +315,25 @@ public class DGBateau {
 
 	public boolean estBienPlacer() {
 		return m_estBienPlacer;
+	}
+
+	public int getgridX() {
+		return (int)Math.floor(((x+(w/2))-parent.getXPos())/parent.getCellSize());
+	}
+
+	public int getgridY(){
+		return (int)Math.floor(((y+(w/2))-parent.getYPos())/parent.getCellSize());
+	}
+
+	public int getRotation() {
+		return rotation;
+	}
+
+	public int getTaille() {
+		return taille;
+	}
+
+	public int getType() {
+		return m_type;
 	}
 }
