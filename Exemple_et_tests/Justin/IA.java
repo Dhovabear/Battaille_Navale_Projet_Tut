@@ -35,6 +35,10 @@ public class IA {
         ia.retour();
     }
 
+    public void placement(){
+      ia.placement();
+    }
+
     public void fin(){
         ia.fin();
     }
