@@ -74,7 +74,7 @@ public class IANiv3 extends IANiv1 {
                     mode = 0;
                 }
             }
-        }while(!ctrl.autorisationTirOrdi(p) || depassementGrille(derTouche.getX(),derTouche.getY()));
+        }while(grilleAdverse[derTouche.getX()][derTouche.getY()]!=0 || !ctrl.autorisationTirOrdi(p) || depassementGrille(derTouche.getX(),derTouche.getY()));
         grilleAdverse[a][b]=1;
     }
 

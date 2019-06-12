@@ -34,37 +34,47 @@ public class IANiv2 extends IANiv1 {
             } else {
                 derTouche = derTouche.add(listeOrientation[stable(tourne + tourneI)]);
                 p = derTouche;
-                if(depassementGrille(derTouche.getX(),derTouche.getY())){
-                    mode=0;
-                }
-            }
-        }while(grilleAdverse[i][j]!=0 || !ctrl.autorisationTirOrdi(p) || depassementGrille(derTouche.getX(),derTouche.getY()));
-        grilleAdverse[i][j]=1;
-    }
 
-    /*public void jouerSpe(){
-        Coordonnees p;
-        int i=0;
-        int j=0;
-        do {
-            p = new Coordonnees();
-            if (this.mode == 0) {
-                i = (int) (Math.random() * 10);
-                j = (int) (Math.random() * 10);
-                derTouche.setXY(i, j);
-            } else if (this.mode == 1) {
-                tourneI++;
-                p = derTouche.add(listeOrientation[tourne + tourneI]);
-            } else {
-                derTouche = derTouche.add(listeOrientation[tourne + tourneI]);
-                p = derTouche;
-                if(depassementGrille(i,j)){
-                    mode=0;
-                }
+            }
+            if(depassementGrille(derTouche.getX(),derTouche.getY()) || grilleAdverse[i][j]!=0){
+                mode=0;
             }
         }while(grilleAdverse[i][j]!=0 || !ctrl.autorisationTirOrdi(p) || depassementGrille(i,j));
         grilleAdverse[i][j]=1;
-    } */
+    }
+
+    public void jouerSpe(){
+        Coordonnees p;
+        int i=0;
+        int j=0;
+        k =4;
+        p = new Coordonnees();
+        do {
+            if(k == 4) {
+                p = new Coordonnees();
+                if (this.mode == 0) {
+                    i = (int) (Math.random() * 10);
+                    j = (int) (Math.random() * 10);
+                    derTouche.setXY(i, j);
+                } else if (this.mode == 1) {
+                    tourneI++;
+                    p = derTouche.add(listeOrientation[tourne + tourneI]);
+                } else {
+                    derTouche = derTouche.add(listeOrientation[tourne + tourneI]);
+                    p = derTouche;
+                    if (depassementGrille(i, j)) {
+                        mode = 0;
+                    }
+                }
+            }else{
+                k++;
+                if(k==3){
+                    k++;
+                }
+            }
+        }while(grilleAdverse[i][j]!=0 || !ctrl.autorisationTirOrdi(p,k) || depassementGrille(i,j));
+        grilleAdverse[i][j]=1;
+    }
 
     public void retour(){
         int r =0;

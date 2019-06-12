@@ -7,6 +7,7 @@ public class IANiv1 {
     protected Coordonnees derTouche;
     protected Jouer ctrl;
     protected int mode;
+    protected int k ;
     //protected int dernierUsage;
 
     public IANiv1(Jouer j,int m){
@@ -44,12 +45,25 @@ public class IANiv1 {
     public void jouerSpe(){
         int i;
         int j;
+        k = 4;
         Coordonnees p;
+        i = (int) (Math.random() * 10);
+        j = (int) (Math.random() * 10);
+        p = new Coordonnees(i,j);
         do {
-            i = (int) (Math.random() * 10);
-            j = (int) (Math.random() * 10);
-            p = new Coordonnees(i,j);
-        }while (grilleAdverse[i][j]!=0 || !ctrl.autorisationTirOrdi(p)|| depassementGrille(i,j));
+            if(k == 4){
+                i = (int) (Math.random() * 10);
+                j = (int) (Math.random() * 10);
+                p = new Coordonnees(i,j);
+                k = 0;
+            }else{
+                k++;
+                if(k==3){
+                    k++;
+                }
+            }
+
+        }while (grilleAdverse[i][j]!=0 || !ctrl.autorisationTirOrdi(p,k)|| depassementGrille(i,j));
 
         grilleAdverse[i][j]=1;
         derTouche.setXY(i,j);
@@ -103,17 +117,26 @@ public class IANiv1 {
         do {
             int i = (int) (Math.random() * 10);
             int j = (int) (Math.random() * 10);
+            int k = 0;
             int o = 0;
-            if (i < 5 && j < 5) {
-                o = (int) ((Math.random() * 2) + 1);
-            } else if (i > 5 && j < 5) {
-                o = (int) ((Math.random() * 2));
-            } else if (i < 5 && j > 5) {
-                o = (int) ((Math.random() * 2) + 2);
-            } else {
-                o = (int) ((Math.random() * 2) + 3);
-                if (o == 4) {
-                    o = 0;
+            if (mode != 2) {
+                if (i < 5 && j < 5) {
+                    o = (int) ((Math.random() * 2) + 1);
+                } else if (i > 5 && j < 5) {
+                    o = (int) ((Math.random() * 2));
+                } else if (i < 5 && j > 5) {
+                    o = (int) ((Math.random() * 2) + 2);
+                } else {
+                    o = (int) ((Math.random() * 2) + 3);
+                    if (o == 4) {
+                        o = 0;
+                    }
+                }
+            }else{
+                o= o+k;
+                k++;
+                if(k==4){
+                    k=0;
                 }
             }
             if (ctrl.autorisationPlacementOrdi(new Coordonnees(i,j),compteur , o)) {
