@@ -14,8 +14,28 @@ public abstract class Boutton {
     protected String m_text;
     protected Font m_police;
     protected boolean m_isLocked;
+    protected boolean m_mousein;
 
-    public abstract void checkMouse(MouseEvent e ,String eventType);
+    public void checkMouse(MouseEvent e ,String eventType){
+        if(!m_isLocked){
+            return;
+        }
+        if(e.getX() < m_xPos || e.getY() < m_yPos || e.getX() > (m_xPos + m_width) || e.getY() > (m_yPos + m_height)){
+            m_mousein = false;
+            return;
+        }
+        m_mousein = true;
+
+        if(eventType == "mP"){
+            try {
+                action();
+            } catch (IOException e1) {
+                e1.printStackTrace();
+            } catch (FontFormatException e1) {
+                e1.printStackTrace();
+            }
+        }
+    }
     public abstract void update();
     public abstract void draw(Graphics g, JPanel p);
     public abstract void action() throws IOException, FontFormatException;

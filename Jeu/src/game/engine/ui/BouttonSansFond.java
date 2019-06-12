@@ -10,7 +10,6 @@ import java.io.IOException;
 public class BouttonSansFond extends Boutton{
 
     private float m_zoomValue;
-    private boolean m_mousein;
 
     public BouttonSansFond(int x , int y , int taille , String text) throws IOException, FontFormatException {
         m_xPos =x;
@@ -25,30 +24,6 @@ public class BouttonSansFond extends Boutton{
         m_isLocked = true;
     }
 
-    @Override
-    public void checkMouse(MouseEvent e,String evenType) {
-        if(!m_isLocked){
-            return;
-        }
-        if(e.getX() < m_xPos || e.getY() < m_yPos || e.getX() > (m_xPos + m_width) || e.getY() > (m_yPos + m_height)){
-            m_mousein = false;
-            return;
-        }
-        m_mousein = true;
-
-        if(evenType == "mP"){
-            try {
-                action();
-            } catch (IOException e1) {
-                e1.printStackTrace();
-            } catch (FontFormatException e1) {
-                e1.printStackTrace();
-            }
-        }
-
-
-
-    }
 
     @Override
     public void update() {

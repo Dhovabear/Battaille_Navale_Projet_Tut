@@ -50,10 +50,10 @@ public class Jouer extends Scene {
 	//Variables servant pour le système de base de la bataille navale
 	private int x; //Axe des abscisses
 	private int y; //Axe des ordonnées
-	private Grid grilleJoueur =  new Grid(60,40,50,10,false); //Grille personnelle du joueur
-	private Grid grilleVisuJoueur = new Grid(460,40,40,10,true); //Servira au joueur pour voir la grille initiale de l'ordi
-	private Grid grilleOrdi = new Grid(0,0,40,10,false); //Grille personnelle de l'ordi
-	private Grid grilleVisuOrdi = new Grid(0,0,40,10,true); //Servira à l'ordi pour voir la grille initiale du joueur
+	private Grid grilleJoueur; //Grille personnelle du joueur
+	private Grid grilleVisuJoueur; //Servira au joueur pour voir la grille initiale de l'ordi
+	private Grid grilleOrdi; //Grille personnelle de l'ordi
+	private Grid grilleVisuOrdi; //Servira à l'ordi pour voir la grille initiale du joueur
 	private boolean isJoueur; //Servira dans plusieurs fonctions pour savoir s'il s'agit du joueur ou de l'ordi
 	private int vieJoueur; //Baissera au fur et à mesure que l'ordi touche les bateaux du joueur
 	private int vieOrdi; //Baissera au fur et à mesure que le joueur touche les bateaux ordi
@@ -134,32 +134,19 @@ public class Jouer extends Scene {
 		//Le joueur ou l'ordi selectionne l'endroit où il veut tirer (ainsi que le bateau qui tire (Mode bateaux tireurs uniquement))
 		//selectionTir();
 	}
-								
+
+	public void setGrids(Grid gJ1 , Grid vJ1 , Grid gOrdi , Grid vOrdi){
+		grilleJoueur = gJ1;
+		grilleVisuJoueur = vJ1;
+		grilleOrdi = gOrdi;
+		grilleVisuOrdi = vOrdi;
+
+	}
+
 	public void draw(Graphics g , JPanel p){
 		g.setColor(Color.WHITE);
 		g.fillRect(0,0,p.getWidth(),p.getHeight());
 
-		if(!dragAndDropEnded && !m_IntroDragFini){
-			if(m_timeintroDrag < 120){
-				g.setColor(Color.BLACK);
-				g.setFont(bitcrusher.deriveFont(60f));
-				g.drawString("Placer vos bateaux!",450,300);
-				m_timeintroDrag++;
-			}else{
-				m_IntroDragFini = true;
-			}
-			return;
-		}
-
-
-
-		if(!dragAndDropEnded){
-			grilleJoueur.draw(g,p);
-			for (DGBateau b: m_boatToPlace) {
-				b.draw(g,p);
-			}
-			return;
-		}
 
 	}
 	
@@ -174,15 +161,6 @@ public class Jouer extends Scene {
 		this.abandon = false;
 
 		this.isJoueur = true;
-		grilleJoueur.remplissage();
-		grilleOrdi.remplissage();
-
-		m_boatToPlace = new ArrayList<DGBateau>();
-		m_boatToPlace.add(new DGBateau(700,200,0,grilleJoueur));
-		m_boatToPlace.add(new DGBateau(760,200,1,grilleJoueur));
-		m_boatToPlace.add(new DGBateau(820,200,2,grilleJoueur));
-		m_boatToPlace.add(new DGBateau(880,200,3,grilleJoueur));
-		m_boatToPlace.add(new DGBateau(940,200,4,grilleJoueur));
 
 		//On définit les différentes tailles de chaque bateau
 
@@ -196,44 +174,9 @@ public class Jouer extends Scene {
 	}
 
 	public void mouseInput(MouseEvent e,String typeOfInput){
-		if(!dragAndDropEnded){
-			if(typeOfInput == "mP"){
-				if(e.getButton() == 1){
-					for (DGBateau b : m_boatToPlace ) {
-						b.isIn(e);
-					}
-				}
-				if(e.getButton() == 3){
-					for (DGBateau b : m_boatToPlace ) {
-						b.rotate();
-					}
-				}
-			}else if(typeOfInput == "mD"){
-				for (DGBateau b : m_boatToPlace ) {
-					b.drag(e);
-				}
-			}else if(typeOfInput == "mR"){
-				for (DGBateau b : m_boatToPlace ) {
-					b.stopDrag();
-				}
-			}
-			return;
-		}
 	}
 
 	public void mouseWheelInput(MouseWheelEvent e){
-		if(!dragAndDropEnded){
-			if(e.getWheelRotation() < 0){
-				for (DGBateau b: m_boatToPlace) {
-					b.rotateBack();
-				}
-			}else if(e.getWheelRotation() > 0){
-				for (DGBateau b: m_boatToPlace) {
-					b.rotate();
-				}
-			}
-			return;
-		}
 	}
 
 	public void exitEvent(){

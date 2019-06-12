@@ -16,7 +16,6 @@ public class DGBateau {
 	public static ArrayList<DGBateau> occurences = new ArrayList<DGBateau>();
 	private boolean isDragged;
 	private BufferedImage img;
-	private int bateauToSpawn;
 	private int rotation = 0;
 	private Grid parent;
 
@@ -36,8 +35,8 @@ public class DGBateau {
 
 	private int taille;
 
-	private int gridX = -1;
-	private int gridY = -1;
+	private boolean  m_estBienPlacer;
+
 
 	public DGBateau(int x , int y , int bateauToSpawn , Grid parent){
 		this.x = x;
@@ -57,6 +56,7 @@ public class DGBateau {
 		w = parent.getCellSize();
 		h = parent.getCellSize()*(taille);
 		occurences.add(this);
+		m_estBienPlacer = false;
 		//setCollider();
 	}
 
@@ -70,6 +70,7 @@ public class DGBateau {
 
 	public void stopDrag(){
 		if(isDragged){
+			m_estBienPlacer = true;
 			magnet();
 			setCollider();
 			anticollide();
@@ -104,6 +105,11 @@ public class DGBateau {
 			g.setColor(Color.RED);
 			//g.fillOval(x+(w/2),y+(w/2),3,3);
 			g.drawRect(xc,yc,wc, hc);
+
+			if(m_estBienPlacer){
+				g.setColor(new Color(140, 221, 92, 152));
+				g.fillOval(x,y,w,h);
+			}
 		}
 	}
 
@@ -192,6 +198,7 @@ public class DGBateau {
 	public void magnet(){
 		if(x+(w/2) < parent.getXPos() || x+(w/2) > parent.getXPos() + (parent.getCellSize()*parent.getNbrOfCell())
 			|| y+(w/2) < parent.getYPos() || y+(w/2) > parent.getYPos() + (parent.getCellSize() * parent.getNbrOfCell())){
+			m_estBienPlacer = false;
 			return;
 		}
 		//x = (parent.getXPos() + Math.floor(((x+(w/2))/parent.getCellSize())*parent.getCellSize()));
@@ -208,10 +215,21 @@ public class DGBateau {
 			x = xo;
 			y = yo;
 			rotation = oo;
+			if(!isInGrid()){
+				m_estBienPlacer = false;
+			}else{
+				m_estBienPlacer = true;
+			}
+
 		}
 	}
 
 	public boolean isInGrid(){
+		if(x+(w/2) < parent.getXPos() || x+(w/2) > parent.getXPos() + (parent.getCellSize()*parent.getNbrOfCell())
+				|| y+(w/2) < parent.getYPos() || y+(w/2) > parent.getYPos() + (parent.getCellSize() * parent.getNbrOfCell())){
+			m_estBienPlacer = false;
+			return false;
+		}
 		int tmpx = (int)Math.floor(((x+(w/2))-parent.getXPos())/parent.getCellSize());
 		int tmpy = (int)Math.floor(((y+(w/2))-parent.getYPos())/parent.getCellSize());
 		switch (rotation){
@@ -272,6 +290,9 @@ public class DGBateau {
 				this.x = xo;
 				this.y = yo;
 				this.rotation = oo;
+				if(isInGrid()){
+					m_estBienPlacer = true;
+				}
 				setCollider();
 			}
 		}
@@ -289,4 +310,7 @@ public class DGBateau {
 	}
 
 
+	public boolean estBienPlacer() {
+		return m_estBienPlacer;
+	}
 }

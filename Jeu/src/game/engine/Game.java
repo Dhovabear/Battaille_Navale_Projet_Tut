@@ -173,12 +173,13 @@ public class Game {
     public static void loadScenes() throws IOException, FontFormatException { //Fonction qui load les scenes (wow explicite/20)
         Bateau.loadBoatImages();
         Grid.loadTiles();
-        sceneIndex = new Scene[6];//On initialise la liste avec le nombre de scenes que l'on a
+        sceneIndex = new Scene[7];//On initialise la liste avec le nombre de scenes que l'on a
         sceneIndex[0] = new Menu();
         sceneIndex[2] = new JoueurVsOrdi();
         sceneIndex[3] = new DifficulteOrdi();
         sceneIndex[4] = new DrapeauNom();
-        sceneIndex[5] = new Jouer();
+        sceneIndex[5] = new DragAndDrop();
+        sceneIndex[6] = new Jouer();
         currentscene = 0;//On initialise l'id de la scene actuelle
     }
 
