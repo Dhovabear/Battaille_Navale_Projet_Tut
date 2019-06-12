@@ -3,7 +3,6 @@ package game.engine.ui;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 
@@ -30,10 +29,10 @@ public class BouttonImage extends Boutton {
     @Override
     public void draw(Graphics g, JPanel p) {
 
-        if(m_isLocked){
-            g.drawImage(m_disabledImage,m_xPos,m_yPos,m_width,m_height,p);
-        }else{
+        if(m_isEnabled){
             g.drawImage(m_Img,m_xPos,m_yPos,m_width,m_height,p);
+        }else{
+            g.drawImage(m_disabledImage,m_xPos,m_yPos,m_width,m_height,p);
         }
     }
 

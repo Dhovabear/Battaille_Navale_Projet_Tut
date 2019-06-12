@@ -2,6 +2,7 @@ package game.scenes;
 
 import game.Objects.DGBateau;
 import game.Objects.Grid;
+import game.engine.Game;
 import game.engine.Scene;
 import game.engine.ui.BouttonImage;
 
@@ -29,14 +30,24 @@ public class DragAndDrop extends Scene {
 
     public DragAndDrop() throws IOException, FontFormatException {
         bitcrusher = Font.createFont(Font.TRUETYPE_FONT,getClass().getResourceAsStream("/polices/bitcrusher.ttf"));
-        grilleJoueur = new Grid(60,40,50,10,false);
+        grilleJoueur = new Grid(60,20,50,10,false);
         grilleVisuJoueur = new Grid(460,40,40,10,true);
         grilleOrdi = new Grid(0,0,40,10,false);
         grilleVisuOrdi  = new Grid(0,0,40,10,true);
         m_nextButton = new BouttonImage(950,470,205,65,"/images/bouttonContinuer1.png","/images/bouttonContinuer0.png"){
             @Override
             public void action() throws IOException, FontFormatException {
-                
+                System.out.println("Prot");
+                for (DGBateau b:m_boatToPlace) {
+                    System.out.println("it");
+                    if(!grilleJoueur.addBateau(b.getgridX(),b.getgridY(),b.getRotation(),b.getType())){
+                        System.out.println("Mon petit , TG");
+                    }else{
+                        System.out.println("OK MONSIEUR");
+                    }
+                }
+                ((Jouer)Game.sceneIndex[6]).setGrids(grilleJoueur,grilleVisuJoueur,grilleOrdi,grilleVisuOrdi);
+                Game.switchScene(6);
             }
         };
 
@@ -71,26 +82,32 @@ public class DragAndDrop extends Scene {
         m_nextButton.draw(g, p);
 
         boolean bienMit = true;
-        System.out.println("prout");
         for (DGBateau b:m_boatToPlace) {
-            System.out.println(b.estBienPlacer());
             if(!b.estBienPlacer()){
                 bienMit = false;
             }
         }
 
         if(bienMit){
-            System.out.println("biiient");
-            m_nextButton.setEnabled(false);
+            if(!m_nextButton.isEnabled()){
+                System.out.println("Delock");
+                m_nextButton.setEnabled(true);
+            }
         }else{
-            m_nextButton.setEnabled(true);
+            if(m_nextButton.isEnabled()){
+                m_nextButton.setEnabled(false);
+            }
         }
+
+
     }
 
     @Override
     public void startEvent() throws IOException, FontFormatException {
         grilleJoueur.remplissage();
+        grilleVisuOrdi.setIsland(grilleJoueur.getIleId());
         grilleOrdi.remplissage();
+        grilleVisuJoueur.setIsland(grilleOrdi.getIleId());
 
         m_boatToPlace = new ArrayList<DGBateau>();
         m_boatToPlace.add(new DGBateau(700,200,0,grilleJoueur));
@@ -108,6 +125,7 @@ public class DragAndDrop extends Scene {
 
     @Override
     public void mouseInput(MouseEvent e, String typeOfInput) {
+        m_nextButton.checkMouse(e, typeOfInput);
         if(typeOfInput == "mP"){
             if(e.getButton() == 1){
                 for (DGBateau b : m_boatToPlace ) {
@@ -128,7 +146,7 @@ public class DragAndDrop extends Scene {
                 b.stopDrag();
             }
         }
-        m_nextButton.checkMouse(e, typeOfInput);
+
     }
 
     @Override

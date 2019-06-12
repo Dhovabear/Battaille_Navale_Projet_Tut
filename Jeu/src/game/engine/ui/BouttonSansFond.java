@@ -4,7 +4,6 @@ import game.engine.Game;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.MouseEvent;
 import java.io.IOException;
 
 public class BouttonSansFond extends Boutton{
@@ -16,12 +15,12 @@ public class BouttonSansFond extends Boutton{
         m_yPos =y;
         m_width = taille*3;
         m_height = taille;
-        m_isLocked = false;
+        m_isEnabled = false;
         m_text = text;
         m_police = Font.createFont(Font.TRUETYPE_FONT,Game.class.getResourceAsStream("/polices/bitcrusher.ttf"));
         m_police = m_police.deriveFont((float)taille);
         m_zoomValue = taille;
-        m_isLocked = true;
+        m_isEnabled = true;
     }
 
 
@@ -41,7 +40,7 @@ public class BouttonSansFond extends Boutton{
         }
 
 
-        if(m_isLocked){
+        if(m_isEnabled){
 
             if(m_zoomValue <= m_height*1.3 && m_mousein){
                 m_zoomValue += 1;
@@ -65,7 +64,7 @@ public class BouttonSansFond extends Boutton{
     public void setEnabled(boolean state){
         m_zoomValue = m_height;
         m_mousein = false;
-        m_isLocked = state;
+        m_isEnabled = state;
     }
 
     @Override

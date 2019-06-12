@@ -31,7 +31,7 @@ public class DifficulteOrdi extends Scene {
 			@Override
 			public void action() throws IOException, FontFormatException {
 				choixDifficulte = 1;
-				texteDifficulte = "Facile";
+				texteDifficulte = " (Facile)";
 				Game.switchScene(4);
 			}
 		};
@@ -39,7 +39,7 @@ public class DifficulteOrdi extends Scene {
 			@Override
 			public void action() throws IOException, FontFormatException {
 				choixDifficulte = 2;
-				texteDifficulte = "Normal";
+				texteDifficulte = " (Normal)";
 				Game.switchScene(4);
 			}
 		};
@@ -47,7 +47,7 @@ public class DifficulteOrdi extends Scene {
 			@Override
 			public void action() throws IOException, FontFormatException {
 				choixDifficulte = 3;
-				texteDifficulte = "Difficille";
+				texteDifficulte = " (Difficile)";
 				Game.switchScene(4);
 			}
 		};

@@ -1,5 +1,6 @@
 package game.scenes;
 
+import game.Objects.SoundLibrary;
 import game.engine.Game;
 import game.engine.Scene;
 import game.engine.ui.BouttonSansFond;
@@ -58,8 +59,11 @@ public class DrapeauNom extends Scene {
 			public void action() throws IOException, FontFormatException {
 				int random = (int)(Math.round(Math.random()*AMPLEUR));
 				choixDrapeauOrdi = m_flagSelector.getFlag(random);
-				choixNomOrdi = m_flagSelector.getNameOfSelectedFlag();
+				choixNomOrdi = m_flagSelector.getNameOfFlag(random) + DifficulteOrdi.getTexteDifficulte();
+				choixNomJoueur = m_champNom.getText();
 				Game.switchScene(5);
+				SoundLibrary.musicMenu.pause();
+				SoundLibrary.musicMenu.resume();
 			}
 		};
 	}

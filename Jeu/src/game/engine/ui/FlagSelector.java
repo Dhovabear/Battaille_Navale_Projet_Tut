@@ -1,5 +1,7 @@
 package game.engine.ui;
 
+import game.Objects.SoundLibrary;
+
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
@@ -7,6 +9,7 @@ import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Random;
 
 public class FlagSelector {
 
@@ -69,12 +72,17 @@ public class FlagSelector {
         if(flag >= m_flags.size()){
             return;
         }
+        SoundLibrary.playClickSound();
         System.out.println(flag);
         m_selectedFlag = flag;
     }
 
     public BufferedImage getFlag(int i) {
         return m_flags.get(i);
+    }
+
+    public String getNameOfFlag(int i){
+        return m_flagsName[i];
     }
 
     public BufferedImage getSelectedFlag(){
@@ -91,4 +99,10 @@ public class FlagSelector {
     public void deselect() {
         m_selectedFlag = -1;
     }
+
+    public void chooseRandomFlag(){
+        Random rng = new Random(System.currentTimeMillis());
+        m_selectedFlag = rng.nextInt(20);
+    }
+
 }

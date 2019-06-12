@@ -2,9 +2,11 @@ package game.engine;
 
 import game.Objects.Bateau;
 import game.Objects.Grid;
+import game.Objects.SoundLibrary;
 import game.scenes.*;
 import game.scenes.Menu;
 
+import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -170,9 +172,11 @@ public class Game {
      * C'est aussi ici que l'on définit la taille de la liste.
      * @throws IOException
      */
-    public static void loadScenes() throws IOException, FontFormatException { //Fonction qui load les scenes (wow explicite/20)
+    public static void loadScenes() throws IOException, FontFormatException, UnsupportedAudioFileException { //Fonction qui load les scenes (wow explicite/20)
         Bateau.loadBoatImages();
         Grid.loadTiles();
+        SoundLibrary.loadSounds();
+        PoliceIndex.loadFonts();
         sceneIndex = new Scene[7];//On initialise la liste avec le nombre de scenes que l'on a
         sceneIndex[0] = new Menu();
         sceneIndex[2] = new JoueurVsOrdi();

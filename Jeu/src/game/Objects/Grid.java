@@ -1,6 +1,8 @@
 package game.Objects;
 
+import game.engine.Game;
 import game.scenes.JoueurVsOrdi;
+import game.scenes.PoliceIndex;
 
 import javax.swing.*;
 import javax.imageio.*;
@@ -25,6 +27,7 @@ public class Grid{
 	private int m_nbOfCell;
 
 	private int[][] grille;
+	private int[][] gizmoGrid;
 
 	private static BufferedImage baseEau;
 	private static BufferedImage baseIle;
@@ -34,8 +37,14 @@ public class Grid{
 	private BufferedImage baseTile;
 	private BufferedImage ileTile;
 
+	private int m_mousePosX;
+	private int m_mousePosY;
+
+	private int m_noIle;
+	private boolean m_isVisu;
 
 	private List<Bateau> bateaux = new ArrayList<Bateau>();
+	private boolean m_mouseIn;
 
 	public static void loadTiles() throws IOException {
 		baseEau = ImageIO.read(Grid.class.getResourceAsStream("/images/Tiles/tileEau.png"));
@@ -50,7 +59,9 @@ public class Grid{
 		m_yPos = y;
 		m_cellSize = cSize;
 		m_nbOfCell = nbOC;
+		m_isVisu = isVisu;
 		grille = new int[m_nbOfCell][m_nbOfCell];
+		gizmoGrid = new int[m_nbOfCell][m_nbOfCell];
 
 		if(!isVisu){
 			baseTile = baseEau;
@@ -72,6 +83,10 @@ public class Grid{
 				}else{
 					g.drawImage(baseTile,m_xPos+(j*getCellSize()),m_yPos+(i*getCellSize()),getCellSize(),getCellSize(),p);
 				}
+				if(getCellInfo(j,i) == 1 && Game.debugModeEnabled){
+					g.setColor(Color.RED);
+					g.fillRect(m_xPos+(j*getCellSize()),m_yPos+(i*getCellSize()),getCellSize(),getCellSize());
+				}
 			}
 		}
 
@@ -82,12 +97,41 @@ public class Grid{
 			g.drawLine((i*m_cellSize) + m_xPos ,m_yPos,i*m_cellSize + m_xPos,(m_cellSize*m_nbOfCell) + m_yPos);
 
 		}
+
+		g.setFont(PoliceIndex.autoradio.deriveFont(new Float(m_cellSize/2)));
+		String tbl[] = {"A","B","C","D","E","F","G","H","I","J"};
+		for(int i = 0; i < 10 ; i++){
+			g.drawString(tbl[i],m_xPos + ((i*m_cellSize)+(m_cellSize/2)),m_yPos-2);
+		}
+
+
+		int tmpX;
+
+		if(!m_isVisu){
+			tmpX = m_xPos - getCellSize()/2 - 5;
+		}else{
+			tmpX = m_xPos+ (m_nbOfCell*m_cellSize) + m_cellSize/3;
+		}
+
+		for(int i = 0; i <10;i++){
+			g.drawString(Integer.toString(i+1),tmpX,(m_yPos+((i*m_cellSize))) + m_cellSize/2 + 5 );
+		}
+
+
+		for (Bateau b: bateaux) {
+			b.draw(g, p);
+		}
 	}
 
 	public int getCellInfo(int x,int y){
 		if((x > m_nbOfCell-1 || x < 0) || (y > m_nbOfCell-1 || y < 0))
 			return -1;
+		//System.out.println(grille[x][y]);
 		return grille[x][y];
+	}
+
+	public void setGizmo(int x, int y,int gizmo){
+		gizmoGrid[x][y] = gizmo;
 	}
 
 	public boolean setCellInfo(int x, int y , int val){
@@ -97,7 +141,17 @@ public class Grid{
 		return true;
 	}
 
-	public boolean addBateau(int x , int y , int o , int taille){
+	public boolean addBateau(int x , int y , int o , int type){
+
+		int taille;
+
+		if(type == 1 || type == 2){
+			taille = 3;
+		}else if(type == 0){
+			taille = 2;
+		}else{
+			taille = type+1;
+		}
 
 		if((x > m_nbOfCell-1 || x < 0) || (y > m_nbOfCell-1 || y < 0))
 			return false;
@@ -150,7 +204,7 @@ public class Grid{
 				}
 				break;
 		}
-		bateaux.add(new Bateau(x,y,o,taille));
+		bateaux.add(new Bateau(x,y,o,type,this));
 		return true;
 	}
 
@@ -158,6 +212,15 @@ public class Grid{
 		return bateaux.size();
 	}
 
+	public void checkMouse(MouseEvent e, String typeOfInput){
+		if(e.getX() < m_xPos || e.getX() > m_xPos + (m_cellSize*m_nbOfCell) || e.getY() < m_yPos || e.getY() > m_yPos + (m_cellSize*m_nbOfCell) ){
+			m_mouseIn = false;
+			return;
+		}
+		m_mouseIn = true;
+		m_mousePosX = e.getX();
+		m_mousePosY = e.getY();
+	}
 
 	public void drawBateaux(Graphics g , JPanel p){
 		Graphics2D g2 = (Graphics2D)g;
@@ -189,7 +252,7 @@ public class Grid{
 	public void drawGizmos(Graphics g){
 		for (int y = 0; y < m_nbOfCell ; y++ ){
 			for (int x = 0; x < m_nbOfCell ; x++ ){
-				switch(grille[x][y]){
+				switch(gizmoGrid[x][y]){
 					case 2 :
 						g.setColor(Color.RED);
 						g.fillOval((x*m_cellSize)+m_xPos  , (y*m_cellSize)+m_yPos , m_cellSize , m_cellSize );
@@ -227,15 +290,20 @@ public class Grid{
 	}
 
 	public int getCellSize(){return m_cellSize;}
+
 	public int getXPos(){return m_xPos;}
+
 	public int getYPos(){return m_yPos;}
+
 	public int getNbrOfCell(){return m_nbOfCell;}
+
 	public Bateau getBateauWithType(int type){
 		for (Bateau b: bateaux) {
 			if(b.type == type){return b;}
 		}
 		return null;
 	}
+
 	public Bateau getBateau(int index){return bateaux.get(index);}
 
 	public void remplissage(){
@@ -243,20 +311,24 @@ public class Grid{
 		int random = (int)(Math.round(Math.random()*AMPLEUR_ILE));
 		//L'emplacement de fichiers sera sûrement changé au fil du temps, il faudra donc modifier les chemins (commentaire à effacer par la suite)
 		//On choisit une carte dans un fichier aléatoire (Utile pour le mode île)
+		setIsland(random);
+	}
+
+	public void setIsland(int noIle){
+		m_noIle = noIle;
 		try //On ouvre le fichier
 		{
 			//BufferedReader br = new BufferedReader(new InputStreamReader(getClass().getResourceAsStream("/donnes/iles/ile"+random)));
-
-			Scanner scan = new Scanner(new InputStreamReader(getClass().getResourceAsStream("/donnes/iles/ile"+random)));
+			Scanner scan = new Scanner(new InputStreamReader(getClass().getResourceAsStream("/donnes/iles/ile"+noIle)));
 			//On remplit les grilles avec le contenu du fichier selectionné au hasard (Mode île uniquement)
 			if(JoueurVsOrdi.getSelectionMode() == 2){
 				while(scan.hasNextInt()){
 					for(int i=0;i<10;i++){
 						System.out.println("");
 						for(int j=0;j<10;j++){
-								int st = scan.nextInt();
-								setCellInfo(j,i,st);
-								System.out.print(st);
+							int st = scan.nextInt();
+							setCellInfo(j,i,st);
+							System.out.print(st);
 						}
 					}
 				}
@@ -268,6 +340,52 @@ public class Grid{
 			e.printStackTrace();
 		}
 	}
+
+	public int getIleId(){
+		return m_noIle;
+	}
+
+	public void setXPos(int x){
+		m_xPos = x;
+	}
+
+	public void setYPos(int y){
+		m_yPos = y;
+	}
+
+	public void setCellSize(int i) {
+		m_cellSize = i;
+	}
+
+	public boolean isMouseIn() {
+		return m_mouseIn;
+	}
+
+	public int getCursorXInGrid() {
+		if(!m_mouseIn){
+			return -1;
+		}
+
+		return (int)Math.floor((m_mousePosX-m_xPos)/m_cellSize);
+	}
+
+	public int getCursorYInGrid() {
+		if(!m_mouseIn){
+			return -1;
+		}
+
+		return (int)Math.floor((m_mousePosY-m_yPos)/m_cellSize);
+	}
+
+	public Bateau getBateauOfType(int type){
+		for ( Bateau b: bateaux) {
+			if(b.type == type){
+				return b;
+			}
+		}
+		return null;
+	}
+
 }
 
 /*
@@ -275,10 +393,11 @@ public class Grid{
 0: ya rien sur la case
 1: ya un bout bateau sur la case
 2: ya un bout de bateau toucher a cet endroit
-3: ya un bout de bateau couler sur la case
+3: iles
+4: ya un bout de bateau couler sur la case
 
-4: jeton blanc pour dire qun a tirer a cet endroit
-5: jeton rouge pour dire qu'on a toucher
+5: jeton blanc pour dire qun a tirer a cet endroit
+6: jeton rouge pour dire qu'on a toucher
 
 
 ORIENTATION DES BATEAUX: 
