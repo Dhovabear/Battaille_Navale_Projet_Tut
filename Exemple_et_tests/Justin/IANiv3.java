@@ -4,6 +4,7 @@ public class IANiv3 extends IANiv1 {
     protected int mode = 0;
     protected Coordonnees[] listeOrientation;
     protected int[][] statistique;
+    protected final static int[] prioritee = {0,1,3,2,4};
     protected int tourne;
     protected int tourneI;
     protected int total;
@@ -14,6 +15,8 @@ public class IANiv3 extends IANiv1 {
         super(j,m);
         statistique= new int[10][10];
         total = 0;
+
+
 
         String fichier = "memoire.txt";
         String[] grilleTempo = readFile(fichier).split("!");
@@ -75,6 +78,51 @@ public class IANiv3 extends IANiv1 {
                 }
             }
         }while(grilleAdverse[derTouche.getX()][derTouche.getY()]!=0 || !ctrl.autorisationTirOrdi(p) || depassementGrille(derTouche.getX(),derTouche.getY()));
+        grilleAdverse[a][b]=1;
+    }
+
+    public void jouerSpe(){
+        Coordonnees p;
+        int a=0;
+        int b=0;
+        int i=0;
+        k=4;
+        boolean trouver = false;
+        p = new Coordonnees();
+        do {
+            if(k == 4) {
+                a = 0;
+                b = 0;
+                k=0;
+                if (this.mode == 0) {
+                    i = (int) (Math.random() * total);
+                    for (; a < 10; a++) {
+                        for (; b < 10; b++) {
+                            i -= statistique[a][b];
+                            if (i < 0 && !trouver && grilleAdverse[a][b] == 0) {
+                                trouver = true;
+                                derTouche.setXY(a, b);
+                            }
+                        }
+                    }
+                } else if (this.mode == 1) {
+                    tourneI++;
+                    p = derTouche.add(listeOrientation[stable(tourne + tourneI)]);
+                } else {
+                    derTouche = derTouche.add(listeOrientation[stable(tourne + tourneI)]);
+                    p = derTouche;
+                    if (depassementGrille(derTouche.getX(), derTouche.getY()) && suspect.size() > 0) {
+                        derTouche = suspect.get(0);
+                        suspect.remove(0);
+                        tourneI = stable(tourneI + 2);
+                    } else {
+                        mode = 0;
+                    }
+                }
+            }else{
+                k++;
+            }
+        }while(grilleAdverse[a][b]!=0 || !ctrl.autorisationTirOrdi(p,prioritee[k]) || depassementGrille(a,b));
         grilleAdverse[a][b]=1;
     }
 

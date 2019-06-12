@@ -25,8 +25,7 @@ public class IA {
     }
     public void jouerIA(){
         if (mode == 3){
-            //ia.jouerSpe();
-            System.err.println("lol c'est pas prêt");
+            ia.jouerSpe();
         }else{
             ia.jouer();
         }

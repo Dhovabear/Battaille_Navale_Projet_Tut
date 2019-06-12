@@ -49,7 +49,7 @@ public class IANiv1 {
         Coordonnees p;
         i = (int) (Math.random() * 10);
         j = (int) (Math.random() * 10);
-        p = new Coordonnees(i,j);
+        p = new Coordonnees();
         do {
             if(k == 4){
                 i = (int) (Math.random() * 10);
