@@ -41,8 +41,8 @@ public class IANiv1 {
             i = (int) (Math.random() * 10);
             j = (int) (Math.random() * 10);
             p = new Coordonnees(i,j);
-        }while (grilleAdverse[i][j]!=0 || !ctrl.autorisationTirOrdi(p)|| depassementGrille(i,j));
-
+        }while (grilleAdverse[i][j]!=0 || !ctrl.autorisationTirOrdi(p));
+        ctrl.tir();
         grilleAdverse[i][j]=1;
         derTouche.setXY(i,j);
     }
@@ -144,7 +144,8 @@ public class IANiv1 {
                     k=0;
                 }
             }
-            if (ctrl.autorisationPlacementOrdi(new Coordonnees(i,j),compteur , o)) {
+            if (ctrl.getGrilleOrdi().addBateau(i,j,o,compteur)) {
+                System.out.println(true);
                 compteur++;
             }
         }while(compteur < 5);
@@ -168,13 +169,7 @@ public class IANiv1 {
         }
         return chaine;
     }
-
-    public boolean depassementGrille(int i, int j){
-        if(i<0 || j<0 || i>9 || j>9){
-            return false;
-        }
-        return true;
-    }
+    
 
     public int stable(int i){
         if (i>3){
