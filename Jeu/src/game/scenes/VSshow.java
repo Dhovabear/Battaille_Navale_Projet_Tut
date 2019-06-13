@@ -56,6 +56,7 @@ public class VSshow extends Scene {
 
     @Override
     public void startEvent() throws IOException, FontFormatException {
+        SoundLibrary.stopMusicMenu();
         j1 = new IdentityCard(38,-450,DrapeauNom.getDrapeauJoueur(),DrapeauNom.getNomJoueur());
         j2 = new IdentityCard(Game.fenetre.getWidth()-450,-450 , DrapeauNom.getDrapeauOrdi(),DrapeauNom.getNomOrdi());
         vsPanYPos = 700;

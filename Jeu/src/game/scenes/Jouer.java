@@ -37,6 +37,7 @@ import java.io.*; //Note 2
 
 public class Jouer extends Scene {
 
+	private AnimatedSprite cursor;
 	//On recueille toutes les variables dont on a besoin
 	private int mode; //Scène 2 - JoueurVsOrdi
 	private int difficulte; //Scène 3 - DifficulteOrdi
@@ -107,6 +108,7 @@ public class Jouer extends Scene {
 	public Jouer() throws IOException, FontFormatException {
 		bitcrusher = Font.createFont(Font.TRUETYPE_FONT,getClass().getResourceAsStream("/polices/bitcrusher.ttf"));
 		test = new AnimatedSprite(0,0,100,100,30,new String[]{"/images/moutons/mAlert_0.png", "/images/moutons/mAlert_1.png", "/images/moutons/mAlert_2.png"});
+
 	}
 
 	public void update() throws IOException, FontFormatException {
@@ -195,16 +197,15 @@ public class Jouer extends Scene {
 				this.y = grilleVisuJoueur.getCursorYInGrid();
 				System.out.println("X: "+x+"  Y:"+y+" state: " + grilleVisuJoueur.getCellInfo(x,y));
 				g.setColor(new Color(255,0,0, 118));
-				if(Game.debugModeEnabled && autorisationTirJoueur()){
-					g.fillRect(grilleVisuJoueur.getXPos() + (x*grilleVisuJoueur.getCellSize()),grilleJoueur.getYPos() + (y*grilleVisuJoueur.getCellSize()),grilleVisuJoueur.getCellSize(),grilleVisuJoueur.getCellSize());
+				if(autorisationTirJoueur() && isJoueur){
+					//g.(grilleVisuJoueur.getXPos() + (x*grilleVisuJoueur.getCellSize()),grilleJoueur.getYPos() + (y*grilleVisuJoueur.getCellSize()),grilleVisuJoueur.getCellSize(),grilleVisuJoueur.getCellSize());
+					cursor.drawAt(grilleVisuJoueur.getXPos() + (x*grilleVisuJoueur.getCellSize()),grilleJoueur.getYPos() + (y*grilleVisuJoueur.getCellSize()),grilleVisuJoueur.getCellSize(),grilleVisuJoueur.getCellSize(),g,p);
 				}
 
 			}
+			cursor.updateTime();
 			return;
 		}
-
-
-
 	}
 	
 	public void startEvent(){
@@ -242,6 +243,8 @@ public class Jouer extends Scene {
 		ordi = new IA(difficulte,mode,this);
 		ordi.placement();
 
+		cursor = new AnimatedSprite(0,0,grilleVisuJoueur.getCellSize()-5,grilleVisuJoueur.getCellSize()-5,10,SpriteIndex.viseurSprites);
+
 		//TESTTTTT
 		/*grilleOrdi.addBateau(0,0,0,0);
 		grilleOrdi.addBateau(1,0,0,1);
@@ -260,10 +263,40 @@ public class Jouer extends Scene {
 
 		if(waitForTir && isJoueur){
 			if(typeOfInput.equals("mP") && grilleVisuJoueur.isMouseIn()){
-				tir();
-				finTour();
+				Thread wait = new Thread(){
+					@Override
+					public void run() {
+						try {
+							SoundLibrary.playMissileSon();
+							waitForTir = false;
+							sleep(600);
+							tir();
+							playSoundForGoal();
+							sleep(500);
+							finTour();
+						} catch (InterruptedException e1) {
+							e1.printStackTrace();
+						}
+					}
+				};
+				wait.start();
 			}
 			return;
+		}
+	}
+
+	public void playSoundForGoal() {
+		Grid tmpVis;
+		if(isJoueur){
+			tmpVis = grilleVisuJoueur;
+		}else{
+			tmpVis = grilleVisuOrdi;
+		}
+
+		if(tmpVis.getGizmoInfo(x,y) == 6){
+			SoundLibrary.playBoomSon();
+		}else{
+			SoundLibrary.playPloufSong();
 		}
 	}
 

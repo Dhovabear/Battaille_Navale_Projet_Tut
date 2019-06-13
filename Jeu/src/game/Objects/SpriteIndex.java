@@ -54,6 +54,14 @@ public class SpriteIndex {
         };
 
 
+       viseurSprites = new BufferedImage[]{
+                ImageIO.read(SpriteIndex.class.getResourceAsStream("/images/fireCursor/sprite_0.png")),
+               ImageIO.read(SpriteIndex.class.getResourceAsStream("/images/fireCursor/sprite_1.png")),
+               ImageIO.read(SpriteIndex.class.getResourceAsStream("/images/fireCursor/sprite_2.png")),
+               ImageIO.read(SpriteIndex.class.getResourceAsStream("/images/fireCursor/sprite_3.png")),
+               ImageIO.read(SpriteIndex.class.getResourceAsStream("/images/fireCursor/sprite_4.png")),
+               ImageIO.read(SpriteIndex.class.getResourceAsStream("/images/fireCursor/sprite_5.png"))
+       };
 
         normalIleTile = ImageIO.read(SpriteIndex.class.getResourceAsStream("/images/Tiles/tileSable.png"));
         radarWaterTile = ImageIO.read(SpriteIndex.class.getResourceAsStream("/images/Tiles/sprite_1.png"));

@@ -86,7 +86,7 @@ public class Son{
 
     public void stop(){
         isInLoop = false;
-        c.setFramePosition(c.getFrameLength());
+        c.setMicrosecondPosition(c.getMicrosecondLength());
     }
 
     void reset() throws Exception{
