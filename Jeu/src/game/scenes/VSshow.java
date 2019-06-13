@@ -60,6 +60,24 @@ public class VSshow extends Scene {
         j2 = new IdentityCard(Game.fenetre.getWidth()-450,-450 , DrapeauNom.getDrapeauOrdi(),DrapeauNom.getNomOrdi());
         vsPanYPos = 700;
         SoundLibrary.playJingleDebutPartie();
+        Thread wait = new Thread(){
+            @Override
+            public void run() {
+                try {
+                    sleep(5000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                try {
+                    Game.switchScene(5);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                } catch (FontFormatException e) {
+                    e.printStackTrace();
+                }
+            }
+        };
+        wait.start();
     }
 
     @Override
