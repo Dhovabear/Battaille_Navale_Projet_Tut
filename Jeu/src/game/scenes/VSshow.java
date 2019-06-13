@@ -95,6 +95,7 @@ public class VSshow extends Scene {
 
     }
 
+
     @Override
     public void exitEvent() {
         j1 = null;

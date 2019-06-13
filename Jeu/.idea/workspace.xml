@@ -28,13 +28,16 @@
         <entry file="file://$PROJECT_DIR$/src/game/scenes/Jouer.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="461">
-              <caret line="592" column="5" selection-start-line="592" selection-start-column="5" selection-end-line="592" selection-end-column="5" />
+              <caret line="599" column="17" selection-start-line="599" selection-start-column="17" selection-end-line="599" selection-end-column="17" />
               <folding>
                 <element signature="e#5831#6990#0" />
                 <element signature="e#16624#16625#0" expanded="true" />
                 <element signature="e#16654#16655#0" expanded="true" />
                 <element signature="e#16692#16693#0" expanded="true" />
                 <element signature="e#16726#16727#0" expanded="true" />
+                <element signature="e#16732#16733#0" expanded="true" />
+                <element signature="e#16746#16747#0" expanded="true" />
+                <element signature="e#16768#16769#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -97,11 +100,24 @@
           </provider>
         </entry>
       </file>
+      <file leaf-file-name="Game.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/game/engine/Game.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-30">
+              <caret line="131" column="34" lean-forward="true" selection-start-line="131" selection-start-column="34" selection-end-line="131" selection-end-column="34" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="method#switchScene#0;class#Game#0" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="VSshow.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/game/scenes/VSshow.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="440">
-              <caret line="66" column="27" selection-start-line="66" selection-start-column="27" selection-end-line="66" selection-end-column="27" />
+            <state relative-caret-position="350">
+              <caret line="96" selection-start-line="96" selection-end-line="96" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#1574#1711#0" expanded="true" />
@@ -213,6 +229,38 @@
               <item name="Jeu" type="b2602c69:ProjectViewProjectNode" />
               <item name="Jeu" type="462c0819:PsiDirectoryNode" />
             </path>
+            <path>
+              <item name="Jeu" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Jeu" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Jeu" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Jeu" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="game" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Jeu" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Jeu" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="game" type="462c0819:PsiDirectoryNode" />
+              <item name="engine" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Jeu" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Jeu" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="game" type="462c0819:PsiDirectoryNode" />
+              <item name="Objects" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Jeu" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Jeu" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="game" type="462c0819:PsiDirectoryNode" />
+              <item name="scenes" type="462c0819:PsiDirectoryNode" />
+            </path>
           </expand>
           <select />
         </subPane>
@@ -301,7 +349,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="122872000" />
+    <option name="totallyTimeSpent" value="123548000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-5" y="0" width="1930" height="1031" extended-state="6" />
@@ -316,12 +364,12 @@
       <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" />
       <window_info anchor="right" id="Maven Projects" order="9" weight="0.32995737" />
       <window_info anchor="bottom" id="Database Changes" order="8" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.3165714" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.3165714" />
       <window_info anchor="bottom" id="Version Control" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Terminal" order="9" />
       <window_info id="Capture Tool" order="4" />
       <window_info id="Designer" order="2" />
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.18390192" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.18390192" />
       <window_info anchor="right" id="Database" order="6" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
@@ -570,20 +618,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/game/scenes/Jouer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="461">
-          <caret line="592" column="5" selection-start-line="592" selection-start-column="5" selection-end-line="592" selection-end-column="5" />
-          <folding>
-            <element signature="e#5831#6990#0" />
-            <element signature="e#16624#16625#0" expanded="true" />
-            <element signature="e#16654#16655#0" expanded="true" />
-            <element signature="e#16692#16693#0" expanded="true" />
-            <element signature="e#16726#16727#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/game/Objects/Bateau.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-1458">
@@ -601,39 +635,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-679">
           <caret line="32" column="87" lean-forward="true" selection-start-line="32" selection-start-column="87" selection-end-line="32" selection-end-column="87" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/game/engine/Game.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1599">
-          <caret line="183" column="37" lean-forward="true" selection-start-line="183" selection-start-column="37" selection-end-line="183" selection-end-column="37" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#2269#2270#0" expanded="true" />
-            <element signature="e#2344#2345#0" expanded="true" />
-            <element signature="e#2397#2398#0" expanded="true" />
-            <element signature="e#2473#2474#0" expanded="true" />
-            <element signature="e#2525#2526#0" expanded="true" />
-            <element signature="e#2601#2602#0" expanded="true" />
-            <element signature="e#2654#2655#0" expanded="true" />
-            <element signature="e#2729#2730#0" expanded="true" />
-            <element signature="e#2783#2784#0" expanded="true" />
-            <element signature="e#2858#2859#0" expanded="true" />
-            <element signature="e#2985#2986#0" expanded="true" />
-            <element signature="e#3060#3061#0" expanded="true" />
-            <element signature="e#3111#3112#0" expanded="true" />
-            <element signature="e#3186#3187#0" expanded="true" />
-            <element signature="e#3319#3320#0" expanded="true" />
-            <element signature="e#3394#3395#0" expanded="true" />
-            <element signature="e#3620#3621#0" expanded="true" />
-            <element signature="e#3690#3691#0" expanded="true" />
-            <element signature="e#4402#4913#0" expanded="true" />
-            <element signature="e#4912#4913#0" expanded="true" />
-            <element signature="e#4948#5649#0" expanded="true" />
-            <element signature="e#5648#5649#0" expanded="true" />
-            <element signature="method#switchScene#0;class#Game#0" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -760,14 +761,42 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/game/engine/Game.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-30">
+          <caret line="131" column="34" lean-forward="true" selection-start-line="131" selection-start-column="34" selection-end-line="131" selection-end-column="34" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="method#switchScene#0;class#Game#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/game/scenes/VSshow.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="440">
-          <caret line="66" column="27" selection-start-line="66" selection-start-column="27" selection-end-line="66" selection-end-column="27" />
+        <state relative-caret-position="350">
+          <caret line="96" selection-start-line="96" selection-end-line="96" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#1574#1711#0" expanded="true" />
             <element signature="e#1710#1711#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/game/scenes/Jouer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="461">
+          <caret line="599" column="17" selection-start-line="599" selection-start-column="17" selection-end-line="599" selection-end-column="17" />
+          <folding>
+            <element signature="e#5831#6990#0" />
+            <element signature="e#16624#16625#0" expanded="true" />
+            <element signature="e#16654#16655#0" expanded="true" />
+            <element signature="e#16692#16693#0" expanded="true" />
+            <element signature="e#16726#16727#0" expanded="true" />
+            <element signature="e#16732#16733#0" expanded="true" />
+            <element signature="e#16746#16747#0" expanded="true" />
+            <element signature="e#16768#16769#0" expanded="true" />
           </folding>
         </state>
       </provider>
