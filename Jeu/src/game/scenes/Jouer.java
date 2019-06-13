@@ -583,4 +583,12 @@ public class Jouer extends Scene {
 	public Bateau getBateauxJoueur(int i) {
 		return grilleJoueur.getBateau(i);
 	}
+
+	public Grid getGrilleOrdi(){
+		return grilleOrdi;
+	}
+
+	public Grid getGrilleVisuordi(){
+		return grilleVisuOrdi;
+	}
 }
