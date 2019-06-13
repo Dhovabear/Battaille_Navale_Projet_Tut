@@ -295,13 +295,13 @@ public class Jouer extends Scene {
 		//En fonction du type du bateau, on definit sa taille
 		switch(this.typeBateau){
 			case 0:
-				this.tailleBateau = 5;
+				this.tailleBateau = 2;
 				break;
-			case 1:
+			case 3:
 				this.tailleBateau = 4;
 				break;
 			case 4:
-				this.tailleBateau = 2;
+				this.tailleBateau = 5;
 				break;
 			default:
 				this.tailleBateau = 3;

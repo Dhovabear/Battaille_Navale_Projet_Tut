@@ -2,12 +2,14 @@ package game.Objects;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
+import java.io.BufferedReader;
 import java.io.IOException;
 
 public class SpriteIndex {
     public static BufferedImage[] waterTiles;
     public static BufferedImage[] imagesBateaux;
     public static BufferedImage[] imagesFlags;
+    public static BufferedImage[] viseurSprites;
 
     public static BufferedImage normalIleTile;
     public static BufferedImage radarWaterTile;
@@ -51,6 +53,8 @@ public class SpriteIndex {
           ImageIO.read(SpriteIndex.class.getResourceAsStream("/images/batCinqCase.png"))
         };
 
+
+
         normalIleTile = ImageIO.read(SpriteIndex.class.getResourceAsStream("/images/Tiles/tileSable.png"));
         radarWaterTile = ImageIO.read(SpriteIndex.class.getResourceAsStream("/images/Tiles/sprite_1.png"));
         radarIleTile = ImageIO.read(SpriteIndex.class.getResourceAsStream("/images/Tiles/sprite_0.png"));
@@ -63,5 +67,6 @@ public class SpriteIndex {
         
         woodPancart = ImageIO.read(SpriteIndex.class.getResourceAsStream("/images/paneauVs.png"));
         vsPannel = ImageIO.read(SpriteIndex.class.getResourceAsStream("/images/vs.png"));
+
     }
 }
