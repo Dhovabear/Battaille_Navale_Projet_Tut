@@ -47,7 +47,7 @@ public class IANiv1 {
         derTouche.setXY(i,j);
     }
 
-    public void jouerSpe(){
+   /* public void jouerSpe(){
         int i;
         int j;
         k = 4;
@@ -69,10 +69,10 @@ public class IANiv1 {
             }
 
         }while (grilleAdverse[i][j]!=0 || !ctrl.autorisationTirOrdi(p)|| depassementGrille(i,j));
-
+        ctrl.tir();
         grilleAdverse[i][j]=1;
         derTouche.setXY(i,j);
-    }
+    }*/
 
     public void retour(){
         for(int i=0;i<5;i++){
@@ -171,10 +171,7 @@ public class IANiv1 {
     }
 
     public boolean depassementGrille(int i, int j){
-        if(i<0 || j<0 || i>9 || j>9){
-            return false;
-        }
-        return true;
+        return ((i>=0 && i<=9) && (j>=0 && j<=9));
     }
 
     public int stable(int i){

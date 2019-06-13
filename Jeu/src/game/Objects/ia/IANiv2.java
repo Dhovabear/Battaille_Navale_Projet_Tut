@@ -1,11 +1,11 @@
-/*
+
 package game.Objects.ia;
 
 import game.Objects.Coordonnees;
 import game.scenes.Jouer;
 
 public class IANiv2 extends IANiv1 {
-    protected int mode = 0;
+    protected int mode;
     protected Coordonnees[] listeOrientation;
     protected int tourne;
     protected int tourneI;
@@ -21,18 +21,21 @@ public class IANiv2 extends IANiv1 {
         listeOrientation[2]= new Coordonnees(-1,0);
         listeOrientation[3]= new Coordonnees(0,-1);
         derTouche = new Coordonnees();
+        this.mode = 0;
 
     }
 
     public void jouer(){
         Coordonnees p;
-        int i=0;
-        int j=0;
+        int i;
+        int j;
         do {
             p = new Coordonnees();
+
             if (this.mode == 0) {
                 i = (int) (Math.random() * 10);
                 j = (int) (Math.random() * 10);
+                p.setXY(i,j);
                 derTouche.setXY(i, j);
             } else if (this.mode == 1) {
                 tourneI++;
@@ -42,14 +45,19 @@ public class IANiv2 extends IANiv1 {
                 p = derTouche;
 
             }
-            if(depassementGrille(derTouche.getX(),derTouche.getY()) || grilleAdverse[i][j]!=0){
-                mode=0;
+
+            if(!depassementGrille(p.getX(),p.getY()) ){
+               if(grilleAdverse[p.getX()][p.getY()]!=0 && mode==2) {
+                   mode = 0;
+               }
             }
-        }while(grilleAdverse[i][j]!=0 || !ctrl.autorisationTirOrdi(p) || depassementGrille(i,j));
-        grilleAdverse[i][j]=1;
+        }while(grilleAdverse[p.getX()][p.getY()]!=0 || !ctrl.autorisationTirOrdi(p));
+        ctrl.tir();
+        grilleAdverse[p.getX()][p.getY()]=1;
+        retour();
     }
 
-    public void jouerSpe(){
+   /* public void jouerSpe(){
         Coordonnees p;
         int i=0;
         int j=0;
@@ -80,18 +88,14 @@ public class IANiv2 extends IANiv1 {
             }
         }while(grilleAdverse[i][j]!=0 || !ctrl.autorisationTirOrdi(p,k) || depassementGrille(i,j));
         grilleAdverse[i][j]=1;
-    }
+    } */
 
     public void retour(){
         int r =0;
-        for(int i=0;i<5;i++){
-            if(ctrl.getBateauxJoueur(i).touche(derTouche.getX(),derTouche.getY())){
-                if (ctrl.getBateauxJoueur(i).getEnVie()){
-                    r=1;
-                }else{
-                    r=2;
-                }
-            }
+        if (mode !=1) {
+           r= aTouche(derTouche);
+        }else{
+            r= aTouche( derTouche.add(listeOrientation[stable(tourne + tourneI)]));
         }
 
         if(r == 1 && mode == 0) {
@@ -110,6 +114,17 @@ public class IANiv2 extends IANiv1 {
         }
     }
 
-
+    public int aTouche(Coordonnees c){
+        for (int i = 0; i < 5; i++) {
+            if (ctrl.getBateauxJoueur(i).touche(c.getX(), c.getY())) {
+                if (ctrl.getBateauxJoueur(i).getEnVie()) {
+                    return  1;
+                } else {
+                    return 2;
+                }
+            }
+        }
+        return 0;
+    }
 }
-*/
+

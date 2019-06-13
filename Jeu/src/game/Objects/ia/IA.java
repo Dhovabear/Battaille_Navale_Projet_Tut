@@ -17,7 +17,7 @@ public class IA {
                 ia = new IANiv1(controleur,mode);
                 break;
             case 2:
-                //ia = new IANiv2(controleur,mode);
+                ia = new IANiv2(controleur,mode);
                 break;
             case 3:
                 //ia = new IANiv3(controleur,mode);
@@ -29,7 +29,7 @@ public class IA {
     }
     public void jouerIA(){
         if (mode == 3){
-            ia.jouerSpe();
+            //ia.jouerSpe();
         }else{
             ia.jouer();
         }
