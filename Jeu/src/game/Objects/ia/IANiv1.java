@@ -169,7 +169,13 @@ public class IANiv1 {
         }
         return chaine;
     }
-    
+
+    public boolean depassementGrille(int i, int j){
+        if(i<0 || j<0 || i>9 || j>9){
+            return false;
+        }
+        return true;
+    }
 
     public int stable(int i){
         if (i>3){
