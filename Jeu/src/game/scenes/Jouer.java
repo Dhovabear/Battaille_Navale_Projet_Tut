@@ -516,6 +516,9 @@ public class Jouer extends Scene {
 					if(isJoueur){
 						this.vieOrdi--;
 						this.degatsOrdi++;
+					}else{
+						this.vieJoueur--;
+						this.degatsOrdi++;
 					}
 
 					//On vérifie quelle coordonnée de quel bateau à été touchée, on applique le processus en résultant (voir l'objet Bateau et l'objet Coordonnée)
@@ -524,11 +527,11 @@ public class Jouer extends Scene {
 							break;
 						}
 					}
-
 					//BOUCLE POUR METTRE LES PIONS SUR SI CA A COULER
 				}
 				else /*if(focusedGrid.getCellInfo(this.x,this.y) != 0)*/{
 					grilleVisu.setGizmo(this.x,this.y,5);
+					focusedGrid.setGizmo(this.x,this.y,5);
 					this.precision--;
 				}
 			}

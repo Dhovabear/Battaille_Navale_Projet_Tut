@@ -336,4 +336,8 @@ public class DGBateau {
 	public int getType() {
 		return m_type;
 	}
+
+	public void removeFromEntities(){
+		DGBateau.occurences.remove(this);
+	}
 }

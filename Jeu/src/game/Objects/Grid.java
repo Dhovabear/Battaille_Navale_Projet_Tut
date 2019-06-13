@@ -59,6 +59,13 @@ public class Grid{
 			ileTile = SpriteIndex.radarIleTile;
 		}
 
+		for (int i = 0; i < 10; i++) {
+			for (int j = 0; j < 10; j++) {
+				System.out.print(grille[j][i]);
+			}
+			System.out.print("\n");
+		}
+
 	}
 
 	public void draw(Graphics g, JPanel p){
