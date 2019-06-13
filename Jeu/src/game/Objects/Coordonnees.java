@@ -20,6 +20,15 @@ public class Coordonnees{
 		this.y = y;
 	}
 
+	public Coordonnees(Coordonnees c){
+		this.x= c.x;
+		this.y= c.y;
+	}
+
+	public Coordonnees add(Coordonnees c){
+		return(new Coordonnees(this.x+ c.x,this.y+ c.y));
+	}
+
 	public void setTouche(){
 		this.touche = true;
 	}
