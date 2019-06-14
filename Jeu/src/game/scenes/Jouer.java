@@ -214,8 +214,8 @@ public class Jouer extends Scene {
 		g.drawString(nomJ,220,500);
 		g.drawString(nomO,p.getWidth()-((grilleVisuOrdi.getCellSize()*10)-120),500);
 
-		listeBateauJ1.drawAt(grilleJoueur.getCellSize()*grilleJoueur.getNbrOfCell() + grilleJoueur.getXPos(),250,g,p);
-		listeBateauJ2.drawAt(grilleOrdi.getXPos()-100,250,g,p);
+		listeBateauJ1.drawAt(grilleJoueur.getCellSize()*grilleJoueur.getNbrOfCell() + grilleJoueur.getXPos(),122,g,p);
+		listeBateauJ2.drawAt(grilleVisuJoueur.getXPos()-100,122,g,p);
 
 		//test.draw(g, p);
 		if(waitForTir){
@@ -239,8 +239,8 @@ public class Jouer extends Scene {
 	
 	public void startEvent(){
 	    SoundLibrary.startGameMusic();
-		listeBateauJ1 = new BoatList(grilleJoueur);
-		listeBateauJ2 = new BoatList(grilleOrdi);
+		listeBateauJ1 = new BoatList(grilleJoueur,false);
+		listeBateauJ2 = new BoatList(grilleOrdi,true);
 		this.vieJoueur = 17; //Nombre de "cases bateaux"
 		this.vieOrdi = 17; //Nombre de "cases bateaux"
 		this.degatsOrdi = 0;
