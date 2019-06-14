@@ -24,15 +24,6 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="SoundLibrary.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/game/Objects/SoundLibrary.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="360">
-              <caret line="85" column="36" selection-start-line="85" selection-start-column="36" selection-end-line="85" selection-end-column="36" />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="FinJeu.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/game/scenes/FinJeu.java">
           <provider selected="true" editor-type-id="text-editor">
@@ -64,17 +55,35 @@
       <file leaf-file-name="IANiv3.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/game/Objects/ia/IANiv3.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-2070">
+            <state relative-caret-position="270">
               <caret line="27" column="47" lean-forward="true" selection-start-line="27" selection-start-column="47" selection-end-line="27" selection-end-column="47" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="IANiv1.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Son.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/game/engine/Son.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="60">
+              <caret line="21" column="75" selection-start-line="21" selection-start-column="75" selection-end-line="21" selection-end-column="75" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="IANiv1.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/game/Objects/ia/IANiv1.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="305">
+            <state relative-caret-position="1250">
               <caret line="155" column="70" selection-start-line="155" selection-start-column="70" selection-end-line="155" selection-end-column="70" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="IANiv2.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/game/Objects/ia/IANiv2.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="20">
+              <caret line="93" column="36" selection-start-line="93" selection-start-column="36" selection-end-line="93" selection-end-column="36" />
             </state>
           </provider>
         </entry>
@@ -111,18 +120,6 @@
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="method#switchScene#0;class#Game#0" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="SpriteIndex.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/game/Objects/SpriteIndex.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="425">
-              <caret line="83" column="97" selection-start-line="83" selection-start-column="97" selection-end-line="83" selection-end-column="97" />
-              <folding>
-                <element signature="imports" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -181,7 +178,6 @@
         <option value="$PROJECT_DIR$/src/game/Objects/DGBateau.java" />
         <option value="$PROJECT_DIR$/src/game/scenes/DragAndDrop.java" />
         <option value="$PROJECT_DIR$/src/game/scenes/DrapeauNom.java" />
-        <option value="$PROJECT_DIR$/src/game/engine/Son.java" />
         <option value="$PROJECT_DIR$/src/game/Objects/ia/IANiv2.java" />
         <option value="$PROJECT_DIR$/src/game/scenes/VSshow.java" />
         <option value="$PROJECT_DIR$/src/game/Objects/IdentityCard.java" />
@@ -195,6 +191,7 @@
         <option value="$PROJECT_DIR$/src/game/scenes/FinJeu.java" />
         <option value="$PROJECT_DIR$/src/game/Objects/ia/IANiv3.java" />
         <option value="$PROJECT_DIR$/src/game/Objects/ia/IANiv1.java" />
+        <option value="$PROJECT_DIR$/src/game/engine/Son.java" />
       </list>
     </option>
   </component>
@@ -403,12 +400,12 @@
       <workItem from="1560407134550" duration="64000" />
       <workItem from="1560499231230" duration="8221000" />
       <workItem from="1560514333798" duration="4570000" />
-      <workItem from="1560519859225" duration="2504000" />
+      <workItem from="1560519859225" duration="2922000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="148428000" />
+    <option name="totallyTimeSpent" value="148846000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-5" y="0" width="1930" height="1031" extended-state="6" />
@@ -672,23 +669,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/game/Objects/ia/IANiv2.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1365">
-          <caret line="93" column="36" selection-start-line="93" selection-start-column="36" selection-end-line="93" selection-end-column="36" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/game/engine/Son.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1215">
-          <caret line="88" selection-start-line="88" selection-end-line="88" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/game/Objects/Grid.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1545">
@@ -794,17 +774,31 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/game/Objects/ia/IANiv1.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1250">
+          <caret line="155" column="70" selection-start-line="155" selection-start-column="70" selection-end-line="155" selection-end-column="70" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/game/Objects/ia/IANiv2.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="20">
+          <caret line="93" column="36" selection-start-line="93" selection-start-column="36" selection-end-line="93" selection-end-column="36" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/game/Objects/ia/IANiv3.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-2070">
+        <state relative-caret-position="270">
           <caret line="27" column="47" lean-forward="true" selection-start-line="27" selection-start-column="47" selection-end-line="27" selection-end-column="47" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/game/Objects/ia/IANiv1.java">
+    <entry file="file://$PROJECT_DIR$/src/game/engine/Son.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="305">
-          <caret line="155" column="70" selection-start-line="155" selection-start-column="70" selection-end-line="155" selection-end-column="70" />
+        <state relative-caret-position="60">
+          <caret line="21" column="75" selection-start-line="21" selection-start-column="75" selection-end-line="21" selection-end-column="75" />
         </state>
       </provider>
     </entry>

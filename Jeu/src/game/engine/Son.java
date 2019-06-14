@@ -19,7 +19,7 @@ public class Son{
     public Son(String tpath , boolean loop){
         try{
             InputStream d = getClass().getResourceAsStream(tpath);
-            snd = AudioSystem.getAudioInputStream(d);
+            snd = AudioSystem.getAudioInputStream(new BufferedInputStream(d));
 
 
             path = tpath;
