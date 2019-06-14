@@ -39,11 +39,14 @@ public class FinJeu extends Scene {
         if(isJoueurWin){
             g.setColor(new Color(255, 179, 41));
             g.drawString("Bravo !",(p.getWidth()/2) - (g.getFontMetrics(g.getFont()).stringWidth("Bravo !")/2),250);
+            g.setFont(g.getFont().deriveFont(30f));
+            g.drawString("Vous avez réussit le mode " + DifficulteOrdi.getTexteDifficulte(),(p.getWidth()/2) - (g.getFontMetrics(g.getFont()).stringWidth("Vous avez vaincu le mode " + DifficulteOrdi.getTexteDifficulte())/2),300);
         }else{
             g.setColor(Color.RED);
             g.drawString("Perdu !",(p.getWidth()/2) - (g.getFontMetrics(g.getFont()).stringWidth("Perdu !")/2),250);
         }
 
+        m_bouttonRetourMenu.draw(g, p);
 
     }
 
@@ -54,7 +57,12 @@ public class FinJeu extends Scene {
         }else {
         }
 
-        m_bouttonRetourMenu = new BouttonSansFond(Game.fenetre.getWidth()-100,Game.fenetre.getHeight()-50,50,"Continuer");
+        m_bouttonRetourMenu = new BouttonSansFond(Game.fenetre.getWidth()-150,Game.fenetre.getHeight()-100,50,"Continuer"){
+            @Override
+            public void action() throws IOException, FontFormatException {
+                Game.switchScene(0);
+            }
+        };
 
     }
 
@@ -65,7 +73,7 @@ public class FinJeu extends Scene {
 
     @Override
     public void mouseInput(MouseEvent e, String typeOfInput) {
-
+        m_bouttonRetourMenu.checkMouse(e, typeOfInput);
     }
 
     @Override
