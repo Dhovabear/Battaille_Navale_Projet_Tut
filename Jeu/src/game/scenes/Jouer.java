@@ -105,6 +105,9 @@ public class Jouer extends Scene {
 
 	private IA ordi;
 
+	private BoatList listeBateauJ1;
+	private BoatList listeBateauJ2;
+
 	public Jouer() throws IOException, FontFormatException {
 		bitcrusher = Font.createFont(Font.TRUETYPE_FONT,getClass().getResourceAsStream("/polices/bitcrusher.ttf"));
 		test = new AnimatedSprite(0,0,100,100,30,new String[]{"/images/moutons/mAlert_0.png", "/images/moutons/mAlert_1.png", "/images/moutons/mAlert_2.png"});
@@ -211,6 +214,9 @@ public class Jouer extends Scene {
 		g.drawString(nomJ,220,500);
 		g.drawString(nomO,p.getWidth()-((grilleVisuOrdi.getCellSize()*10)-120),500);
 
+		listeBateauJ1.drawAt(grilleJoueur.getCellSize()*grilleJoueur.getNbrOfCell() + grilleJoueur.getXPos(),250,g,p);
+		listeBateauJ2.drawAt(grilleOrdi.getXPos()-100,250,g,p);
+
 		//test.draw(g, p);
 		if(waitForTir){
 			if(grilleVisuJoueur.isMouseIn()){
@@ -227,10 +233,14 @@ public class Jouer extends Scene {
 			cursor.updateTime();
 			return;
 		}
+
+
 	}
 	
 	public void startEvent(){
 	    SoundLibrary.startGameMusic();
+		listeBateauJ1 = new BoatList(grilleJoueur);
+		listeBateauJ2 = new BoatList(grilleOrdi);
 		this.vieJoueur = 17; //Nombre de "cases bateaux"
 		this.vieOrdi = 17; //Nombre de "cases bateaux"
 		this.degatsOrdi = 0;

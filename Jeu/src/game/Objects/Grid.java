@@ -396,6 +396,9 @@ public class Grid{
 		return gizmoGrid[x][y];
 	}
 
+    public ArrayList<Bateau> getBateaux() {
+		return (ArrayList<Bateau>)bateaux;
+    }
 }
 
 /*

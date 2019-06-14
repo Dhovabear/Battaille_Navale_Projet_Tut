@@ -44,9 +44,9 @@ public class SplashText {
 
     public void draw(Graphics g){
         g.setColor(new Color(0, 0, 0));
-        g.fillRect(m_posX,m_posY,354,64);
+        g.fillRect(m_posX,m_posY,404,64);
         g.setColor(new Color(184, 197, 192));
-        g.fillRect(m_posX+2,m_posY+2,350,60);
+        g.fillRect(m_posX+2,m_posY+2,400,60);
         g.setColor(new Color(0, 0, 0));
         g.setFont(m_fnt.deriveFont(Font.BOLD).deriveFont(Font.HANGING_BASELINE));
         g.drawString("ASTUCE:",m_posX+10,m_posY+30);
