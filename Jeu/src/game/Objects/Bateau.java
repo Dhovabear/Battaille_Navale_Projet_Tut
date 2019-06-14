@@ -136,4 +136,8 @@ public class Bateau{
 		g2.rotate(Math.toRadians(-rt),((x*m_parent.getCellSize())+m_parent.getXPos())+(m_parent.getCellSize()/2),((y*m_parent.getCellSize())+m_parent.getYPos())+(m_parent.getCellSize()/2));
 
 	}
+
+	public Coordonnees getCases(int i) {
+		return cases[i];
+	}
 }

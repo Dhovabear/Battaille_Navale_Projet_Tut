@@ -1,4 +1,7 @@
-/*
+package game.Objects.ia;
+
+import game.Objects.Coordonnees;
+import game.scenes.Jouer;
 import java.util.ArrayList;
 
 public class IANiv3 extends IANiv1 {
@@ -82,7 +85,7 @@ public class IANiv3 extends IANiv1 {
         grilleAdverse[a][b]=1;
     }
 
-    public void jouerSpe(){
+    /*public void jouerSpe(){
         Coordonnees p;
         int a=0;
         int b=0;
@@ -125,7 +128,7 @@ public class IANiv3 extends IANiv1 {
             }
         }while(grilleAdverse[a][b]!=0 || !ctrl.autorisationTirOrdi(p,prioritee[k]) || depassementGrille(a,b));
         grilleAdverse[a][b]=1;
-    }
+    }*/
 
 
 
@@ -164,4 +167,4 @@ public class IANiv3 extends IANiv1 {
 
 
 }
-*/
+
