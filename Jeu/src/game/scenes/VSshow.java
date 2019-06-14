@@ -34,7 +34,7 @@ public class VSshow extends Scene {
 
     @Override
     public void draw(Graphics g, JPanel p) {
-        g.setColor(Color.WHITE);
+        g.setColor(Color.DARK_GRAY);
         g.fillRect(0,0,p.getWidth(),p.getHeight());
 
         if(j1.getY() < ystop){
@@ -45,8 +45,8 @@ public class VSshow extends Scene {
             j2.setY(j2.getY()+speed);
         }
 
-        if(vsPanYPos > ystop+100){
-            vsPanYPos -= (speed/1.8);
+        if(vsPanYPos > ystop+40){
+            vsPanYPos -= (speed/1.5);
         }
 
         j1.draw(g, p);

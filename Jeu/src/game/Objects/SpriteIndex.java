@@ -17,6 +17,7 @@ public class SpriteIndex {
     public static BufferedImage vsPannel;
 
     public static BufferedImage woodPancart;
+    public static BufferedImage croixImage;
 
     private static final int NBR_OF_FLAGS = 20;
 
@@ -75,6 +76,7 @@ public class SpriteIndex {
         
         woodPancart = ImageIO.read(SpriteIndex.class.getResourceAsStream("/images/paneauVs.png"));
         vsPannel = ImageIO.read(SpriteIndex.class.getResourceAsStream("/images/vs.png"));
+        croixImage = ImageIO.read(SpriteIndex.class.getResourceAsStream("/images/croixRouge.png"));
 
     }
 }

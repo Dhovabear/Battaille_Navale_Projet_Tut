@@ -14,6 +14,7 @@ public class SoundLibrary {
 
 
     public static Son currentMenuMusic;
+    public static Son currentGameMusic;
 
     public static void loadSounds() throws IOException, UnsupportedAudioFileException {
 
@@ -53,8 +54,25 @@ public class SoundLibrary {
     }
 
     public static void stopMusicMenu(){
-        currentMenuMusic.stop();
+        try {
+            currentMenuMusic.stop();
+        }catch (NullPointerException e) {
+        }
         currentMenuMusic = null;
+    }
+
+    public static void playGameMusic(){
+        currentGameMusic = new Son("/sons/musique.wav",true);
+        currentGameMusic.start();
+    }
+
+    public static void stopGameMusic(){
+        try{
+            currentGameMusic.stop();
+        }catch (NullPointerException e){
+
+        }
+        currentGameMusic = null;
     }
 
 }

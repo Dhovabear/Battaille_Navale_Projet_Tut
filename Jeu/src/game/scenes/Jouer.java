@@ -115,18 +115,10 @@ public class Jouer extends Scene {
 		//Si le joueur abandonne, il retourne au menu principal
 
 		//Si le joueur ou l'Ordi a tous ses bateaux coulés, la partie se termine
-		if(this.vieOrdi==0 || this.vieJoueur==0){ 
-			if(this.vieOrdi==0){
-				this.victoire = true;
-			}
-			else{
-				this.victoire = false;
-			}
-			Game.switchScene(0);
-		}
 
 
-		if(waitForTir){
+
+        if(waitForTir){
 			return;
 		}
 
@@ -136,7 +128,19 @@ public class Jouer extends Scene {
 		//selectionTir();
 	}
 
-	public void setGrids(Grid gJ1 , Grid vJ1 , Grid gOrdi , Grid vOrdi){
+    public void checkIsGameEnded() throws IOException, FontFormatException {
+        if(this.vieOrdi==0 || this.vieJoueur==0){
+            if(this.vieOrdi==0){
+                this.victoire = true;
+            }
+            else{
+                this.victoire = false;
+            }
+            Game.switchScene(0);
+        }
+    }
+
+    public void setGrids(Grid gJ1 , Grid vJ1 , Grid gOrdi , Grid vOrdi){
 		grilleJoueur = gJ1;
 		grilleVisuJoueur = vJ1;
 		grilleOrdi = gOrdi;
@@ -145,18 +149,27 @@ public class Jouer extends Scene {
 	}
 
 	public void finTour(){
-		if(this.isJoueur==true){
+        try {
+            checkIsGameEnded();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (FontFormatException e) {
+            e.printStackTrace();
+        }
+        if(this.isJoueur==true){
 			this.isJoueur = false;
 			System.out.println("Tour Ordi !");
 			Thread t = new Thread(){
 				@Override
 				public void run() {
+				    SoundLibrary.playMissileSon();
 					try {
 						sleep(1000);
 					} catch (InterruptedException e) {
 						e.printStackTrace();
 					}
 					ordi.jouerIA();
+					playSoundForGoal();
 					try {
 						sleep(1000);
 					} catch (InterruptedException e) {
@@ -179,9 +192,9 @@ public class Jouer extends Scene {
 		g.fillRect(0,0,p.getWidth(),p.getHeight());
 
 		grilleJoueur.draw(g, p);
-		grilleJoueur.drawGizmos(g);
+		grilleJoueur.drawGizmos(g,p);
 		grilleVisuJoueur.draw(g, p);
-		grilleVisuJoueur.drawGizmos(g);
+		grilleVisuJoueur.drawGizmos(g,p);
 
 		g.drawImage(drapeauJ,60,450,150,75,p);
 		g.drawImage(drapeauO, p.getWidth()-((grilleVisuOrdi.getCellSize()*10)+50),450,150,75,p);
@@ -293,7 +306,7 @@ public class Jouer extends Scene {
 			tmpVis = grilleVisuOrdi;
 		}
 
-		if(tmpVis.getGizmoInfo(x,y) == 6){
+		if(tmpVis.getGizmoInfo(x,y) == 6 || tmpVis.getGizmoInfo(x,y) == 4){
 			SoundLibrary.playBoomSon();
 		}else{
 			SoundLibrary.playPloufSong();
@@ -540,7 +553,10 @@ public class Jouer extends Scene {
 			//Si le tir ne sort pas de la grille (Vérification pour le Mode bateaux tireurs)
 			if((this.x>-1 && this.x<10) && (this.y>-1 && this.y<10)){
 				//Si le tir touche une case bateau adverse
-				if(focusedGrid.getCellInfo(this.x,this.y)==1 && (focusedGrid.getGizmoInfo(this.x,this.y) != 6 || focusedGrid.getGizmoInfo(this.x,this.y) != 4 )){
+				if(focusedGrid.getCellInfo(this.x,this.y)==1){
+                    if(grilleVisu.getGizmoInfo(this.x,this.y) == 6 || grilleVisu.getGizmoInfo(this.x,this.y) == 4){
+                        return;
+                    }
 					//On indique sur la grille de l'ordi qu'une de ses cases bateau à été touchée
 					focusedGrid.setGizmo(this.x,this.y,2);
 					//On indique sur la grille de visu du joueur que le tir à touché
@@ -551,12 +567,16 @@ public class Jouer extends Scene {
 						this.degatsOrdi++;
 					}else{
 						this.vieJoueur--;
-						this.degatsOrdi++;
 					}
 
 					//On vérifie quelle coordonnée de quel bateau à été touchée, on applique le processus en résultant (voir l'objet Bateau et l'objet Coordonnée)
 					for(int i=0;i<focusedGrid.getNbrOfBateau();i++){
 						if(focusedGrid.getBateau(i).touche(this.x,this.y)==true){
+						    if(!focusedGrid.getBateau(i).getEnVie()){
+                                for (Coordonnees c: focusedGrid.getBateau(i).getCoordonees()) {
+                                    grilleVisu.setGizmo(c.getX(),c.getY(),4);
+                                }
+                            }
 							break;
 						}
 					}

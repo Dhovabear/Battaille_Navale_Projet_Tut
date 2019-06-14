@@ -22,7 +22,7 @@ public class IdentityCard {
         g.drawImage(SpriteIndex.woodPancart,m_x,m_y,412,195,p);
         g.drawImage(m_drapeau,(m_x + 206) - (180/2),m_y+10,180,120,p);
         g.setFont(PoliceIndex.goodBrush.deriveFont(25f));
-        g.setColor(Color.RED);
+        g.setColor(new Color(153, 12, 32));
         int posX = g.getFontMetrics(g.getFont()).stringWidth(m_nom);
         g.drawString(m_nom,(m_x + 206) - (posX/2),m_y+170);
     }

@@ -140,4 +140,8 @@ public class Bateau{
 	public Coordonnees getCases(int i) {
 		return cases[i];
 	}
+
+	public Coordonnees[] getCoordonees() {
+		return cases;
+	}
 }

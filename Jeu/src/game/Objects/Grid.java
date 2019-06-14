@@ -251,7 +251,7 @@ public class Grid{
 		}
 	}
 
-	public void drawGizmos(Graphics g){
+	public void drawGizmos(Graphics g,JPanel p){
 		for (int y = 0; y < m_nbOfCell ; y++ ){
 			for (int x = 0; x < m_nbOfCell ; x++ ){
 				switch(gizmoGrid[x][y]){
@@ -269,10 +269,7 @@ public class Grid{
 						break;
 
 					case 4:
-						g.setColor(Color.BLACK);
-						g.fillOval((x*m_cellSize)+m_xPos , (y*m_cellSize)+m_yPos , m_cellSize , m_cellSize );
-						g.setColor(Color.WHITE);
-						g.fillOval((x*m_cellSize)+m_xPos , (y*m_cellSize)+m_yPos , m_cellSize-1, m_cellSize-1);
+						g.drawImage(SpriteIndex.croixImage,(x*m_cellSize)+m_xPos,(y*m_cellSize)+m_yPos,m_cellSize,m_cellSize,p);
 						break;
 
 					case 5:
