@@ -92,7 +92,11 @@ public class Menu extends Scene {
         bouttonCredits.setEnabled(false);
         bouttonAide.setEnabled(false);
         astuce.reRollText();
-        SoundLibrary.startMusicMenu();
+
+        if(!SoundLibrary.isMusicMenuRunning()){
+            SoundLibrary.startMusicMenu();
+        }
+
         //SoundLibrary.playJingleDebutPartie();
     }
 

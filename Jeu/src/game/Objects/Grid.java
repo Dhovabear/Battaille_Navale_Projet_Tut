@@ -273,13 +273,15 @@ public class Grid{
 						break;
 
 					case 5:
-						g.setColor(Color.WHITE);
-						g.fillOval((x*m_cellSize)+m_xPos , (y*m_cellSize)+m_yPos , m_cellSize , m_cellSize );
+						/*g.setColor(Color.WHITE);
+						g.fillOval((x*m_cellSize)+m_xPos , (y*m_cellSize)+m_yPos , m_cellSize , m_cellSize );*/
+						g.drawImage(SpriteIndex.pionBlanc,(x*m_cellSize)+m_xPos,(y*m_cellSize)+m_yPos,m_cellSize,m_cellSize,p);
 						break;
 
 					case 6:
-						g.setColor(Color.RED);
-						g.fillOval((x*m_cellSize)+m_xPos , (y*m_cellSize)+m_yPos , m_cellSize , m_cellSize );
+						/*g.setColor(Color.RED);
+						g.fillOval((x*m_cellSize)+m_xPos , (y*m_cellSize)+m_yPos , m_cellSize , m_cellSize );*/
+                        g.drawImage(SpriteIndex.pionRouge,(x*m_cellSize)+m_xPos,(y*m_cellSize)+m_yPos,m_cellSize,m_cellSize,p);
 						break;
 
 

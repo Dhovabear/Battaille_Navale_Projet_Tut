@@ -20,7 +20,7 @@ public class IA {
                 ia = new IANiv2(controleur,mode);
                 break;
             case 3:
-                //ia = new IANiv3(controleur,mode);
+                ia = new IANiv3(controleur,mode);
                 break;
             default:
                 System.err.println("ERREUR 002 : Entrée invalide : niveau invalide");

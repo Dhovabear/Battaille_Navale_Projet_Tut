@@ -5,19 +5,23 @@ import game.Objects.Coordonnees;
 import java.util.ArrayList;
 import java.util.Objects;
 
-public class Suspect {
+public class SuspectDouble {
     private Coordonnees coordonnee;
+    private Coordonnees origine;
     private Coordonnees direction;
+    private ArrayList<SuspectDouble> enfants;
+    private boolean epuiser;
 
 
 
-    
 
-    public Suspect(Coordonnees coordonnee, Coordonnees direction) {
+    public SuspectDouble(Coordonnees coordonnee, Coordonnees direction) {
         this.coordonnee = coordonnee;
+        this.origine = new Coordonnees(coordonnee);
         this.direction = direction;
+        this.enfants = new ArrayList<>();
+        epuiser = false;
     }
-
 
 
     public void incremente(){
@@ -40,15 +44,33 @@ public class Suspect {
         this.direction = direction;
     }
 
+    public void addEnfant(SuspectDouble enfant){
+        enfants.add(enfant);
+    }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Suspect suspect = (Suspect) o;
+        SuspectDouble suspect = (SuspectDouble) o;
         return Objects.equals(coordonnee, suspect.coordonnee) &&
                 Objects.equals(direction, suspect.direction);
     }
 
+    public void epuisement(){
+        if (!epuiser){
+            epuiser = true;
+            coordonnee = new Coordonnees(origine);
+            direction = new Coordonnees(direction.getX()*-1,direction.getY()*-1);
+            incremente();
+        }
+    }
 
+    public boolean isEpuiser() {
+        return epuiser;
+    }
+
+    public void suprEnfant(){
+        enfants.clear();
+    }
 }

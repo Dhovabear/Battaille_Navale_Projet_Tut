@@ -2,8 +2,6 @@ package game.Objects.ia;
 
 import game.Objects.Coordonnees;
 import game.scenes.Jouer;
-
-import java.util.ArrayList;
 import java.io.*;
 
 public class IANiv1 {
@@ -12,12 +10,11 @@ public class IANiv1 {
     protected Coordonnees derTouche;
     protected Jouer ctrl;
     protected int mode;
-    protected int k ;
-    //protected int dernierUsage;
 
-    public IANiv1(Jouer j,int m){
-        this.ctrl = j;
-        this.mode = m;
+
+    public IANiv1(Jouer controleur,int mode){
+        this.ctrl = controleur;
+        this.mode = mode;
         grilleAdverse = new int[10][10];
         derTouche = new Coordonnees();
         if (mode == 2){
@@ -83,7 +80,7 @@ public class IANiv1 {
     }
 
     public void fin(){
-        String fichier = "memoire.txt";
+        String fichier = "/donnes/memoire.txt";
         String[] grilleTempo = readFile(fichier).split("!");
 
         for (int a = 0; a<10;a++){
@@ -156,7 +153,7 @@ public class IANiv1 {
 
         //lecture du fichier texte
         try {
-            InputStream ips = new FileInputStream(fichier);
+            InputStream ips = getClass().getResourceAsStream(fichier);
             InputStreamReader ipsr = new InputStreamReader(ips);
             BufferedReader br = new BufferedReader(ipsr);
             String ligne;

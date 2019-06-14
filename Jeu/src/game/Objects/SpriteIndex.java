@@ -19,6 +19,9 @@ public class SpriteIndex {
     public static BufferedImage woodPancart;
     public static BufferedImage croixImage;
 
+    public static BufferedImage pionRouge;
+    public static BufferedImage pionBlanc;
+
     private static final int NBR_OF_FLAGS = 20;
 
     public static void loadImages() throws IOException {
@@ -77,6 +80,8 @@ public class SpriteIndex {
         woodPancart = ImageIO.read(SpriteIndex.class.getResourceAsStream("/images/paneauVs.png"));
         vsPannel = ImageIO.read(SpriteIndex.class.getResourceAsStream("/images/vs.png"));
         croixImage = ImageIO.read(SpriteIndex.class.getResourceAsStream("/images/croixRouge.png"));
+        pionRouge = ImageIO.read(SpriteIndex.class.getResourceAsStream("/images/pionRouge.png"));
+        pionBlanc = ImageIO.read(SpriteIndex.class.getResourceAsStream("/images/pionBlanc.png"));
 
     }
 }

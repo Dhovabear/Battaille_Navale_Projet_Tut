@@ -174,7 +174,7 @@ public class Game {
         SoundLibrary.loadSounds();
         PoliceIndex.loadFonts();
         SpriteIndex.loadImages();
-        sceneIndex = new Scene[8];//On initialise la liste avec le nombre de scenes que l'on a
+        sceneIndex = new Scene[9];//On initialise la liste avec le nombre de scenes que l'on a
         sceneIndex[0] = new Menu();
         sceneIndex[2] = new JoueurVsOrdi();
         sceneIndex[3] = new DifficulteOrdi();
@@ -182,6 +182,7 @@ public class Game {
         sceneIndex[5] = new DragAndDrop();
         sceneIndex[6] = new Jouer();
         sceneIndex[7] = new VSshow();
+        sceneIndex[8] = new FinJeu();
         currentscene = 0;//On initialise l'id de la scene actuelle
     }
 

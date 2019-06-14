@@ -111,7 +111,8 @@ public class Jouer extends Scene {
 
 	}
 
-	public void update() throws IOException, FontFormatException {
+
+    public void update() throws IOException, FontFormatException {
 		//Si le joueur abandonne, il retourne au menu principal
 
 		//Si le joueur ou l'Ordi a tous ses bateaux coulés, la partie se termine
@@ -128,16 +129,21 @@ public class Jouer extends Scene {
 		//selectionTir();
 	}
 
-    public void checkIsGameEnded() throws IOException, FontFormatException {
+    public boolean checkIsGameEnded() throws IOException, FontFormatException {
         if(this.vieOrdi==0 || this.vieJoueur==0){
             if(this.vieOrdi==0){
                 this.victoire = true;
+                FinJeu.setIsJoueurWin(true);
             }
             else{
                 this.victoire = false;
+				FinJeu.setIsJoueurWin(false);
+
             }
-            Game.switchScene(0);
+            Game.switchScene(8);
+			return true;
         }
+        return false;
     }
 
     public void setGrids(Grid gJ1 , Grid vJ1 , Grid gOrdi , Grid vOrdi){
@@ -150,7 +156,9 @@ public class Jouer extends Scene {
 
 	public void finTour(){
         try {
-            checkIsGameEnded();
+            if(checkIsGameEnded()){
+            	return;
+			}
         } catch (IOException e) {
             e.printStackTrace();
         } catch (FontFormatException e) {
@@ -222,6 +230,7 @@ public class Jouer extends Scene {
 	}
 	
 	public void startEvent(){
+	    SoundLibrary.startGameMusic();
 		this.vieJoueur = 17; //Nombre de "cases bateaux"
 		this.vieOrdi = 17; //Nombre de "cases bateaux"
 		this.degatsOrdi = 0;
@@ -318,7 +327,7 @@ public class Jouer extends Scene {
 
 	public void exitEvent(){
 		//[ENLEVER JOUER]
-
+        SoundLibrary.stopGameMusic();
 		//Le score n'est sauvegardé que pour le mode classique
 		if(this.mode == 0 && this.abandon == false){
 			//Si le joueur a gagné
@@ -575,6 +584,7 @@ public class Jouer extends Scene {
 						    if(!focusedGrid.getBateau(i).getEnVie()){
                                 for (Coordonnees c: focusedGrid.getBateau(i).getCoordonees()) {
                                     grilleVisu.setGizmo(c.getX(),c.getY(),4);
+                                    focusedGrid.setGizmo(c.getX(),c.getY(),4);
                                 }
                             }
 							break;

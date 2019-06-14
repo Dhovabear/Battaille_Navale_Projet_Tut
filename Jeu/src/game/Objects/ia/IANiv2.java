@@ -6,18 +6,14 @@ import game.scenes.Jouer;
 import java.util.ArrayList;
 
 public class IANiv2 extends IANiv1 {
-    protected int mode;
+
     protected Coordonnees[] listeOrientation;
-    protected int tourne;
-    protected int tourneI;
     protected ArrayList<Suspect> suspect;
     protected ArrayList<Coordonnees> dejaTouche;
 
 
     public IANiv2(Jouer j, int m){
         super(j,m);
-        this.tourneI = 0;
-        this.tourne = 0;
         suspect = new ArrayList<>();
         dejaTouche = new ArrayList<>();
         listeOrientation = new Coordonnees[4];
@@ -26,7 +22,6 @@ public class IANiv2 extends IANiv1 {
         listeOrientation[2]= new Coordonnees(-1,0);
         listeOrientation[3]= new Coordonnees(0,-1);
         derTouche = new Coordonnees();
-        this.mode = 0;
 
     }
 
@@ -35,19 +30,19 @@ public class IANiv2 extends IANiv1 {
         int i;
         int j;
         do {
-                if (this.suspect.size() == 0) {
-                    i = (int) (Math.random() * 10);
-                    j = (int) (Math.random() * 10);
-                    derTouche.setXY(i, j);
-                } else {
-                    i = suspect.get(0).getCoordonnee().getX();
-                    j = suspect.get(0).getCoordonnee().getY();
-                    derTouche.setXY(i, j);
-                }
+            if (this.suspect.size() == 0) {
+                i = (int) (Math.random() * 10);
+                j = (int) (Math.random() * 10);
+                derTouche.setXY(i, j);
+            } else {
+                i = suspect.get(0).getCoordonnee().getX();
+                j = suspect.get(0).getCoordonnee().getY();
+                derTouche.setXY(i, j);
+            }
 
-                if (!ctrl.autorisationTirOrdi(derTouche) && suspect.size() != 0) {
-                    suspect.remove(0);
-                }
+            if ((!ctrl.autorisationTirOrdi(derTouche)||grilleAdverse[derTouche.getX()][derTouche.getY()]!=0) && suspect.size() != 0) {
+                suspect.remove(0);
+            }
         }while(grilleAdverse[derTouche.getX()][derTouche.getY()]!=0 || !ctrl.autorisationTirOrdi(derTouche));
         ctrl.tir();
         grilleAdverse[derTouche.getX()][derTouche.getY()]=1;
