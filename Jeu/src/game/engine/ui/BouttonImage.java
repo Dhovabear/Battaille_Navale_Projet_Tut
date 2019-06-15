@@ -11,13 +11,13 @@ public class BouttonImage extends Boutton {
     private BufferedImage m_Img;
     private BufferedImage m_disabledImage;
 
-    public BouttonImage(int x , int y , int w , int h, String imagePath , String disImagePath) throws IOException {
+    public BouttonImage(int x , int y , int w , int h, BufferedImage enabledImage , BufferedImage disabledImage) {
         this.m_xPos = x;
         this.m_yPos = y;
         this.m_width = w;
         this.m_height = h;
-        m_Img = ImageIO.read(getClass().getResourceAsStream(imagePath));
-        m_disabledImage = ImageIO.read(getClass().getResourceAsStream(disImagePath));
+        m_Img = enabledImage;
+        m_disabledImage = disabledImage;
     }
 
 
@@ -40,4 +40,8 @@ public class BouttonImage extends Boutton {
     public void action() throws IOException, FontFormatException {
 
     }
+
+    public void setEnabledImage(BufferedImage img){
+        this.m_Img = img;
+    };
 }

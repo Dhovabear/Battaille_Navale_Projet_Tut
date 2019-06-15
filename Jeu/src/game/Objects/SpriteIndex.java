@@ -1,6 +1,7 @@
 package game.Objects;
 
 import javax.imageio.ImageIO;
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -10,6 +11,7 @@ public class SpriteIndex {
     public static BufferedImage[] imagesBateaux;
     public static BufferedImage[] imagesFlags;
     public static BufferedImage[] viseurSprites;
+    public static BufferedImage[] lowLifeSheep;
 
     public static BufferedImage normalIleTile;
     public static BufferedImage radarWaterTile;
@@ -19,10 +21,27 @@ public class SpriteIndex {
     public static BufferedImage woodPancart;
     public static BufferedImage croixImage;
 
+    public static BufferedImage neutralSheep;
+    public static BufferedImage happySheep;
+    public static BufferedImage hurtSheep;
+
     public static BufferedImage pionRouge;
     public static BufferedImage pionBlanc;
 
+    public static BufferedImage giveUp;
+    public static BufferedImage bouttonContinuer;
+    public static BufferedImage bouttonContinuerDis;
+
+    public static BufferedImage bouttonMuteEnabled;
+    public static BufferedImage bouttonMuteDisabled;
+
     private static final int NBR_OF_FLAGS = 20;
+    public static BufferedImage credits;
+    public static BufferedImage regles;
+    public static BufferedImage classique;
+    public static BufferedImage tirsSpeciaux;
+    public static BufferedImage ile;
+
 
     public static void loadImages() throws IOException {
 
@@ -83,5 +102,23 @@ public class SpriteIndex {
         pionRouge = ImageIO.read(SpriteIndex.class.getResourceAsStream("/images/pionRouge.png"));
         pionBlanc = ImageIO.read(SpriteIndex.class.getResourceAsStream("/images/pionBlanc.png"));
 
+        lowLifeSheep =new BufferedImage[]{
+                ImageIO.read(SpriteIndex.class.getResourceAsStream("/images/moutons/mAlert_0.png")),
+                ImageIO.read(SpriteIndex.class.getResourceAsStream("/images/moutons/mAlert_1.png")),
+                ImageIO.read(SpriteIndex.class.getResourceAsStream("/images/moutons/mAlert_2.png"))
+        };
+
+        neutralSheep = ImageIO.read(SpriteIndex.class.getResourceAsStream("/images/moutons/tete_0.png"));
+        hurtSheep = ImageIO.read(SpriteIndex.class.getResourceAsStream("/images/moutons/tete_1.png"));
+        happySheep = ImageIO.read(SpriteIndex.class.getResourceAsStream("/images/moutons/tete_2.png"));
+
+        giveUp = ImageIO.read(SpriteIndex.class.getResourceAsStream("/images/giveUp.png"));
+
+        bouttonContinuer = ImageIO.read(SpriteIndex.class.getResourceAsStream("/images/bouttonContinuer1.png"));
+        bouttonContinuerDis = ImageIO.read(SpriteIndex.class.getResourceAsStream("/images/bouttonContinuer0.png"));
+        
+        bouttonMuteEnabled = ImageIO.read(SpriteIndex.class.getResourceAsStream("/images/muteLogo_0.png"));
+        bouttonMuteDisabled = ImageIO.read(SpriteIndex.class.getResourceAsStream("/images/muteLogo_1.png"));
+        credits = ImageIO.read(SpriteIndex.class.getResourceAsStream("/images/credit_final.png"));
     }
 }

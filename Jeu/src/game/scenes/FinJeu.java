@@ -1,6 +1,7 @@
 package game.scenes;
 
 import game.Objects.PoliceIndex;
+import game.Objects.Score;
 import game.Objects.SoundLibrary;
 import game.engine.Game;
 import game.engine.Scene;
@@ -15,10 +16,12 @@ import java.io.IOException;
 
 public class FinJeu extends Scene {
 
-    private static boolean isJoueurWin;
+    private static boolean isJoueurWin = true;
 
 
     private BouttonSansFond m_bouttonRetourMenu;
+    private String messageScore;
+    private String messageComplementaire;
 
 
     public FinJeu(){
@@ -46,15 +49,25 @@ public class FinJeu extends Scene {
             g.drawString("Perdu !",(p.getWidth()/2) - (g.getFontMetrics(g.getFont()).stringWidth("Perdu !")/2),250);
         }
 
+        if(JoueurVsOrdi.getSelectionMode() == 1){
+            g.drawString(messageScore,(p.getWidth()/2) - (g.getFontMetrics(g.getFont()).stringWidth(messageScore)/2) , 350);
+            g.drawString(messageComplementaire,(p.getWidth()/2) - (g.getFontMetrics(g.getFont()).stringWidth(messageComplementaire)/2) , 400);
+        }
+
+
         m_bouttonRetourMenu.draw(g, p);
 
     }
 
     @Override
     public void startEvent() throws IOException, FontFormatException {
+
         if(isJoueurWin){
             SoundLibrary.startVictorySon();
+            messageScore = "Et votre score est de: ";
         }else {
+            SoundLibrary.startPerduSon();
+            messageScore = "Néamoins votre score est de: ";
         }
 
         m_bouttonRetourMenu = new BouttonSansFond(Game.fenetre.getWidth()-150,Game.fenetre.getHeight()-100,50,"Continuer"){
@@ -64,6 +77,36 @@ public class FinJeu extends Scene {
             }
         };
 
+        if(JoueurVsOrdi.getSelectionMode() != 1){
+            return;
+        }
+
+        int score = ((Jouer)Game.sceneIndex[6]).getScore();
+
+        messageScore += score;
+
+        int pos = Menu.scoreboard.addScore(new Score(DrapeauNom.getIdDrapeauJoueur(),DrapeauNom.getNomJoueur(),score),DifficulteOrdi.getDifficulteOrdi()-1);
+
+        switch (pos){
+            case 0:
+                messageComplementaire = "Félicitation vous avez la première place au classement de ce mode !";
+                break;
+            case 1:
+                messageComplementaire = "Félicitation vous avez la seconde place au classement de ce mode !";
+                break;
+            case 2:
+                messageComplementaire = "Félicitation vous avez la troisième place au classement de ce mode !";
+                break;
+            case 3:
+                messageComplementaire = "Félicitation vous avez la quatrième place au classement de ce mode !";
+                break;
+            case 4:
+                messageComplementaire = "Félicitation vous avez la cinquième place au classement de ce mode !";
+                break;
+             default:
+                 messageComplementaire = "Dommage vous n'êtes pas dans le classement !";
+                 break;
+        }
     }
 
     @Override
@@ -83,7 +126,8 @@ public class FinJeu extends Scene {
 
     @Override
     public void exitEvent() {
-
+        SoundLibrary.stopVictorySon();
+        SoundLibrary.startPerduSon();
     }
 
     public static void setIsJoueurWin(boolean state){

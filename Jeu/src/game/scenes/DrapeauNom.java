@@ -1,5 +1,6 @@
 package game.scenes;
 
+import game.Objects.PoliceIndex;
 import game.Objects.SoundLibrary;
 import game.Objects.SpriteIndex;
 import game.engine.Game;
@@ -47,7 +48,7 @@ public class DrapeauNom extends Scene {
 
 	public DrapeauNom() throws IOException, FontFormatException {
 		m_flagSelector = new FlagSelector(30,100,100);
-		m_titreMenu = new Label(300,50,50f,"bitcrusher.ttf","Choisissez votre nom et pays");
+		m_titreMenu = new Label(300,50,50f, PoliceIndex.bitcrusher,"Choisissez votre nom et pays");
 		m_champNom = new TextField(520,400,20,"Enter name here",20);
 		m_bouttonRetour = new BouttonSansFond(5,510,50,"Retour"){
 			@Override
@@ -68,7 +69,16 @@ public class DrapeauNom extends Scene {
 		};
 	}
 
-	public void update(){
+	public static int getIdDrapeauJoueur() {
+		for (int i = 0; i < SpriteIndex.imagesFlags.length; i++) {
+			if(SpriteIndex.imagesFlags[i] == choixDrapeauJoueur){
+				return i;
+			}
+		}
+		return -1;
+	}
+
+    public void update(){
 		//System.out.println("plop");
 		//System.out.println(m_champNom + " " + (choixDrapeauJoueur == null));
 		if(!m_champNom.getText().equals("") && choixDrapeauJoueur != null){

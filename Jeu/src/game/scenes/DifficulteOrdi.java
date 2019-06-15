@@ -1,5 +1,6 @@
 package game.scenes;
 
+import game.Objects.PoliceIndex;
 import game.engine.Game;
 import game.engine.Scene;
 import game.engine.ui.BouttonSansFond;
@@ -26,7 +27,7 @@ public class DifficulteOrdi extends Scene {
 	private BouttonSansFond m_boutRetour;
 
 	public DifficulteOrdi() throws IOException, FontFormatException {
-		this.m_label = new Label(450,65,50f,"bitcrusher.ttf","Choisir une difficultée");
+		this.m_label = new Label(450,65,50f, PoliceIndex.bitcrusher,"Choisir une difficultée");
 		m_boutFacile = new BouttonSansFond(300,250,50,"Facile"){
 			@Override
 			public void action() throws IOException, FontFormatException {

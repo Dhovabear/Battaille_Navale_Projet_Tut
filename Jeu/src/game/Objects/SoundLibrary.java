@@ -17,6 +17,11 @@ public class SoundLibrary {
     public static Son currentGameMusic;
 
     public static Son currentVictoryMusic;
+    public static Son currentAlarmeSon;
+
+    public static boolean isMute = false;
+    private static Son currentPerduSon;
+    private static Son currentCreditSon;
 
     public static void loadSounds() throws IOException, UnsupportedAudioFileException {
 
@@ -26,31 +31,37 @@ public class SoundLibrary {
     }
 
     public static void playClickSound(){
+        if(isMute){return;}
         Son tmp = new Son("/sons/clic.wav",false);
         tmp.start();
     }
 
     public static void playJingleDebutPartie(){
+        if(isMute){return;}
         Son tmp = new Son("/sons/jingle.wav",false);
         tmp.start();
     }
 
     public static void playPloufSong(){
+        if(isMute){return;}
         Son tmp = new Son("/sons/plouf.wav",false);
         tmp.start();
     }
 
     public static void playMissileSon(){
+        if(isMute){return;}
         Son tmp = new Son("/sons/missile.wav",false);
         tmp.start();
     }
 
     public static void playBoomSon(){
+        if(isMute){return;}
         Son tmp = new Son("/sons/boom.wav",false);
         tmp.start();
     }
 
     public static void startMusicMenu(){
+        if(isMute){return;}
         currentMenuMusic = new Son("/sons/menuSong.wav",true);
         currentMenuMusic.start();
     }
@@ -68,6 +79,7 @@ public class SoundLibrary {
     }
 
     public static void startGameMusic(){
+        if(isMute){return;}
         currentGameMusic = new Son("/sons/musique.wav",true);
         currentGameMusic.start();
     }
@@ -82,6 +94,7 @@ public class SoundLibrary {
     }
 
     public static void startVictorySon(){
+        if(isMute){return;}
         currentVictoryMusic  = new Son("/sons/victory.wav",false);
         currentVictoryMusic.start();
     }
@@ -93,6 +106,71 @@ public class SoundLibrary {
         }
         currentVictoryMusic = null;
     }
+
+    public static void startAlarmeSon() {
+        if(isMute){return;}
+        currentAlarmeSon = new Son("/sons/al.wav",true);
+        currentAlarmeSon.start();
+    }
+
+    public static void stopAlarmeSon(){
+        try {
+            currentAlarmeSon.stop();
+        }catch (NullPointerException e){}
+        currentAlarmeSon = null;
+    }
+
+    public static void startPerduSon(){
+        if(isMute){return;}
+        currentPerduSon = new Son("/sons/lose.wav",false);
+        currentPerduSon.start();
+    }
+
+    public static void stopPerduSon(){
+        try{
+            currentPerduSon.stop();
+        }catch (NullPointerException e){}
+        currentPerduSon = null;
+    }
+
+    public static void playCreditSong() {
+        if(isMute){return;}
+        currentCreditSon = new Son("/sons/sonDGE.wav",true);
+        currentCreditSon.start();
+    }
+
+    public static void stopCreditSon(){
+        try {
+            currentCreditSon.stop();
+        }catch (NullPointerException e){}
+        currentCreditSon = null;
+    }
+
+    public static void stopAll(){
+        stopAlarmeSon();
+        stopGameMusic();
+        stopMusicMenu();
+        stopVictorySon();
+        stopPerduSon();
+        stopCreditSon();
+    }
+
+    public static void setMute(boolean state){
+        isMute = state;
+        if(state){
+            stopAll();
+        }
+    }
+
+    public  static boolean isMute(){
+        return isMute;
+    }
+
+    public static void playJingleDebutTuto() {
+
+    }
+
+
 
    /* public  void playDefaiteSon(){
         Son tmp;

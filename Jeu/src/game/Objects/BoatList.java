@@ -23,7 +23,6 @@ public class BoatList {
         int taille;
         int poscroix;
             for (int i = 0; i < grille.getBateaux().size(); i++) {
-                System.out.println(i);
                 if(i == 0){
                     taille = 2;
                 }else if( i == 1 || i ==2){

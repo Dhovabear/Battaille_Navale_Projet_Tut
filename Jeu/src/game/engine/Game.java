@@ -2,7 +2,10 @@ package game.engine;
 
 import game.Objects.*;
 import game.scenes.*;
+import game.scenes.tutorials.ExplicationsModes;
 import game.scenes.Menu;
+import game.scenes.Regles;
+import game.scenes.tutorials.ChoixAide;
 
 import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.*;
@@ -174,7 +177,7 @@ public class Game {
         SoundLibrary.loadSounds();
         PoliceIndex.loadFonts();
         SpriteIndex.loadImages();
-        sceneIndex = new Scene[9];//On initialise la liste avec le nombre de scenes que l'on a
+        sceneIndex = new Scene[15];//On initialise la liste avec le nombre de scenes que l'on a
         sceneIndex[0] = new Menu();
         sceneIndex[2] = new JoueurVsOrdi();
         sceneIndex[3] = new DifficulteOrdi();
@@ -183,6 +186,10 @@ public class Game {
         sceneIndex[6] = new Jouer();
         sceneIndex[7] = new VSshow();
         sceneIndex[8] = new FinJeu();
+        sceneIndex[9] = new Credits();
+        sceneIndex[10] = new ChoixAide();
+        sceneIndex[11] = new Regles();
+        sceneIndex[12] = new ExplicationsModes();
         currentscene = 0;//On initialise l'id de la scene actuelle
     }
 

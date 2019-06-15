@@ -107,6 +107,9 @@ public class Jouer extends Scene {
 
 	private BoatList listeBateauJ1;
 	private BoatList listeBateauJ2;
+	private SheepFace faceJ1;
+	private SheepFace faceJ2;
+	private boolean debutAlarme;
 
 	public Jouer() throws IOException, FontFormatException {
 		bitcrusher = Font.createFont(Font.TRUETYPE_FONT,getClass().getResourceAsStream("/polices/bitcrusher.ttf"));
@@ -158,6 +161,8 @@ public class Jouer extends Scene {
 	}
 
 	public void finTour(){
+		faceJ1.setNeutral();
+		faceJ2.setNeutral();
         try {
             if(checkIsGameEnded()){
             	return;
@@ -167,6 +172,20 @@ public class Jouer extends Scene {
         } catch (FontFormatException e) {
             e.printStackTrace();
         }
+
+        if(vieJoueur <= 3){
+        	faceJ1.setLowLife(true);
+        	if(!debutAlarme){
+				SoundLibrary.startAlarmeSon();
+				debutAlarme = true;
+			}
+        	
+		}
+
+        if(vieOrdi <= 3){
+        	faceJ2.setLowLife(true);
+		}
+
         if(this.isJoueur==true){
 			this.isJoueur = false;
 			System.out.println("Tour Ordi !");
@@ -216,8 +235,15 @@ public class Jouer extends Scene {
 
 		listeBateauJ1.drawAt(grilleJoueur.getCellSize()*grilleJoueur.getNbrOfCell() + grilleJoueur.getXPos(),122,g,p);
 		listeBateauJ2.drawAt(grilleVisuJoueur.getXPos()-100,122,g,p);
-
+		faceJ1.drawAt(grilleJoueur.getXPos()+(grilleJoueur.getNbrOfCell()*grilleJoueur.getCellSize()),grilleJoueur.getYPos(),g,p);
+		faceJ2.drawAt(grilleVisuJoueur.getXPos()- 100,grilleJoueur.getYPos(),g,p);
 		//test.draw(g, p);
+
+		Menu.pause.draw(g, p);
+		if(Menu.pause.isActive()){
+			return;
+		}
+
 		if(waitForTir){
 			if(grilleVisuJoueur.isMouseIn()){
 				this.x = grilleVisuJoueur.getCursorXInGrid();
@@ -239,6 +265,8 @@ public class Jouer extends Scene {
 	
 	public void startEvent(){
 	    SoundLibrary.startGameMusic();
+	    System.out.println("mode de jeu : " + JoueurVsOrdi.getSelectionMode());
+	    debutAlarme = false;
 		listeBateauJ1 = new BoatList(grilleJoueur,false);
 		listeBateauJ2 = new BoatList(grilleOrdi,true);
 		this.vieJoueur = 17; //Nombre de "cases bateaux"
@@ -248,7 +276,7 @@ public class Jouer extends Scene {
 		this.sonar = false;
 		this.utilisationTirJoueur = -1; //Chaque tir est disponible au 1er tour
 		this.utilisationTirOrdi = -1; //Chaque tir est disponible au 1er tour
-		this.abandon = false;
+		this.mode = JoueurVsOrdi.getSelectionMode();
 
 		this.isJoueur = true;
 
@@ -262,6 +290,9 @@ public class Jouer extends Scene {
 		grilleVisuJoueur.setYPos(20);
 
 		grilleJoueur.setCellSize(40);
+
+		faceJ1 = new SheepFace();
+		faceJ2 = new SheepFace();
 
 		waitForTir = true;
 		//On définit les différentes tailles de chaque bateau
@@ -287,10 +318,14 @@ public class Jouer extends Scene {
 	}
 
 	public void input(KeyEvent e,String typeOfInput){
-
+		Menu.pause.checkKeyboard(e, typeOfInput);
 	}
 
 	public void mouseInput(MouseEvent e,String typeOfInput){
+		Menu.pause.checkMouse(e, typeOfInput);
+		if(Menu.pause.isActive()){
+			return;
+		}
 		grilleVisuJoueur.checkMouse(e, typeOfInput);
 
 		if(waitForTir && isJoueur){
@@ -304,7 +339,7 @@ public class Jouer extends Scene {
 							sleep(600);
 							tir();
 							playSoundForGoal();
-							sleep(500);
+							sleep(1000);
 							finTour();
 						} catch (InterruptedException e1) {
 							e1.printStackTrace();
@@ -319,14 +354,22 @@ public class Jouer extends Scene {
 
 	public void playSoundForGoal() {
 		Grid tmpVis;
+		SheepFace myFace;
+		SheepFace ennemyFace;
 		if(isJoueur){
 			tmpVis = grilleVisuJoueur;
+			myFace = faceJ1;
+			ennemyFace = faceJ2;
 		}else{
 			tmpVis = grilleVisuOrdi;
+			myFace = faceJ2;
+			ennemyFace = faceJ1;
 		}
 
 		if(tmpVis.getGizmoInfo(x,y) == 6 || tmpVis.getGizmoInfo(x,y) == 4){
 			SoundLibrary.playBoomSon();
+			myFace.setHappy();
+			ennemyFace.setHurt();
 		}else{
 			SoundLibrary.playPloufSong();
 		}
@@ -338,8 +381,9 @@ public class Jouer extends Scene {
 	public void exitEvent(){
 		//[ENLEVER JOUER]
         SoundLibrary.stopGameMusic();
+        SoundLibrary.stopAlarmeSon();
 		//Le score n'est sauvegardé que pour le mode classique
-		if(this.mode == 0 && this.abandon == false){
+		if(this.mode == 1){
 			//Si le joueur a gagné
 			if(this.victoire == true){
 				this.score = ((this.vieJoueur+this.degatsOrdi)*this.precision)+BONUSVICTOIRE;

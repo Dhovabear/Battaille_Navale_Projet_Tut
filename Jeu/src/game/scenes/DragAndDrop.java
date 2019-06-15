@@ -2,6 +2,7 @@ package game.scenes;
 
 import game.Objects.DGBateau;
 import game.Objects.Grid;
+import game.Objects.SpriteIndex;
 import game.engine.Game;
 import game.engine.Scene;
 import game.engine.ui.BouttonImage;
@@ -31,26 +32,24 @@ public class DragAndDrop extends Scene {
     public DragAndDrop() throws IOException, FontFormatException {
         bitcrusher = Font.createFont(Font.TRUETYPE_FONT,getClass().getResourceAsStream("/polices/bitcrusher.ttf"));
 
-        m_nextButton = new BouttonImage(950,470,205,65,"/images/bouttonContinuer1.png","/images/bouttonContinuer0.png"){
+        m_nextButton = new BouttonImage(950,470,205,65, SpriteIndex.bouttonContinuer,SpriteIndex.bouttonContinuerDis){
             @Override
             public void action() throws IOException, FontFormatException {
-                System.out.println("Prot");
                 for (DGBateau b:m_boatToPlace) {
-                    System.out.println("it");
-                    if(!grilleJoueur.addBateau(b.getgridX(),b.getgridY(),b.getRotation(),b.getType())){
-                        System.out.println("Mon petit , TG");
-                    }else{
-                        System.out.println("OK MONSIEUR");
-                    }
+                    grilleJoueur.addBateau(b.getgridX(),b.getgridY(),b.getRotation(),b.getType());
                 }
                 ((Jouer)Game.sceneIndex[6]).setGrids(grilleJoueur,grilleVisuJoueur,grilleOrdi,grilleVisuOrdi);
                 Game.switchScene(6);
-                for (DGBateau d: m_boatToPlace) {
-                    d.removeFromEntities();
-                }
+
             }
         };
 
+    }
+
+    public void removeOldColider() {
+        for (DGBateau d: m_boatToPlace) {
+            d.removeFromEntities();
+        }
     }
 
     @Override
@@ -99,7 +98,7 @@ public class DragAndDrop extends Scene {
             }
         }
 
-
+        Menu.pause.draw(g, p);
     }
 
     @Override
@@ -133,21 +132,23 @@ public class DragAndDrop extends Scene {
 
     @Override
     public void input(KeyEvent e, String typeOfInput) {
-
+        Menu.pause.checkKeyboard(e, typeOfInput);
+        if(Menu.pause.isActive()){
+            return;
+        }
     }
 
     @Override
     public void mouseInput(MouseEvent e, String typeOfInput) {
+        Menu.pause.checkMouse(e, typeOfInput);
+        if(Menu.pause.isActive()){
+            return;
+        }
         m_nextButton.checkMouse(e, typeOfInput);
         if(typeOfInput == "mP"){
             if(e.getButton() == 1){
                 for (DGBateau b : m_boatToPlace ) {
                     b.isIn(e);
-                }
-            }
-            if(e.getButton() == 3){
-                for (DGBateau b : m_boatToPlace ) {
-                    b.rotate();
                 }
             }
         }else if(typeOfInput == "mD"){
@@ -164,6 +165,9 @@ public class DragAndDrop extends Scene {
 
     @Override
     public void mouseWheelInput(MouseWheelEvent e) {
+        if(Menu.pause.isActive()){
+            return;
+        }
         if(e.getWheelRotation() < 0){
             for (DGBateau b: m_boatToPlace) {
                 b.rotateBack();
@@ -177,6 +181,6 @@ public class DragAndDrop extends Scene {
 
     @Override
     public void exitEvent() {
-
+        removeOldColider();
     }
 }

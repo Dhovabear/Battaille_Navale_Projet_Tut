@@ -12,19 +12,11 @@ public class Label {
      private String m_text;
      private Font m_police;
 
-     public Label(int x,int y,float taille,String policeName,String text){
+     public Label(int x,int y,float taille,Font police,String text){
          this.m_posx = x;
          this.m_posy = y;
          this.m_text = text;
-
-         try {
-             this.m_police = Font.createFont(Font.TRUETYPE_FONT,getClass().getResourceAsStream("/polices/"+policeName));
-             this.m_police = this.m_police.deriveFont(taille);
-         } catch (FontFormatException e) {
-             e.printStackTrace();
-         } catch (IOException e) {
-             e.printStackTrace();
-         }
+         this.m_police = police.deriveFont(taille);
 
      }
 
