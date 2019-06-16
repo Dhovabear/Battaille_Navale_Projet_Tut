@@ -1,6 +1,7 @@
 package game.scenes;
 
 import game.Objects.*;
+import game.Objects.Coordonnees;
 import game.Objects.ia.IA;
 import game.engine.Game;
 import game.engine.Scene;

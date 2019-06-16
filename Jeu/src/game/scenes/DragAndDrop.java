@@ -65,7 +65,7 @@ public class DragAndDrop extends Scene {
             if(m_timeintroDrag < 120){
                 g.setColor(Color.BLACK);
                 g.setFont(bitcrusher.deriveFont(60f));
-                g.drawString("Placer vos bateaux!",450,300);
+                g.drawString("Placez vos bateaux!",450,300);
                 m_timeintroDrag++;
             }else{
                 m_IntroDragFini = true;

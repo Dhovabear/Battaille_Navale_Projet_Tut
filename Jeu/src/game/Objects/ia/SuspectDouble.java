@@ -23,6 +23,14 @@ public class SuspectDouble {
         epuiser = false;
     }
 
+    public SuspectDouble(Coordonnees coordonnee, Coordonnees direction,boolean epuiser) {
+        this.coordonnee =  new Coordonnees(coordonnee);
+        this.origine = new Coordonnees(coordonnee);
+        this.direction = new Coordonnees(direction);
+        this.enfants = new ArrayList<>();
+        this.epuiser = epuiser;
+    }
+
 
     public void incremente(){
        coordonnee = coordonnee.add(direction);
@@ -62,7 +70,6 @@ public class SuspectDouble {
             epuiser = true;
             coordonnee = new Coordonnees(origine);
             direction = new Coordonnees(direction.getX()*-1,direction.getY()*-1);
-            incremente();
         }
     }
 
@@ -70,7 +77,7 @@ public class SuspectDouble {
         return epuiser;
     }
 
-    public void suprEnfant(){
-        enfants.clear();
+    public ArrayList<SuspectDouble> getEnfants() {
+        return enfants;
     }
 }

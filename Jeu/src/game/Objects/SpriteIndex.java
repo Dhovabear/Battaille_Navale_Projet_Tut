@@ -120,5 +120,10 @@ public class SpriteIndex {
         bouttonMuteEnabled = ImageIO.read(SpriteIndex.class.getResourceAsStream("/images/muteLogo_0.png"));
         bouttonMuteDisabled = ImageIO.read(SpriteIndex.class.getResourceAsStream("/images/muteLogo_1.png"));
         credits = ImageIO.read(SpriteIndex.class.getResourceAsStream("/images/credit_final.png"));
+
+        classique = ImageIO.read(SpriteIndex.class.getResourceAsStream("/images/classique.png"));
+        ile = ImageIO.read(SpriteIndex.class.getResourceAsStream("/images/Ile.png"));
+        tirsSpeciaux = ImageIO.read(SpriteIndex.class.getResourceAsStream("/images/TirSpeciaux.png"));
+        regles = ImageIO.read(SpriteIndex.class.getResourceAsStream("/images/Regles.png"));
     }
 }

@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<java version="1.8.0_171" class="java.beans.XMLDecoder">
+ <object class="game.Objects.Scoreboard">
+  <void property="difficileScore">
+   <object class="java.util.ArrayList">
+    <void method="add">
+     <object class="game.Objects.Score">
+      <void property="flagId">
+       <int>16</int>
+      </void>
+      <void property="name">
+       <string>Xanix</string>
+      </void>
+      <void property="score">
+       <int>4</int>
+      </void>
+     </object>
+    </void>
+    <void method="add">
+     <object class="game.Objects.Score">
+      <void property="flagId">
+       <int>19</int>
+      </void>
+      <void property="name">
+       <string>Nijtus</string>
+      </void>
+      <void property="score">
+       <int>3</int>
+      </void>
+     </object>
+    </void>
+    <void method="add">
+     <object class="game.Objects.Score">
+      <void property="flagId">
+       <int>18</int>
+      </void>
+      <void property="name">
+       <string>RaptorRouge</string>
+      </void>
+      <void property="score">
+       <int>2</int>
+      </void>
+     </object>
+    </void>
+    <void method="add">
+     <object class="game.Objects.Score">
+      <void property="flagId">
+       <int>17</int>
+      </void>
+      <void property="name">
+       <string>r2r0</string>
+      </void>
+      <void property="score">
+       <int>1</int>
+      </void>
+     </object>
+    </void>
+    <void method="add">
+     <object class="game.Objects.Score">
+      <void property="flagId">
+       <int>11</int>
+      </void>
+      <void property="name">
+       <string>Dovabear</string>
+      </void>
+     </object>
+    </void>
+   </object>
+  </void>
+  <void property="easyScore">
+   <object class="java.util.ArrayList">
+    <void method="add">
+     <object class="game.Objects.Score">
+      <void property="flagId">
+       <int>14</int>
+      </void>
+      <void property="name">
+       <string>Portugal</string>
+      </void>
+      <void property="score">
+       <int>4</int>
+      </void>
+     </object>
+    </void>
+    <void method="add">
+     <object class="game.Objects.Score">
+      <void property="name">
+       <string>Inde</string>
+      </void>
+      <void property="score">
+       <int>3</int>
+      </void>
+     </object>
+    </void>
+    <void method="add">
+     <object class="game.Objects.Score">
+      <void property="flagId">
+       <int>15</int>
+      </void>
+      <void property="name">
+       <string>Espagne</string>
+      </void>
+      <void property="score">
+       <int>2</int>
+      </void>
+     </object>
+    </void>
+    <void method="add">
+     <object class="game.Objects.Score">
+      <void property="flagId">
+       <int>9</int>
+      </void>
+      <void property="name">
+       <string>Chine</string>
+      </void>
+      <void property="score">
+       <int>1</int>
+      </void>
+     </object>
+    </void>
+    <void method="add">
+     <object class="game.Objects.Score">
+      <void property="flagId">
+       <int>12</int>
+      </void>
+      <void property="name">
+       <string>Japon</string>
+      </void>
+     </object>
+    </void>
+   </object>
+  </void>
+  <void property="moyenScore">
+   <object class="java.util.ArrayList">
+    <void method="add">
+     <object class="game.Objects.Score">
+      <void property="flagId">
+       <int>2</int>
+      </void>
+      <void property="name">
+       <string>Allemagne</string>
+      </void>
+      <void property="score">
+       <int>4</int>
+      </void>
+     </object>
+    </void>
+    <void method="add">
+     <object class="game.Objects.Score">
+      <void property="flagId">
+       <int>13</int>
+      </void>
+      <void property="name">
+       <string>Bresil</string>
+      </void>
+      <void property="score">
+       <int>3</int>
+      </void>
+     </object>
+    </void>
+    <void method="add">
+     <object class="game.Objects.Score">
+      <void property="flagId">
+       <int>3</int>
+      </void>
+      <void property="name">
+       <string>Italie</string>
+      </void>
+      <void property="score">
+       <int>2</int>
+      </void>
+     </object>
+    </void>
+    <void method="add">
+     <object class="game.Objects.Score">
+      <void property="flagId">
+       <int>7</int>
+      </void>
+      <void property="name">
+       <string>Etats-Unis</string>
+      </void>
+      <void property="score">
+       <int>1</int>
+      </void>
+     </object>
+    </void>
+    <void method="add">
+     <object class="game.Objects.Score">
+      <void property="flagId">
+       <int>5</int>
+      </void>
+      <void property="name">
+       <string>France</string>
+      </void>
+     </object>
+    </void>
+   </object>
+  </void>
+ </object>
+</java>

@@ -92,19 +92,19 @@ public class Scoreboard implements Serializable {
             case 0:
                 easyScore.add(s);
                 easyScore.sort(new ScoreComp());
-                keepTop5(easyScore);
+                easyScore = keepTop5(easyScore);
                 saveScores();
                 return easyScore.indexOf(s);
             case 1:
                 moyenScore.add(s);
                 moyenScore.sort(new ScoreComp());
-                keepTop5(moyenScore);
+                moyenScore = keepTop5(moyenScore);
                 saveScores();
                 return moyenScore.indexOf(s);
             case 2:
                 difficileScore.add(s);
                 difficileScore.sort(new ScoreComp());
-                keepTop5(difficileScore);
+                difficileScore = keepTop5(difficileScore);
                 saveScores();
                 return difficileScore.indexOf(s);
             default:
@@ -112,12 +112,13 @@ public class Scoreboard implements Serializable {
         }
     }
 
-    public void keepTop5(ArrayList<Score> ls) {
+    public ArrayList<Score> keepTop5(ArrayList<Score> ls) {
         ArrayList<Score> tmp = (ArrayList<Score>) ls.clone();
-        ls = new ArrayList<Score>();
+        ArrayList<Score> tmp2 = new ArrayList<Score>();
         for (int i = 0; i < 5; i++) {
-            ls.add(tmp.get(i));
+            tmp2.add(tmp.get(i));
         }
+        return tmp2;
     }
 
     public void reorganise(){

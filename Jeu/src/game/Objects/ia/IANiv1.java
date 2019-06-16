@@ -182,4 +182,12 @@ public class IANiv1 {
     }
 
 
+    public boolean valide(int x, int y){
+        if((x>=0 && x<=9) && (y>=0 && y<=9)){
+            return (grilleAdverse[x][y]==0 );
+        }
+        return  false;
+    }
+
+
 }

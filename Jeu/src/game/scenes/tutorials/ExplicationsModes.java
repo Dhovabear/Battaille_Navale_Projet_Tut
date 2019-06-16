@@ -71,13 +71,10 @@ public class ExplicationsModes extends Scene {
         bouttonModeClassique.draw(g,p);
         bouttonRetour.draw(g,p);
         if(choixMode==1) {
-            g.drawImage(SpriteIndex.classique, 300, 225, 850, 100, Color.WHITE, p);
-        }
-        if(choixMode==2) {
-            g.drawImage(SpriteIndex.tirsSpeciaux, 300, 225, 850, 100, Color.WHITE, p);
+            g.drawImage(SpriteIndex.classique, 250, 225,(int)(SpriteIndex.classique.getWidth()/1.5),(int)(SpriteIndex.classique.getHeight()/1.5),p);
         }
         if(choixMode==3) {
-            g.drawImage(SpriteIndex.ile, 300, 225, 850, 100, Color.WHITE, p);
+            g.drawImage(SpriteIndex.ile, 250, 225,(int)(SpriteIndex.ile.getWidth()/1.5),(int)(SpriteIndex.ile.getHeight()/1.5) ,p);
         }
 
     }

@@ -44,4 +44,15 @@ public class Coordonnees{
 	public boolean getTouche(){
 		return this.touche;
 	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
+		Coordonnees that = (Coordonnees) o;
+		return x == that.x &&
+				y == that.y;
+	}
+
+
 }

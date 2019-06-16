@@ -26,7 +26,7 @@ public class Menu extends Scene {
     private BouttonSansFond bouttonJouer;
     private BouttonSansFond bouttonAide;
     private BouttonSansFond bouttonScores;
-    private BouttonSansFond bouttonOptions;
+    private BouttonSansFond bouttonScore;
     private BouttonSansFond bouttonQuitter;
     private BouttonSansFond bouttonCredits;
 
@@ -55,7 +55,12 @@ public class Menu extends Scene {
                 Game.switchScene(10);
             }
         };
-        bouttonOptions = new BouttonSansFond(22,360,40,"Scores");
+        bouttonScore = new BouttonSansFond(22,360,40,"Scores"){
+            @Override
+            public void action() throws IOException, FontFormatException {
+                Game.switchScene(13);
+            }
+        };
         bouttonQuitter = new BouttonSansFond(22,480,40,"Quitter"){
             @Override
             public void action() {
@@ -88,7 +93,7 @@ public class Menu extends Scene {
         g.fillRect(0,0,p.getWidth(),p.getHeight());
         fond.draw(g,p);
         bouttonJouer.draw(g,p);
-        bouttonOptions.draw(g,p);
+        bouttonScore.draw(g,p);
         bouttonCredits.draw(g,p);
         bouttonQuitter.draw(g,p);
         bouttonAide.draw(g, p);
@@ -105,7 +110,7 @@ public class Menu extends Scene {
         fond.setM_heigth(1);
         fond.setM_width(Game.fenetre.getWidth());
         astuce.setM_posX(Game.fenetre.getWidth()-500);
-        bouttonOptions.setEnabled(false);
+        bouttonScore.setEnabled(true);
         bouttonCredits.setEnabled(true);
         bouttonAide.setEnabled(true);
         astuce.reRollText();
@@ -118,7 +123,7 @@ public class Menu extends Scene {
             img = SpriteIndex.bouttonMuteEnabled;
         }
 
-        muteButton = new BouttonImage(850,400,50,50, img,SpriteIndex.bouttonMuteDisabled){
+        muteButton = new BouttonImage(1125,510,50,50, img,SpriteIndex.bouttonMuteDisabled){
             @Override
             public void action() throws IOException, FontFormatException {
                 SoundLibrary.setMute(!SoundLibrary.isMute());
@@ -149,7 +154,7 @@ public class Menu extends Scene {
     @Override
     public void mouseInput(MouseEvent e, String typeOfInput) {
         bouttonJouer.checkMouse(e,typeOfInput);
-        bouttonOptions.checkMouse(e,typeOfInput);
+        bouttonScore.checkMouse(e,typeOfInput);
         bouttonCredits.checkMouse(e,typeOfInput);
         bouttonQuitter.checkMouse(e,typeOfInput);
         bouttonAide.checkMouse(e, typeOfInput);

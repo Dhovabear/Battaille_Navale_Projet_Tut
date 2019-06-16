@@ -190,6 +190,7 @@ public class Game {
         sceneIndex[10] = new ChoixAide();
         sceneIndex[11] = new Regles();
         sceneIndex[12] = new ExplicationsModes();
+        sceneIndex[13] = new Classement();
         currentscene = 0;//On initialise l'id de la scene actuelle
     }
 
